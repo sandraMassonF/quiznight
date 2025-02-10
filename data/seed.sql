@@ -1,50 +1,53 @@
 -- Insertion des utilisateurs
 INSERT INTO utilisateur (pseudo, password, score) VALUES
-('yannick', 'quiz123', 0),
-('james', 'quiz123', 0),
-('sandra', 'quiz123', 0);
+('yannick', 'quiz123', 10),
+('james', 'quiz123', 10),
+('sandra', 'quiz123', 10);
 
--- Insertion des quiz
+-- Insertion des quiz (3 par thème)
 INSERT INTO quiz (titre, description, image, id_user) VALUES
-('Dragon Ball Z', 'Testez vos connaissances sur Dragon Ball Z', 'dbz.jpg', 1),
-('One Piece', 'Êtes-vous un vrai pirate de One Piece ?', 'onepiece.jpg', 2),
-('Seven Deadly Sins', 'Connaissez-vous bien les Seven Deadly Sins ?', 'sds.jpg', 3);
+('Dragon Ball Z - Saiyans', 'Connaissez-vous les Saiyans ?', 'dbz_saiyans.jpg', 1),
+('Dragon Ball Z - Ennemis', 'Testez vos connaissances sur les ennemis de DBZ', 'dbz_ennemis.jpg', 2),
+('Dragon Ball Z - Transformations', 'Quiz sur les transformations de DBZ', 'dbz_transfo.jpg', 3),
+('One Piece - Chapeau de paille', 'Que savez-vous de l\'équipage du Chapeau de Paille ?', 'onepiece_strawhats.jpg', 4),
+('One Piece - Marines', 'Quiz sur les Marines et la Marineford', 'onepiece_marines.jpg', 5),
+('One Piece - Fruits du Démon', 'Testez vos connaissances sur les Fruits du Démon', 'onepiece_fruits.jpg', 6),
+('Naruto - Hokage', 'Tout savoir sur les Hokages de Konoha', 'naruto_hokage.jpg', 7),
+('Naruto - Akatsuki', 'Testez vos connaissances sur l\'Akatsuki', 'naruto_akatsuki.jpg', 8),
+('Naruto - Jutsus', 'Quiz sur les techniques ninjas de Naruto', 'naruto_jutsus.jpg', 9);
 
--- Insertion des questions et réponses pour le quiz "Dragon Ball Z"
+-- Insertion des questions et réponses pour chaque quiz
+
+-- Dragon Ball Z - Saiyans
 INSERT INTO question (question, id_quiz) VALUES
-("Comment s\'appelle le père de Goku ?", 1),
-('Quelle est la transformation la plus puissante de Goku dans DBZ ?', 1),
-('Qui a tué Freezer sur Namek ?', 1),
-("Quel est le nom de l\'attaque signature de Vegeta ?", 1);
+('Quel est le vrai nom de Vegeta ?', 1),
+('Quel Saiyan a atteint le premier le Super Saiyan ?', 1),
+('Qui est le frère de Goku ?', 1),
+('Quel Saiyan est considéré comme une légende ?', 1),
+('Qui a détruit la planète Vegeta ?', 1),
+('Quel Saiyan a survécu à la destruction de la planète Vegeta ?', 1);
 
 INSERT INTO reponse (reponse, resultat, id_question) VALUES
-('Raditz', FALSE, 1), ('Bardock', TRUE, 1), ('Nappa', FALSE, 1), ('King Vegeta', FALSE, 1),
-('Super Saiyan', FALSE, 2), ('Super Saiyan 3', FALSE, 2), ('Super Saiyan God', FALSE, 2), ('Super Saiyan Blue', TRUE, 2),
-('Goku', FALSE, 3), ('Trunks du futur', TRUE, 3), ('Vegeta', FALSE, 3), ('Gohan', FALSE, 3),
-('Final Flash', TRUE, 4), ('Big Bang Attack', FALSE, 4), ('Kamehameha', FALSE, 4), ('Masenko', FALSE, 4);
+('Vegeta IV', TRUE, 1), ('Prince Kakarot', FALSE, 1), ('King Vegeta II', FALSE, 1), ('Tarble', FALSE, 1),
+('Goku', FALSE, 2), ('Vegeta', FALSE, 2), ('Bardock', FALSE, 2), ('Freezer', TRUE, 2),
+('Raditz', TRUE, 3), ('Bardock', FALSE, 3), ('Vegeta', FALSE, 3), ('Nappa', FALSE, 3),
+('Broly', TRUE, 4), ('Goku', FALSE, 4), ('Gohan', FALSE, 4), ('Trunks', FALSE, 4),
+('Freezer', TRUE, 5), ('Beerus', FALSE, 5), ('Cell', FALSE, 5), ('Babidi', FALSE, 5),
+('Goku', TRUE, 6), ('Nappa', FALSE, 6), ('Raditz', FALSE, 6), ('Bardock', FALSE, 6);
 
--- Insertion des questions et réponses pour le quiz "One Piece"
+-- Naruto - Hokage
 INSERT INTO question (question, id_quiz) VALUES
-('Quel est le rêve de Monkey D. Luffy ?', 2),
-("Qui est le premier membre à rejoindre l'équipage de Luffy ?", 2),
-("Comment s'appelle l'île où se trouve le One Piece ?", 2),
-('Quel fruit du démon possède Trafalgar Law ?', 2);
+('Qui est le premier Hokage ?', 7),
+('Quel Hokage a sacrifié sa vie pour sceller Kyubi ?', 7),
+('Qui est le 5ème Hokage ?', 7),
+('Quel Hokage a combattu Orochimaru ?', 7),
+('Qui est le père de Naruto ?', 7),
+('Quel Hokage est considéré comme le Dieu des Shinobi ?', 7);
 
 INSERT INTO reponse (reponse, resultat, id_question) VALUES
-('Devenir le roi des mers', FALSE, 5), ('Devenir le Roi des Pirates', TRUE, 5), ("Devenir l\'homme le plus fort", FALSE, 5), ('Trouver tous les trésors', FALSE, 5),
-('Sanji', FALSE, 6), ('Zoro', TRUE, 6), ('Nami', FALSE, 6), ('Usopp', FALSE, 6),
-('Raftel', TRUE, 7), ('Marineford', FALSE, 7), ('Dressrosa', FALSE, 7), ('Wano', FALSE, 7),
-('Gomu Gomu no Mi', FALSE, 8), ('Ope Ope no Mi', TRUE, 8), ('Mera Mera no Mi', FALSE, 8), ('Yami Yami no Mi', FALSE, 8);
-
--- Insertion des questions et réponses pour le quiz "Seven Deadly Sins"
-INSERT INTO question (question, id_quiz) VALUES
-('Quel est le péché de Meliodas ?', 3),
-("Comment s\'appelle l\'épée de Meliodas ?", 3),
-("Quel est le vrai nom d\'Escanor ?", 3),
-("Qui est l\'amour perdu de Ban ?", 3);
-
-INSERT INTO reponse (reponse, resultat, id_question) VALUES
-('Péché de la colère', TRUE, 9), ('Péché de la gourmandise', FALSE, 9), ("Péché de l\'envie", FALSE, 9), ('Péché de la luxure', FALSE, 9),
-('Démon Blade', FALSE, 10), ('Lostvayne', TRUE, 10), ('Excalibur', FALSE, 10), ('Ragnarok', FALSE, 10),
-('Arthur', FALSE, 11), ('Escanor', FALSE, 11), ('Lionel', FALSE, 11), ('Son vrai nom est inconnu', TRUE, 11),
-('Diane', FALSE, 12), ('Elaine', TRUE, 12), ('Elizabeth', FALSE, 12), ('Merlin', FALSE, 12);
+('Hashirama Senju', TRUE, 19), ('Tobirama Senju', FALSE, 19), ('Minato Namikaze', FALSE, 19), ('Hiruzen Sarutobi', FALSE, 19),
+('Hiruzen Sarutobi', TRUE, 20), ('Minato Namikaze', FALSE, 20), ('Tobirama Senju', FALSE, 20), ('Hashirama Senju', FALSE, 20),
+('Tsunade', TRUE, 21), ('Kakashi', FALSE, 21), ('Naruto', FALSE, 21), ('Hiruzen', FALSE, 21),
+('Hiruzen Sarutobi', TRUE, 22), ('Minato', FALSE, 22), ('Tobirama', FALSE, 22), ('Danzo', FALSE, 22),
+('Minato Namikaze', TRUE, 23), ('Naruto Uzumaki', FALSE, 23), ('Jiraiya', FALSE, 23), ('Sasuke Uchiha', FALSE, 23),
+('Hashirama Senju', TRUE, 24), ('Tobirama Senju', FALSE, 24), ('Hiruzen Sarutobi', FALSE, 24), ('Minato Namikaze', FALSE, 24);
