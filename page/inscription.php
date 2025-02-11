@@ -36,7 +36,7 @@ if (isset($_POST['submit'])) {
         
         $_SESSION['user'] = $req;
 
-        header("location:./index.php");
+        header("location:../index.php");
 
         }
     } else {
@@ -52,7 +52,7 @@ if (isset($_POST['submit'])) {
     <section class="">
         <!-- si une session est déjà ouverte on ne propose pas de se reconnecter -->
         <?php if (isset($_SESSION['user'])) : ?>
-            <?php header("location:"); ?>
+            <?php header("location:../index.php"); ?>
             <!-- si pas de session ouverte on propose de se connecter -->
         <?php else : ?>
             <h1 class="title">Inscription</h1>
