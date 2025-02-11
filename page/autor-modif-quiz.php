@@ -5,6 +5,9 @@ if (isset($_POST['update'])) {
 if (isset($_POST['new-question'])) {
     header("location: ./autor-new-question.php");
 };
+if (isset($_POST['return'])) {
+    header("location: ./autor-page.php");
+};
 
 ?>
 
@@ -28,6 +31,9 @@ if (isset($_POST['new-question'])) {
             </form>
         <?php endif ?>
     </div>
+    <form action="" method="post">
+        <input type="submit" name="new-question" id="button" class="button-new valider" value="Nouvelle Question">
+    </form>
     <section class="question">
         <article class="question-card">
             <h2 class="question-card-title">Question ?</h2>
@@ -132,11 +138,11 @@ if (isset($_POST['new-question'])) {
             </div>
         </article>
     </section>
+
+
     <form action="" method="post">
-        <input type="submit" name="new-question" id="button" class="button-new valider" value="Nouvelle Question">
+        <input type="submit" name="return" id="button" class="button-new valider" value="Retour aux Quiz">
     </form>
-
-
 
 </main>
 <?php include '../component/footer.php'; ?>
