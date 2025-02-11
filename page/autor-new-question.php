@@ -11,10 +11,10 @@ if (isset($_POST['valid'])) {
         <article class="new-question-update-card">
             <input type="text" class="new-question-update-input new-question" placeholder="Posez votre question"></input>
             <ul class="new-question-update-list">
-                <input type="text" class="new-question-update-input new-answer" placeholder="Notez la réponse"></input>
-                <input type="text" class="new-question-update-input new-answer" placeholder="Notez la réponse"></input>
-                <input type="text" class="new-question-update-input new-answer" placeholder="Notez la réponse"></input>
-                <input type="text" class="new-question-update-input new-answer" placeholder="Notez la réponse"></input>
+                <input type="text" class="new-question-update-input new-answer" placeholder="Notez la BONNE réponse"></input>
+                <input type="text" class="new-question-update-input new-answer" placeholder="Notez 1er mauvaise réponse"></input>
+                <input type="text" class="new-question-update-input new-answer" placeholder="Notez 2eme mauvaise réponse"></input>
+                <input type="text" class="new-question-update-input new-answer" placeholder="Notez 3eme mauvaise réponse"></input>
             </ul>
             <div class="question-update-action">
                 <form action="" method="post">
