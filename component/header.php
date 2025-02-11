@@ -13,12 +13,11 @@
     <header class="header">
         <div class="logo-box">
             <a href="../index.php">
-                <img src="../asset/img/logo.png" class="logo-header" />
+                <img src="../asset/img/accueil-logo.png" class="logo-header" />
             </a>
         </div>
         <div class="box-symbol">
-            <h1>S-Quiz Game</h1>
-            <img class="symbol-header" src="../asset/img/symbole.png" />
+            <img class="symbol-header" src="../asset/img/titre-logo.png" />
         </div>
         <div class="login">
             <a href="/page/connexion.php">Connexion</a>
