@@ -1,9 +1,13 @@
 /* ---------------  Style de la page ----------------------- */
-.autor-new-quiz {
+.autor-quiz {
   min-height: 80vh;
   text-align: center;
 }
-
+.title-quiz {
+  padding: 2rem;
+  font-size: 2.5rem;
+  font-weight: 800;
+}
 .name {
   width: 25%;
   border: 3px solid #587f7a;
@@ -12,32 +16,68 @@
   font-size: 1.3rem;
   font-weight: 600;
 }
-
-/* ---------------  Style des boutons ----------------------- */
-.button-new {
-  box-shadow: 0px 9px 30px 0px rgba(201, 201, 201, 0.69) inset;
-  color: white;
-  padding: 0.3rem 2rem;
-  height: 2.5rem;
+.update-quiz {
+  width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
-  border-radius: 10px;
-  font-weight: bold;
-  text-transform: uppercase;
-  cursor: pointer;
-  font-size: 1.5rem;
-  margin: 0 auto;
+  gap: 0.5rem;
 }
-.button-center {
-  margin: 1rem auto;
+.update-quiz form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
-.valider {
-  background-color: #106d61;
-  border: 1px solid #587f7a;
+.question {
+  margin: 2rem;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+.question-card {
+  width: 20%;
+  border: 3px solid #587f7a;
+  border-radius: 2rem;
+  text-align: center;
+}
+.question-card-title {
+  padding: 0.4rem;
+}
+.question-answer {
+  padding: 0.3rem;
+  font-size: 1.2rem;
+}
+.question-action {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.question-answer {
+  height: 3.5rem;
+}
+.question-answer-list {
+  min-height: 60%;
+}
+.form-update-name {
+  width: 60%;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1rem;
 }
 
-.valider:hover {
-  background-color: #0d594f;
-  box-shadow: 0px 9px 30px 0px rgba(201, 201, 201, 0.69) inset;
+.new-name {
+  width: 70%;
+  border: 3px solid #587f7a;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+/* ---------------  Style des boutons ----------------------- */
+
+.delete {
+  background-color: #8b1e3d;
+  border: 1px solid #ad3559;
 }
