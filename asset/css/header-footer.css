@@ -51,7 +51,7 @@ body {
 
 .login {
   background-color: #106d61;
-  width: 8rem;
+  width: 10rem;
   height: 3rem;
   border: 2px solid #035345;
   border-radius: 8px;
@@ -59,7 +59,13 @@ body {
   justify-content: center;
   align-items: center;
   font-weight: bold;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
+}
+
+.disconnect_btn{
+  color: white;
+  cursor: pointer;
+
 }
 
 /* footer */
