@@ -12,58 +12,68 @@ try {
     echo "Erreur : " . $e->getMessage();
 }
 
+require_once('../models/Quiz.php');
+
+$newQuiz = new Quiz(1);
+$quizSelect = $newQuiz->get_quizSelect();
+$numQuestion = 1;
 ?>
 
 <?php include '../component/header.php'; ?>
 
 <main class="main-james">
 
-    <section class="title-james">
-        <h1 class="quiz-title">{Nom du quiz}</h1>
-    </section>
+    <?php foreach ($quizSelect as $quizTitle => $quizQuestions): ?>
 
-    <hr class="separator">
+        <section class="title-james">
+            <h1 class="quiz-title"><?= $quizTitle; ?></h1>
+        </section>
 
-    <section class="question-box">
-        <div class="question-box-title">
-            <h2 class="bold">Question <span class="text-pink">#{}</span></h2>
-            <p class="question-text">{Lalala question lalala question lalala question ?}</p>
-        </div>
+        <hr class="separator">
 
-        <!-- réponses  -->
-        <div class="question-box-answers">
-            <!-- prévoir if pour changer design class de l'input -->
-            <form action="" method="post">
-                <input type="submit" name="answerA" id="answer" class="button-answer" value="1 / {blablabla}">
-            </form>
-            <form action="" method="post">
-                <input type="submit" name="answerB" id="answer" class="button-answer" value="2 / {blablabla}">
-            </form>
-            <form action="" method="post">
-                <input type="submit" name="answerC" id="answer" class="button-answer" value="3 / {blablabla}">
-            </form>
-            <form action="" method="post">
-                <input type="submit" name="answerD" id="answer" class="button-answer" value="4 / {blablabla}">
-            </form>
+        <!-- boite question -->
 
-        </div>
-        <!-- button valider, suivant, retour accueil -->
-        <div class="button-box">
-            <form action="" method="post">
-                <input type="submit" name="valid" id="button" class="button valider" value="Valider">
-            </form>
-            <!-- <form action="" method="post">
+
+        <section class="question-box">
+            <?php foreach ($quizQuestions as $question => $reponses): ?>
+                <div class="question-box-title">
+                    <h2 class="bold">Question
+                        <span class="text-pink">#
+                            <?php if ($numQuestion <= count($quizQuestions)): ?>
+                                <?= $numQuestion++ ?>
+                            <?php endif; ?>
+                        </span>
+                    </h2>
+
+                    <p class="question-text"><?= $question; ?></p>
+                </div>
+
+                <!-- réponses  -->
+
+                <div class="question-box-answers">
+                    <?php foreach ($reponses as $key => $id_rep): ?>
+                        <form action="" method="post">
+                            <input type="submit" name="answerA" id="answer" class="button-answer" value="<?= $id_rep['answer'] ?>">
+                        </form>
+                    <?php endforeach; ?>
+                </div>
+                <!-- button valider, suivant, retour accueil -->
+                <div class="button-box">
+                    <form action="" method="post">
+                        <input type="submit" name="valid" id="button" class="button valider" value="Valider">
+                    </form>
+                    <!-- <form action="" method="post">
                 <input type="submit" name="next" id="button" value="Suivant">
             </form>
             <form action="" method="post">
                 <input type="submit" name="home" id="button" value="Accueil">
             </form> -->
 
-        </div>
+                </div>
 
-
-    </section>
-
+            <?php endforeach; ?>
+        </section>
+    <?php endforeach; ?>
 
 </main>
 
