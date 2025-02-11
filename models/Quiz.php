@@ -79,23 +79,21 @@ class Quiz
     }
 }
 
-$newQuiz = new Quiz(5);
+$newQuiz = new Quiz(1);
 $quizSelect = $newQuiz->get_quizSelect();
 
-
-var_dump($quizSelect);
-// var_dump($raw_quiz);
-
+// // var_dump($quizSelect);
 
 // echo "<br><br><br>";
-// echo array_key_first($newQuiz->get_quiz());
 
-echo "<br><br><br>";
-// foreach ($quiz as $titreQuiz => $questions) {
+// foreach ($quizSelect as $quizTitle => $quizQuestions) {
+//     echo $quizTitle . "<br><br><br><br>";
 
-//     var_dump($questions);
-//     // foreach ($questions as $key => $reponse) {
-//     //     echo $key;
-//     //     // var_dump($reponse);
-//     // }
+//     foreach ($quizQuestions as $question => $reponses) {
+//         echo "<br>" . $question . "<br><br>";
+
+//         foreach ($reponses as $key => $id_rep) {
+//             echo $key . $id_rep['answer'] . "<br>";
+//         }
+//     }
 // }

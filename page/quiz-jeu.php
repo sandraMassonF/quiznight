@@ -52,9 +52,30 @@ $numQuestion = 1;
 
                 <div class="question-box-answers">
                     <?php foreach ($reponses as $key => $id_rep): ?>
-                        <form action="" method="post">
-                            <input type="submit" name="answerA" id="answer" class="button-answer" value="<?= $id_rep['answer'] ?>">
-                        </form>
+                        <?php if ($key == 0): ?>
+                            <form action="" method="post">
+                                <input type="submit" name="answerA" id="answer" class="button-answer cercle-answer"
+                                    value="<?= $id_rep['answer'] ?>">
+                            </form>
+                        <?php endif; ?>
+                        <?php if ($key == 1): ?>
+                            <form action="" method="post">
+                                <input type="submit" name="answerB" id="answer" class="button-answer triangle-answer"
+                                    value="<?= $id_rep['answer'] ?>">
+                            </form>
+                        <?php endif; ?>
+                        <?php if ($key == 2): ?>
+                            <form action="" method="post">
+                                <input type="submit" name="answerC" id="answer" class="button-answer square-answer"
+                                    value="<?= $id_rep['answer'] ?>">
+                            </form>
+                        <?php endif; ?>
+                        <?php if ($key == 3): ?>
+                            <form action="" method="post">
+                                <input type="submit" name="answerD" id="answer" class="button-answer umbrella-answer"
+                                    value="<?= $id_rep['answer'] ?>">
+                            </form>
+                        <?php endif; ?>
                     <?php endforeach; ?>
                 </div>
                 <!-- button valider, suivant, retour accueil -->
