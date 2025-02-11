@@ -15,20 +15,21 @@ try {
 if (isset($_POST['submit'])) {
     if (!empty($_POST['pseudo']) && !empty($_POST['password'])) {
         $pseudo = htmlentities($_POST['pseudo']);
-        $password = htmlentities($_POST['password']);
-        $req = $bdd->prepare("SELECT * FROM utilisateur WHERE pseudo = :pseudo AND password = :password");
+        $password = password_hash($_POST['password'],PASSWORD_BCRYPT);
+        $req = $bdd->prepare("INSERT INTO utilisateur (pseudo, password) VALUES (:pseudo, :password)");
         $req->execute([
             "pseudo" => $pseudo,
             "password" => $password
         ]);
-        $req = $req->fetch(PDO::FETCH_ASSOC);
+        $req = $req->fetch(PDO::FETCH_ASSOC); 
+        echo "Inscription réussie !";
 
         if (empty($req)) {
             echo '<p class="alert">Pseudo ou mot de passe incorrect !</p>';
         } else {
             session_start();
             $_SESSION['user'] = $req;
-            header("location:./page/autor-page.php");
+            header("location:");
         }
     } else {
         echo '<p class="alert">Veuillez remplir tous les champs</p>';
@@ -46,18 +47,19 @@ if (isset($_POST['submit'])) {
             <?php header("location:"); ?>
             <!-- si pas de session ouverte on propose de se connecter -->
         <?php else : ?>
-            <h1 class="title">Connexion</h1>
-            <section class="login-bloc">
+            <h1 class="title">Inscription</h1>
+            <section class="registration-bloc">
                 <form method="post" action="" class="form">
                     <label for="" >Pseudo :</label><br />
                     <input class="input" type="text" name="pseudo" id="pseudo" value="" placeholder="Entrez votre pseudo" required><br /><br />
                     <label for="" >Mot de Passe :</label><br />
                     <input class="input" type="password" name="password" id="password" value="" placeholder="Entrez votre mot de passe" required><br /><br />
+                    <!-- <label for="" >Confirmez le Mot de Passe :</label><br />
+                    <input class="input" type="password" name="password" id="password" value="" placeholder="Entrez votre mot de passe" required><br /><br /> -->
                     <button type="submit" name="submit" class="bouton">Valider</button>
                 </form>                
             </section>
-            <div class="txt">Pas encore de compte? <a href="./inscription.php" class="link-bold" >S’inscrire</a></div>
+            <div class="txt">Déjà inscrit? <a href="./connexion.php" class="link-bold" >Se connecter</a></div>
         <?php endif ?>
     </section>
 </main>
-            
