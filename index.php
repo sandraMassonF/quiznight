@@ -43,3 +43,6 @@ session_start();
         <?php endif ?>
         
     </header>
+
+
+    <?php include './component/footer.php'; ?>

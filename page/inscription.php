@@ -71,3 +71,6 @@ if (isset($_POST['submit'])) {
         <?php endif ?>
     </section>
 </main>
+
+
+<?php include '../component/footer.php'; ?>
