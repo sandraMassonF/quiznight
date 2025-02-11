@@ -71,54 +71,54 @@ INSERT INTO quiz (titre, description, image, id_user) VALUES
 -- Insertion des questions et réponses pour One Piece
 -- Quiz 1: Saga East Blue
 INSERT INTO question (question, id_quiz) VALUES
-('Quel est le premier membre à rejoindre l''équipage de Luffy ?', 1),
-('Quel est le rêve de Zoro ?', 1),
-('Quel fruit du démon Luffy possède-t-il ?', 1),
-('Qui est le principal antagoniste d''Arlong Park ?', 1),
-('Quel est le nom du premier navire de Luffy ?', 1),
-('Qui est le premier adversaire de Luffy dans la série ?', 1);
+('Quel est le premier membre à rejoindre l''équipage de Luffy ?', 4),
+('Quel est le rêve de Zoro ?', 4),
+('Quel fruit du démon Luffy possède-t-il ?', 4),
+('Qui est le principal antagoniste d''Arlong Park ?', 4),
+('Quel est le nom du premier navire de Luffy ?', 4),
+('Qui est le premier adversaire de Luffy dans la série ?', 4);
 
 INSERT INTO reponse (reponse, resultat, id_question) VALUES
-('Zoro', TRUE, 1), ('Sanji', FALSE, 1), ('Nami', FALSE, 1), ('Usopp', FALSE, 1),
-('Devenir le meilleur épéiste', TRUE, 2), ('Devenir le Seigneur des Pirates', FALSE, 2), ('Trouver All Blue', FALSE, 2), ('Devenir le plus riche', FALSE, 2),
-('Gomu Gomu no Mi', TRUE, 3), ('Mera Mera no Mi', FALSE, 3), ('Yami Yami no Mi', FALSE, 3), ('Hie Hie no Mi', FALSE, 3),
-('Arlong', TRUE, 4), ('Crocodile', FALSE, 4), ('Barbe Noire', FALSE, 4), ('Ener', FALSE, 4),
-('Going Merry', TRUE, 5), ('Thousand Sunny', FALSE, 5), ('Red Force', FALSE, 5), ('Moby Dick', FALSE, 5),
-('Alvida', TRUE, 6), ('Buggy', FALSE, 6), ('Kuro', FALSE, 6), ('Don Krieg', FALSE, 6);
+('Zoro', TRUE, 19), ('Sanji', FALSE, 19), ('Nami', FALSE, 19), ('Usopp', FALSE, 19),
+('Devenir le meilleur épéiste', TRUE, 20), ('Devenir le Seigneur des Pirates', FALSE, 20), ('Trouver All Blue', FALSE, 20), ('Devenir le plus riche', FALSE, 20),
+('Gomu Gomu no Mi', TRUE, 21), ('Mera Mera no Mi', FALSE, 21), ('Yami Yami no Mi', FALSE, 21), ('Hie Hie no Mi', FALSE, 21),
+('Arlong', TRUE, 22), ('Crocodile', FALSE, 22), ('Barbe Noire', FALSE, 22), ('Ener', FALSE, 22),
+('Going Merry', TRUE, 23), ('Thousand Sunny', FALSE, 23), ('Red Force', FALSE, 23), ('Moby Dick', FALSE, 23),
+('Alvida', TRUE, 24), ('Buggy', FALSE, 24), ('Kuro', FALSE, 24), ('Don Krieg', FALSE, 24);
 
 -- Quiz 2: Saga Alabasta
 INSERT INTO question (question, id_quiz) VALUES
-('Qui est le chef de Baroque Works ?', 2),
-('Quel est le vrai nom de Mr. 2 ?', 2),
-('Quel pouvoir possède Crocodile ?', 2),
-('Qui sauve Luffy dans le désert d''Alabasta ?', 2),
-('Quel est le nom du royaume où se déroule l''arc Alabasta ?', 2),
-('Quel est le rôle de Vivi dans ce royaume ?', 2);
+('Qui est le chef de Baroque Works ?', 5),
+('Quel est le vrai nom de Mr. 2 ?', 5),
+('Quel pouvoir possède Crocodile ?', 5),
+('Qui sauve Luffy dans le désert d''Alabasta ?', 5),
+('Quel est le nom du royaume où se déroule l''arc Alabasta ?', 5),
+('Quel est le rôle de Vivi dans ce royaume ?', 5);
 
 INSERT INTO reponse (reponse, resultat, id_question) VALUES
-('Crocodile', TRUE, 7), ('Doflamingo', FALSE, 7), ('Ener', FALSE, 7), ('Barbe Noire', FALSE, 7),
-('Bon Clay', TRUE, 8), ('Mr. 3', FALSE, 8), ('Mr. 1', FALSE, 8), ('Mr. 4', FALSE, 8),
-('Suna Suna no Mi', TRUE, 9), ('Gomu Gomu no Mi', FALSE, 9), ('Mera Mera no Mi', FALSE, 9), ('Hie Hie no Mi', FALSE, 9),
-('Pell', TRUE, 10), ('Ace', FALSE, 10), ('Robin', FALSE, 10), ('Smoker', FALSE, 10),
-('Alabasta', TRUE, 11), ('Dressrosa', FALSE, 11), ('Skypiea', FALSE, 11), ('Wano', FALSE, 11),
-('Princesse', TRUE, 12), ('Capitaine', FALSE, 12), ('Reine', FALSE, 12), ('Générale', FALSE, 12);
+('Crocodile', TRUE, 25), ('Doflamingo', FALSE, 25), ('Ener', FALSE, 25), ('Barbe Noire', FALSE, 25),
+('Bon Clay', TRUE, 26), ('Mr. 3', FALSE, 26), ('Mr. 1', FALSE, 26), ('Mr. 4', FALSE, 26),
+('Suna Suna no Mi', TRUE, 27), ('Gomu Gomu no Mi', FALSE, 27), ('Mera Mera no Mi', FALSE, 27), ('Hie Hie no Mi', FALSE, 27),
+('Pell', TRUE, 28), ('Ace', FALSE, 28), ('Robin', FALSE, 28), ('Smoker', FALSE, 28),
+('Alabasta', TRUE, 29), ('Dressrosa', FALSE, 29), ('Skypiea', FALSE, 29), ('Wano', FALSE, 29),
+('Princesse', TRUE, 30), ('Capitaine', FALSE, 30), ('Reine', FALSE, 30), ('Générale', FALSE, 30);
 
 -- Quiz 3: Saga Marineford
 INSERT INTO question (question, id_quiz) VALUES
-('Quel est l''objectif principal de l''équipage de Barbe Blanche à Marineford ?', 3),
-('Qui tue Ace ?', 3),
-('Quel Amiral affronte Barbe Blanche en duel ?', 3),
-('Quel est le pouvoir de Barbe Blanche ?', 3),
-('Qui sauve Luffy à la fin de la bataille de Marineford ?', 3),
-('Qui devient Amiral en Chef après Marineford ?', 3);
+('Quel est l''objectif principal de l''équipage de Barbe Blanche à Marineford ?', 6),
+('Qui tue Ace ?', 6),
+('Quel Amiral affronte Barbe Blanche en duel ?', 6),
+('Quel est le pouvoir de Barbe Blanche ?', 6),
+('Qui sauve Luffy à la fin de la bataille de Marineford ?', 6),
+('Qui devient Amiral en Chef après Marineford ?', 6);
 
 INSERT INTO reponse (reponse, resultat, id_question) VALUES
-('Sauver Ace', TRUE, 13), ('Vaincre la Marine', FALSE, 13), ('Trouver le One Piece', FALSE, 13), ('Déclarer la guerre au monde', FALSE, 13),
-('Akainu', TRUE, 14), ('Aokiji', FALSE, 14), ('Kizaru', FALSE, 14), ('Garp', FALSE, 14),
-('Akainu', TRUE, 15), ('Aokiji', FALSE, 15), ('Kizaru', FALSE, 15), ('Fujitora', FALSE, 15),
-('Gura Gura no Mi', TRUE, 16), ('Magu Magu no Mi', FALSE, 16), ('Pika Pika no Mi', FALSE, 16), ('Yami Yami no Mi', FALSE, 16),
-('Trafalgar Law', TRUE, 17), ('Shanks', FALSE, 17), ('Dragon', FALSE, 17), ('Garp', FALSE, 17),
-('Akainu', TRUE, 18), ('Aokiji', FALSE, 18), ('Sengoku', FALSE, 18), ('Kizaru', FALSE, 18);
+('Sauver Ace', TRUE, 31), ('Vaincre la Marine', FALSE, 31), ('Trouver le One Piece', FALSE, 31), ('Déclarer la guerre au monde', FALSE, 31),
+('Akainu', TRUE, 32), ('Aokiji', FALSE, 32), ('Kizaru', FALSE, 32), ('Garp', FALSE, 32),
+('Akainu', TRUE, 33), ('Aokiji', FALSE, 33), ('Kizaru', FALSE, 33), ('Fujitora', FALSE, 33),
+('Gura Gura no Mi', TRUE, 34), ('Magu Magu no Mi', FALSE, 34), ('Pika Pika no Mi', FALSE, 34), ('Yami Yami no Mi', FALSE, 34),
+('Trafalgar Law', TRUE, 35), ('Shanks', FALSE, 35), ('Dragon', FALSE, 35), ('Garp', FALSE, 35),
+('Akainu', TRUE, 36), ('Aokiji', FALSE, 36), ('Sengoku', FALSE, 36), ('Kizaru', FALSE, 36);
 
 -- Insertion des quiz Naruto
 INSERT INTO quiz (titre, description, image, id_user) VALUES
@@ -129,51 +129,51 @@ INSERT INTO quiz (titre, description, image, id_user) VALUES
 -- Insertion des questions et réponses pour Naruto
 -- Quiz 1: Genin
 INSERT INTO question (question, id_quiz) VALUES
-('Quel est le rêve de Naruto ?', 1),
-('Qui est le premier sensei de Naruto ?', 1),
-('Quel est le nom du démon scellé en Naruto ?', 1),
-('Qui est le premier rival de Naruto ?', 1),
-('Quel est le jutsu signature de Naruto ?', 1),
-('Quel est le clan de Sasuke ?', 1);
+('Quel est le rêve de Naruto ?', 7),
+('Qui est le premier sensei de Naruto ?', 7),
+('Quel est le nom du démon scellé en Naruto ?', 7),
+('Qui est le premier rival de Naruto ?', 7),
+('Quel est le jutsu signature de Naruto ?', 7),
+('Quel est le clan de Sasuke ?', 7);
 
 INSERT INTO reponse (reponse, resultat, id_question) VALUES
-('Devenir Hokage', TRUE, 1), ('Devenir Anbu', FALSE, 1), ('Dépasser Sasuke', FALSE, 1), ('Quitter Konoha', FALSE, 1),
-('Kakashi', TRUE, 2), ('Iruka', FALSE, 2), ('Jiraiya', FALSE, 2), ('Orochimaru', FALSE, 2),
-('Kyubi', TRUE, 3), ('Shukaku', FALSE, 3), ('Hachibi', FALSE, 3), ('Sanbi', FALSE, 3),
-('Sasuke', TRUE, 4), ('Neji', FALSE, 4), ('Gaara', FALSE, 4), ('Shikamaru', FALSE, 4),
-('Rasengan', TRUE, 5), ('Chidori', FALSE, 5), ('Amaterasu', FALSE, 5), ('Kage Bunshin', FALSE, 5),
-('Uchiha', TRUE, 6), ('Senju', FALSE, 6), ('Hyuga', FALSE, 6), ('Akimichi', FALSE, 6);
+('Devenir Hokage', TRUE, 37), ('Devenir Anbu', FALSE, 37), ('Dépasser Sasuke', FALSE, 37), ('Quitter Konoha', FALSE, 37),
+('Kakashi', TRUE, 38), ('Iruka', FALSE, 38), ('Jiraiya', FALSE, 38), ('Orochimaru', FALSE, 38),
+('Kyubi', TRUE, 39), ('Shukaku', FALSE, 39), ('Hachibi', FALSE, 39), ('Sanbi', FALSE, 39),
+('Sasuke', TRUE, 40), ('Neji', FALSE, 40), ('Gaara', FALSE, 40), ('Shikamaru', FALSE, 40),
+('Rasengan', TRUE, 41), ('Chidori', FALSE, 41), ('Amaterasu', FALSE, 41), ('Kage Bunshin', FALSE, 41),
+('Uchiha', TRUE, 42), ('Senju', FALSE, 42), ('Hyuga', FALSE, 42), ('Akimichi', FALSE, 42);
 
 -- Quiz 2: Chunin Exam
 INSERT INTO question (question, id_quiz) VALUES
-('Quel est le nom du village de Gaara ?', 2),
-('Qui affronte Naruto dans l''examen Chunin ?', 2),
-('Quel est le nom du frère et de la sœur de Gaara ?', 2),
-('Quelle technique interdit Kakashi à Naruto d''utiliser au début ?', 2),
-('Qui est l''examinatrice de la première épreuve ?', 2),
-('Qui attaque Konoha durant l''examen Chunin ?', 2);
+('Quel est le nom du village de Gaara ?', 8),
+('Qui affronte Naruto dans l''examen Chunin ?', 8),
+('Quel est le nom du frère et de la sœur de Gaara ?', 8),
+('Quelle technique interdit Kakashi à Naruto d''utiliser au début ?', 8),
+('Qui est l''examinatrice de la première épreuve ?', 8),
+('Qui attaque Konoha durant l''examen Chunin ?', 8);
 
 INSERT INTO reponse (reponse, resultat, id_question) VALUES
-('Suna', TRUE, 7), ('Kiri', FALSE, 7), ('Iwa', FALSE, 7), ('Kumo', FALSE, 7),
-('Neji', TRUE, 8), ('Sasuke', FALSE, 8), ('Lee', FALSE, 8), ('Shikamaru', FALSE, 8),
-('Kankuro et Temari', TRUE, 9), ('Itachi et Shisui', FALSE, 9), ('Deidara et Sasori', FALSE, 9), ('Kisame et Zabuza', FALSE, 9),
-('Multi-clonage', TRUE, 10), ('Rasengan', FALSE, 10), ('Chidori', FALSE, 10), ('Sharingan', FALSE, 10),
-('Ibiki Morino', TRUE, 11), ('Anko Mitarashi', FALSE, 11), ('Asuma Sarutobi', FALSE, 11), ('Hiruzen Sarutobi', FALSE, 11),
-('Orochimaru', TRUE, 12), ('Akatsuki', FALSE, 12), ('Pain', FALSE, 12), ('Madara', FALSE, 12);
+('Suna', TRUE, 43), ('Kiri', FALSE, 43), ('Iwa', FALSE, 43), ('Kumo', FALSE, 43),
+('Neji', TRUE, 44), ('Sasuke', FALSE, 44), ('Lee', FALSE, 44), ('Shikamaru', FALSE, 44),
+('Kankuro et Temari', TRUE, 45), ('Itachi et Shisui', FALSE, 45), ('Deidara et Sasori', FALSE, 45), ('Kisame et Zabuza', FALSE, 45),
+('Multi-clonage', TRUE, 46), ('Rasengan', FALSE, 46), ('Chidori', FALSE, 46), ('Sharingan', FALSE, 46),
+('Ibiki Morino', TRUE, 47), ('Anko Mitarashi', FALSE, 47), ('Asuma Sarutobi', FALSE, 47), ('Hiruzen Sarutobi', FALSE, 47),
+('Orochimaru', TRUE, 48), ('Akatsuki', FALSE, 48), ('Pain', FALSE, 48), ('Madara', FALSE, 48);
 
 -- Quiz 3: Grande Guerre Ninja
 INSERT INTO question (question, id_quiz) VALUES
-('Qui est le chef de l''Akatsuki ?', 3),
-('Qui ressuscite les anciens Kage ?', 3),
-('Quel bijuu possède Killer Bee ?', 3),
-('Quelle est la véritable identité de Tobi ?', 3),
-('Qui affronte Madara Uchiha en combat final ?', 3),
-('Quel est le dernier combat de Naruto dans la série ?', 3);
+('Qui est le chef de l''Akatsuki ?', 9),
+('Qui ressuscite les anciens Kage ?', 9),
+('Quel bijuu possède Killer Bee ?', 9),
+('Quelle est la véritable identité de Tobi ?', 9),
+('Qui affronte Madara Uchiha en combat final ?', 9),
+('Quel est le dernier combat de Naruto dans la série ?', 9);
 
 INSERT INTO reponse (reponse, resultat, id_question) VALUES
-('Pain', TRUE, 13), ('Itachi', FALSE, 13), ('Obito', FALSE, 13), ('Zetsu', FALSE, 13),
-('Kabuto', TRUE, 14), ('Orochimaru', FALSE, 14), ('Madara', FALSE, 14), ('Danzo', FALSE, 14),
-('Hachibi', TRUE, 15), ('Kyubi', FALSE, 15), ('Sanbi', FALSE, 15), ('Ichibi', FALSE, 15),
-('Obito Uchiha', TRUE, 16), ('Madara Uchiha', FALSE, 16), ('Danzo Shimura', FALSE, 16), ('Shisui Uchiha', FALSE, 16),
-('Naruto et Sasuke', TRUE, 17), ('Naruto et Kakashi', FALSE, 17), ('Gai et Madara', FALSE, 17), ('Hashirama et Madara', FALSE, 17),
-('Naruto vs Sasuke', TRUE, 18), ('Naruto vs Madara', FALSE, 18), ('Naruto vs Pain', FALSE, 18), ('Naruto vs Itachi', FALSE, 18);
+('Pain', TRUE, 49), ('Itachi', FALSE, 49), ('Obito', FALSE, 49), ('Zetsu', FALSE, 49),
+('Kabuto', TRUE, 50), ('Orochimaru', FALSE, 50), ('Madara', FALSE, 50), ('Danzo', FALSE, 50),
+('Hachibi', TRUE, 51), ('Kyubi', FALSE, 51), ('Sanbi', FALSE, 51), ('Ichibi', FALSE, 51),
+('Obito Uchiha', TRUE, 52), ('Madara Uchiha', FALSE, 52), ('Danzo Shimura', FALSE, 52), ('Shisui Uchiha', FALSE, 52),
+('Naruto et Sasuke', TRUE, 53), ('Naruto et Kakashi', FALSE, 53), ('Gai et Madara', FALSE, 53), ('Hashirama et Madara', FALSE, 53),
+('Naruto vs Sasuke', TRUE, 54), ('Naruto vs Madara', FALSE, 54), ('Naruto vs Pain', FALSE, 54), ('Naruto vs Itachi', FALSE, 54);
