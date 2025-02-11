@@ -71,12 +71,12 @@ INSERT INTO quiz (titre, description, image, id_user) VALUES
 -- Insertion des questions et réponses pour One Piece
 -- Quiz 1: Saga East Blue
 INSERT INTO question (question, id_quiz) VALUES
-('Quel est le premier membre à rejoindre l''équipage de Luffy ?', 1),
-('Quel est le rêve de Zoro ?', 1),
-('Quel fruit du démon Luffy possède-t-il ?', 1),
-('Qui est le principal antagoniste d''Arlong Park ?', 1),
-('Quel est le nom du premier navire de Luffy ?', 1),
-('Qui est le premier adversaire de Luffy dans la série ?', 1);
+('Quel est le premier membre à rejoindre l''équipage de Luffy ?', 4),
+('Quel est le rêve de Zoro ?', 4),
+('Quel fruit du démon Luffy possède-t-il ?', 4),
+('Qui est le principal antagoniste d''Arlong Park ?', 4),
+('Quel est le nom du premier navire de Luffy ?', 4),
+('Qui est le premier adversaire de Luffy dans la série ?', 4);
 
 INSERT INTO reponse (reponse, resultat, id_question) VALUES
 ('Zoro', TRUE, 1), ('Sanji', FALSE, 1), ('Nami', FALSE, 1), ('Usopp', FALSE, 1),
@@ -88,12 +88,12 @@ INSERT INTO reponse (reponse, resultat, id_question) VALUES
 
 -- Quiz 2: Saga Alabasta
 INSERT INTO question (question, id_quiz) VALUES
-('Qui est le chef de Baroque Works ?', 2),
-('Quel est le vrai nom de Mr. 2 ?', 2),
-('Quel pouvoir possède Crocodile ?', 2),
-('Qui sauve Luffy dans le désert d''Alabasta ?', 2),
-('Quel est le nom du royaume où se déroule l''arc Alabasta ?', 2),
-('Quel est le rôle de Vivi dans ce royaume ?', 2);
+('Qui est le chef de Baroque Works ?', 5),
+('Quel est le vrai nom de Mr. 2 ?', 5),
+('Quel pouvoir possède Crocodile ?', 5),
+('Qui sauve Luffy dans le désert d''Alabasta ?', 5),
+('Quel est le nom du royaume où se déroule l''arc Alabasta ?', 5),
+('Quel est le rôle de Vivi dans ce royaume ?', 5);
 
 INSERT INTO reponse (reponse, resultat, id_question) VALUES
 ('Crocodile', TRUE, 7), ('Doflamingo', FALSE, 7), ('Ener', FALSE, 7), ('Barbe Noire', FALSE, 7),
@@ -105,12 +105,12 @@ INSERT INTO reponse (reponse, resultat, id_question) VALUES
 
 -- Quiz 3: Saga Marineford
 INSERT INTO question (question, id_quiz) VALUES
-('Quel est l''objectif principal de l''équipage de Barbe Blanche à Marineford ?', 3),
-('Qui tue Ace ?', 3),
-('Quel Amiral affronte Barbe Blanche en duel ?', 3),
-('Quel est le pouvoir de Barbe Blanche ?', 3),
-('Qui sauve Luffy à la fin de la bataille de Marineford ?', 3),
-('Qui devient Amiral en Chef après Marineford ?', 3);
+('Quel est l''objectif principal de l''équipage de Barbe Blanche à Marineford ?', 6),
+('Qui tue Ace ?', 6),
+('Quel Amiral affronte Barbe Blanche en duel ?', 6),
+('Quel est le pouvoir de Barbe Blanche ?', 6),
+('Qui sauve Luffy à la fin de la bataille de Marineford ?', 6),
+('Qui devient Amiral en Chef après Marineford ?', 6);
 
 INSERT INTO reponse (reponse, resultat, id_question) VALUES
 ('Sauver Ace', TRUE, 13), ('Vaincre la Marine', FALSE, 13), ('Trouver le One Piece', FALSE, 13), ('Déclarer la guerre au monde', FALSE, 13),
@@ -129,12 +129,12 @@ INSERT INTO quiz (titre, description, image, id_user) VALUES
 -- Insertion des questions et réponses pour Naruto
 -- Quiz 1: Genin
 INSERT INTO question (question, id_quiz) VALUES
-('Quel est le rêve de Naruto ?', 1),
-('Qui est le premier sensei de Naruto ?', 1),
-('Quel est le nom du démon scellé en Naruto ?', 1),
-('Qui est le premier rival de Naruto ?', 1),
-('Quel est le jutsu signature de Naruto ?', 1),
-('Quel est le clan de Sasuke ?', 1);
+('Quel est le rêve de Naruto ?', 7),
+('Qui est le premier sensei de Naruto ?', 7),
+('Quel est le nom du démon scellé en Naruto ?', 7),
+('Qui est le premier rival de Naruto ?', 7),
+('Quel est le jutsu signature de Naruto ?', 7),
+('Quel est le clan de Sasuke ?', 7);
 
 INSERT INTO reponse (reponse, resultat, id_question) VALUES
 ('Devenir Hokage', TRUE, 1), ('Devenir Anbu', FALSE, 1), ('Dépasser Sasuke', FALSE, 1), ('Quitter Konoha', FALSE, 1),
@@ -146,12 +146,12 @@ INSERT INTO reponse (reponse, resultat, id_question) VALUES
 
 -- Quiz 2: Chunin Exam
 INSERT INTO question (question, id_quiz) VALUES
-('Quel est le nom du village de Gaara ?', 2),
-('Qui affronte Naruto dans l''examen Chunin ?', 2),
-('Quel est le nom du frère et de la sœur de Gaara ?', 2),
-('Quelle technique interdit Kakashi à Naruto d''utiliser au début ?', 2),
-('Qui est l''examinatrice de la première épreuve ?', 2),
-('Qui attaque Konoha durant l''examen Chunin ?', 2);
+('Quel est le nom du village de Gaara ?', 8),
+('Qui affronte Naruto dans l''examen Chunin ?', 8),
+('Quel est le nom du frère et de la sœur de Gaara ?', 8),
+('Quelle technique interdit Kakashi à Naruto d''utiliser au début ?', 8),
+('Qui est l''examinatrice de la première épreuve ?', 8),
+('Qui attaque Konoha durant l''examen Chunin ?', 8);
 
 INSERT INTO reponse (reponse, resultat, id_question) VALUES
 ('Suna', TRUE, 7), ('Kiri', FALSE, 7), ('Iwa', FALSE, 7), ('Kumo', FALSE, 7),
@@ -163,12 +163,12 @@ INSERT INTO reponse (reponse, resultat, id_question) VALUES
 
 -- Quiz 3: Grande Guerre Ninja
 INSERT INTO question (question, id_quiz) VALUES
-('Qui est le chef de l''Akatsuki ?', 3),
-('Qui ressuscite les anciens Kage ?', 3),
-('Quel bijuu possède Killer Bee ?', 3),
-('Quelle est la véritable identité de Tobi ?', 3),
-('Qui affronte Madara Uchiha en combat final ?', 3),
-('Quel est le dernier combat de Naruto dans la série ?', 3);
+('Qui est le chef de l''Akatsuki ?', 9),
+('Qui ressuscite les anciens Kage ?', 9),
+('Quel bijuu possède Killer Bee ?', 9),
+('Quelle est la véritable identité de Tobi ?', 9),
+('Qui affronte Madara Uchiha en combat final ?', 9),
+('Quel est le dernier combat de Naruto dans la série ?', 9);
 
 INSERT INTO reponse (reponse, resultat, id_question) VALUES
 ('Pain', TRUE, 13), ('Itachi', FALSE, 13), ('Obito', FALSE, 13), ('Zetsu', FALSE, 13),
