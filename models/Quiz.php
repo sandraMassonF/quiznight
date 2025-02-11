@@ -18,10 +18,7 @@ class Quiz
     private $bdd;
 
     private int $numQuiz;
-    private array $listRaw;
-    private array $quiz;
-    private array $questions;
-    private array $answers;
+    private array $quizSelect;
 
     public function __construct(int $numQuiz)
     {
@@ -29,10 +26,7 @@ class Quiz
         $this->bdd = $bdd;
 
         $this->numQuiz = $numQuiz;
-        $this->listRaw = [];
-        $this->quiz = [];
-        $this->questions = [];
-        $this->answers = [];
+        $this->quizSelect = [];
     }
 
     public function get_numQuiz(): int
@@ -40,56 +34,68 @@ class Quiz
         return $this->numQuiz;
     }
 
-    public function get_rawList(): array
+    // récupère les données du quiz demandées
+
+    public function get_quizSelect()
     {
         $idQuiz = $this->get_numQuiz();
 
-        $listRawStmt = $this->bdd->prepare("
+        $quizStmt = $this->bdd->prepare("
         SELECT quiz.titre, quiz.id, 
         question.question, question.id_quiz,
         reponse.reponse, reponse.resultat, reponse.id_question
         FROM quiz
         JOIN question ON quiz.id = question.id_quiz
         JOIN reponse ON reponse.id_question = question.id
-        WHERE quiz.id = $idQuiz;
+        WHERE quiz.id = :idQuiz
+        ORDER BY RAND();
         ");
-        $listRawStmt->execute();
-        $this->listRaw = $listRawStmt->fetchAll(PDO::FETCH_ASSOC);
+        $quizStmt->execute([
+            ':idQuiz' => $idQuiz
+        ]);
+        $quizRecup = $quizStmt->fetchAll(PDO::FETCH_ASSOC);
 
-        return $this->listRaw;
-    }
-
-    public function get_quizNom()
-    {
-
-        $quizInfos = $this->get_rawList();
-
-        foreach ($quizInfos as $value) {
-            $quizId = $value['id'];
+        foreach ($quizRecup as $value) {
             $quizNom = $value['titre'];
             $quizQuestion = $value['question'];
             $quizAnswer = $value['reponse'];
             $quizResult = $value['resultat'];
 
-
-            $this->quiz[$quizId] = [
-                'titre' => $quizNom,
-                'questions' => []
-            ];
-
-            foreach ($value['question'] as $value) {
-
-                $this->quiz[$quizId]['questions'] = $value;
+            if (!isset($this->quizSelect[$quizNom])) {
+                $this->quizSelect[$quizNom] = [];
             }
 
-            return $this->quiz;
+            if (!isset($this->quizSelect[$quizNom][$quizQuestion])) {
+                $this->quizSelect[$quizNom][$quizQuestion] = [];
+            }
+
+            $this->quizSelect[$quizNom][$quizQuestion][] = [
+                'answer' => $quizAnswer,
+                'result' => $quizResult
+            ];
         }
+
+        return $this->quizSelect;
     }
 }
 
-$newQuiz = new Quiz(1);
-var_dump($newQuiz->get_rawList());
-// var_dump($newQuiz->get_quizQuestionsAnswers());
-// var_dump($newQuiz->get_quizQuestionsAnswers());
-// var_dump($newQuiz->get_quizQuestionsAnswers());
-var_dump($newQuiz->get_quizNom());
+$newQuiz = new Quiz(5);
+$quizSelect = $newQuiz->get_quizSelect();
+
+
+var_dump($quizSelect);
+// var_dump($raw_quiz);
+
+
+// echo "<br><br><br>";
+// echo array_key_first($newQuiz->get_quiz());
+
+echo "<br><br><br>";
+// foreach ($quiz as $titreQuiz => $questions) {
+
+//     var_dump($questions);
+//     // foreach ($questions as $key => $reponse) {
+//     //     echo $key;
+//     //     // var_dump($reponse);
+//     // }
+// }
