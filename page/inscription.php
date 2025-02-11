@@ -1,5 +1,4 @@
 <?php
-session_start();
 $host = "localhost";
 $username = "root";
 $password = "";
@@ -16,20 +15,29 @@ if (isset($_POST['submit'])) {
     if (!empty($_POST['pseudo']) && !empty($_POST['password'])) {
         $pseudo = htmlentities($_POST['pseudo']);
         $password = password_hash($_POST['password'],PASSWORD_BCRYPT);
+        $checkPseudo = $bdd->prepare("SELECT id FROM utilisateur WHERE pseudo = :pseudo");
+        $checkPseudo->execute(["pseudo" => $pseudo]);
+        
+        if ($checkPseudo->fetch()){
+            echo '<p class="alert"> Ce pseudo est déjà utilisé !</p>';
+        }
+
+        else{
         $req = $bdd->prepare("INSERT INTO utilisateur (pseudo, password) VALUES (:pseudo, :password)");
         $req->execute([
             "pseudo" => $pseudo,
             "password" => $password
         ]);
         $req = $req->fetch(PDO::FETCH_ASSOC); 
-        echo "Inscription réussie !";
+        
+        echo '<p class="">"Inscription réussie !"</p>';
 
-        if (empty($req)) {
-            echo '<p class="alert">Pseudo ou mot de passe incorrect !</p>';
-        } else {
-            session_start();
-            $_SESSION['user'] = $req;
-            header("location:");
+        session_start();
+        
+        $_SESSION['user'] = $req;
+
+        header("location:./index.php");
+
         }
     } else {
         echo '<p class="alert">Veuillez remplir tous les champs</p>';
