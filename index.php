@@ -24,10 +24,10 @@ session_start();
         <div class="box-symbol">
             <img class="symbol-header" src="./asset/img/titre-logo.png" />
         </div>
-        <div class="login">
+        
         <?php if (isset($_SESSION['user'])) :?>
             <form method="post">
-                    <button class="login" type="submit" name="deconnexion">Déconnexion</button>
+                    <button class="disconnect_btn login" type="submit" name="deconnexion">Déconnexion</button>
             </form>
          <?php
                 if (isset($_POST['deconnexion'])) {
@@ -37,7 +37,9 @@ session_start();
                 }
           ?>
         <?php else : ?>
+            <div class="login">
             <a href="./page/connexion.php">Connexion</a>
+            </div>
         <?php endif ?>
-        </div>
+        
     </header>
