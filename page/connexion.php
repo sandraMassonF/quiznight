@@ -28,7 +28,7 @@ if (isset($_POST['submit'])) {
         } else {
             session_start();
             $_SESSION['user'] = $req;
-            header("location:");
+            header("location:./page/autor-page.php");
         }
     } else {
         echo '<p class="alert">Veuillez remplir tous les champs</p>';
@@ -43,7 +43,7 @@ if (isset($_POST['submit'])) {
     <section class="">
         <!-- si une session est déjà ouverte on ne propose pas de se reconnecter -->
         <?php if (isset($_SESSION['user'])) : ?>
-            <?php header("location:gestionPlat.php"); ?>
+            <?php header("location:"); ?>
             <!-- si pas de session ouverte on propose de se connecter -->
         <?php else : ?>
             <h1 class="title">Connexion</h1>
