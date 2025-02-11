@@ -1,5 +1,4 @@
 <?php
-session_start();
 $host = "localhost";
 $username = "root";
 $password = "";
@@ -27,8 +26,8 @@ if (isset($_POST['submit'])) {
             echo '<p class="alert">Pseudo ou mot de passe incorrect !</p>';
         } else {
             session_start();
-            $_SESSION['user'] = $req;
-            header("location:./page/autor-page.php");
+            $_SESSION['user'] = $req['id'];
+            header("location:./index.php");
         }
     } else {
         echo '<p class="alert">Veuillez remplir tous les champs</p>';
@@ -43,7 +42,7 @@ if (isset($_POST['submit'])) {
     <section class="">
         <!-- si une session est déjà ouverte on ne propose pas de se reconnecter -->
         <?php if (isset($_SESSION['user'])) : ?>
-            <?php header("location:"); ?>
+            <?php header("location:../index.php"); ?>
             <!-- si pas de session ouverte on propose de se connecter -->
         <?php else : ?>
             <h1 class="title">Connexion</h1>
