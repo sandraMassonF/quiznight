@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 $host = "localhost";
 $username = "root";
 $password = "";
@@ -12,40 +14,95 @@ try {
     echo "Erreur : " . $e->getMessage();
 }
 
+require_once('../models/Quiz.php');
+
+
+$newQuiz = new Quiz(1);
+$quizSelect = $newQuiz->get_quizSelect();
+
+
+// question actuelle
+
+$numQuestion = 0;
+$quizTitle = key($quizSelect);
+$quizQuestions = $quizSelect[$quizTitle];
+$currentQuestion = array_keys($quizQuestions)[$numQuestion];
+$currentAnswers = $quizQuestions[$currentQuestion];
+
+if (!isset($_SESSION['questionIndex'])) {
+    $_SESSION['questionIndex'] = $numQuestion;
+} else {
+    $_SESSION['questionIndex'] = $numQuestion;
+}
+
+if (isset($_POST['answer'])) {
+    $check = $newQuiz->get_checkAnswer();
+    if ($check == true) {
+    }
+}
+
+
+
 ?>
 
 <?php include '../component/header.php'; ?>
 
 <main class="main-james">
 
+    <?php var_dump(array_keys($quizQuestions)) ?>
+
     <section class="title-james">
-        <h1 class="quiz-title">{Nom du quiz}</h1>
+        <h1 class="quiz-title"><?= $quizTitle; ?></h1>
     </section>
 
     <hr class="separator">
 
+    <!-- boite question -->
+
+
     <section class="question-box">
+
         <div class="question-box-title">
-            <h2 class="bold">Question <span class="text-pink">#{}</span></h2>
-            <p class="question-text">{Lalala question lalala question lalala question ?}</p>
+            <h2 class="bold">Question
+                <span class="text-pink">#
+                    <?= $numQuestion + 1 ?>
+                </span>
+            </h2>
+
+            <p class="question-text"><?= $currentQuestion; ?></p>
         </div>
 
         <!-- réponses  -->
-        <div class="question-box-answers">
-            <!-- prévoir if pour changer design class de l'input -->
-            <form action="" method="post">
-                <input type="submit" name="answerA" id="answer" class="button-answer" value="1 / {blablabla}">
-            </form>
-            <form action="" method="post">
-                <input type="submit" name="answerB" id="answer" class="button-answer" value="2 / {blablabla}">
-            </form>
-            <form action="" method="post">
-                <input type="submit" name="answerC" id="answer" class="button-answer" value="3 / {blablabla}">
-            </form>
-            <form action="" method="post">
-                <input type="submit" name="answerD" id="answer" class="button-answer" value="4 / {blablabla}">
-            </form>
 
+        <div class="question-box-answers">
+            <?php foreach ($currentAnswers as $key => $id_rep): ?>
+                <?php if ($key == 0): ?>
+
+                    <form action="" method="post">
+                        <button type="submit" name="answer" id="answer" class="button-answer cercle-answer"
+                            value="<?= $id_rep['result'] ?>"><?= $id_rep['answer'] ?></button>
+                    </form>
+
+                <?php endif; ?>
+                <?php if ($key == 1): ?>
+                    <form action="" method="post">
+                        <button type="submit" name="answer" id="answer" class="button-answer triangle-answer"
+                            value="<?= $id_rep['result'] ?>"><?= $id_rep['answer'] ?></button>
+                    </form>
+                <?php endif; ?>
+                <?php if ($key == 2): ?>
+                    <form action="" method="post">
+                        <button type="submit" name="answer" id="answer" class="button-answer square-answer"
+                            value="<?= $id_rep['result'] ?>"><?= $id_rep['answer'] ?></button>
+                    </form>
+                <?php endif; ?>
+                <?php if ($key == 3): ?>
+                    <form action="" method="post">
+                        <button type="submit" name="answer" id="answer" class="button-answer umbrella-answer"
+                            value="<?= $id_rep['result'] ?>"><?= $id_rep['answer'] ?></button>
+                    </form>
+                <?php endif; ?>
+            <?php endforeach; ?>
         </div>
         <!-- button valider, suivant, retour accueil -->
         <div class="button-box">
