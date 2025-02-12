@@ -20,6 +20,10 @@ if (isset($_POST['update-new-name'])) {
 };
 $quizSelect = new Quiz();
 $result = $quizSelect->get_quizSelect($_SESSION['quizId']);
+$resultQuiz = $quizSelect->getOneQuiz($_SESSION['quizId']);
+var_dump($result);
+var_dump($resultQuiz);
+
 ?>
 
 <?php include '../component/header.php'; ?>
@@ -28,12 +32,12 @@ $result = $quizSelect->get_quizSelect($_SESSION['quizId']);
         <?php if (isset($_POST['update-name'])) : ?>
             <form action="" method="post" class="form-update-name">
                 <div class="form-new-name">
-                    <input type="text" name="new-name" class="new-name" placeholder="<?= array_keys($result)[0] ?>" value="<?= array_keys($result)[0] ?>">
+                    <input type="text" name="new-name" class="new-name" placeholder="<?= $resultQuiz[0]['titre'] ?>" value="<?= $resultQuiz[0]['titre'] ?>">
                     <input type="submit" name="update-new-name" id="button" class="button valider button-center" value="valider">
                 </div>
             </form>
         <?php else : ?>
-            <h1 class="title-quiz">Quiz : <?= array_keys($result)[0] ?></h1>
+            <h1 class="title-quiz">Quiz : <?= $resultQuiz[0]['titre'] ?></h1>
             <form action="" method="post">
                 <input type="submit" name="update-name" id="button" class="button valider" value="Modifier">
             </form>

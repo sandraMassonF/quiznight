@@ -6,7 +6,7 @@ class ConnexionBdd
     protected string $password = "";
     protected string $dbName = "s-quiz_game";
 
-    public function Connextion()
+    public function connexion()
     {
         try {
             $bdd  = new PDO("mysql:host=$this->host;dbname=$this->dbName;charset=utf8", $this->username, $this->password);

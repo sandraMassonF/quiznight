@@ -22,7 +22,7 @@ class Quiz
     public function get_quizSelect($idQuiz): array
     {
         $newBdd = new ConnexionBdd();
-        $bdd = $newBdd->Connextion();
+        $bdd = $newBdd->connexion();
         $quizStmt = $bdd->prepare("
         SELECT quiz.titre, quiz.id, 
         question.question, question.id_quiz,
@@ -86,7 +86,7 @@ class Quiz
     public function getAllQuiz()
     {
         $newBdd = new ConnexionBdd();
-        $bdd = $newBdd->Connextion(); //changer le connextion en connexion
+        $bdd = $newBdd->connexion(); //changer le connexion en connexion
         $sql = "SELECT * FROM quiz";
         $stmt = $bdd->prepare($sql);
         $stmt->execute();
@@ -98,8 +98,21 @@ class Quiz
     public function getQuizUser($id)
     {
         $newBdd = new ConnexionBdd();
-        $bdd = $newBdd->Connextion();
+        $bdd = $newBdd->connexion();
         $sql = "SELECT * FROM quiz WHERE id_user = $id";
+        $stmt = $bdd->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    // Récupération d'un quiz via son id
+    public function getOneQuiz($quizId)
+    {
+        $newBdd = new ConnexionBdd();
+        $bdd = $newBdd->connexion();
+        $sql = "SELECT *
+        FROM quiz
+        WHERE quiz.id = $quizId ";
         $stmt = $bdd->prepare($sql);
         $stmt->execute();
 
@@ -110,12 +123,27 @@ class Quiz
     public function updateNameQuiz($id, $titre)
     {
         $newBdd = new ConnexionBdd();
-        $bdd = $newBdd->Connextion();
+        $bdd = $newBdd->connexion();
         $sql = "UPDATE quiz SET titre = :titre WHERE id = :id";
         $update = $bdd->prepare($sql);
         $update->execute([
             ':titre' => $titre,
             ':id' => $id
+        ]);
+    }
+
+    //création nouveau quiz
+    public function createQuiz($titre, $description, $image, $id_user)
+    {
+        $newBdd = new ConnexionBdd();
+        $bdd = $newBdd->connexion();
+        $sql = "INSERT INTO quiz (titre, description, image, id_user) VALUES (:titre, :description, :image, :id_user)";
+        $create = $bdd->prepare($sql);
+        $create->execute([
+            ':titre' => $titre,
+            ':description' => $description,
+            ':image' => $image,
+            ':id_user' => $id_user,
         ]);
     }
 }
