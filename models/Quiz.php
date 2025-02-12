@@ -17,30 +17,22 @@ class Quiz
 {
     private $bdd;
 
-    private int $numQuiz;
     private array $quizSelect;
     private bool $checkAnswer;
 
-    public function __construct(int $numQuiz)
+    public function __construct()
     {
         global $bdd;
         $this->bdd = $bdd;
 
-        $this->numQuiz = $numQuiz;
         $this->quizSelect = [];
         $this->checkAnswer = false;
     }
 
-    public function get_numQuiz(): int
-    {
-        return $this->numQuiz;
-    }
-
     // récupère les données du quiz demandées
 
-    public function get_quizSelect(): array
+    public function get_quizSelect($idQuiz): array
     {
-        $idQuiz = $this->get_numQuiz();
 
         $quizStmt = $this->bdd->prepare("
         SELECT quiz.titre, quiz.id, 
@@ -85,21 +77,19 @@ class Quiz
 
     // vérifie la réponse
 
-    public function get_checkAnswer(): bool
+    public function get_checkAnswer($answerSubmit): bool
     {
-        $answerSubmit = $_POST['answer'];
-
         if (!empty($_POST)) {
             if ($answerSubmit == 1) {
-                return $this->checkAnswer = true;
+                $this->checkAnswer = true;
+                // return $this->checkAnswer;
             } else {
-                return $this->checkAnswer = false;
+                $this->checkAnswer = false;
+                // return $this->checkAnswer;
             }
+
+            unset($_POST['answer']);
+            return $this->checkAnswer;
         }
     }
 }
-
-$newQuiz = new Quiz(1);
-$quizSelect = $newQuiz->get_quizSelect();
-
-// echo "<br><br><br>";
