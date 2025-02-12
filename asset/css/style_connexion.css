@@ -13,7 +13,8 @@ body{
 
 }
 .login-bloc, .registration-bloc{
-    width: 40%;
+    margin: 50rem;
+    width: 45rem;
     margin: auto;
     background-color: rgba(135, 135, 135, 0.633);
     border-radius: 20px;

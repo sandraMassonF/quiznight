@@ -36,7 +36,7 @@ if (isset($_POST['submit'])) {
         
         $_SESSION['user'] = $req;
 
-        header("location:./index.php");
+        header("location:../index.php");
 
         }
     } else {
@@ -52,7 +52,7 @@ if (isset($_POST['submit'])) {
     <section class="">
         <!-- si une session est déjà ouverte on ne propose pas de se reconnecter -->
         <?php if (isset($_SESSION['user'])) : ?>
-            <?php header("location:"); ?>
+            <?php header("location:../index.php"); ?>
             <!-- si pas de session ouverte on propose de se connecter -->
         <?php else : ?>
             <h1 class="title">Inscription</h1>
@@ -62,8 +62,8 @@ if (isset($_POST['submit'])) {
                     <input class="input" type="text" name="pseudo" id="pseudo" value="" placeholder="Entrez votre pseudo" required><br /><br />
                     <label for="" >Mot de Passe :</label><br />
                     <input class="input" type="password" name="password" id="password" value="" placeholder="Entrez votre mot de passe" required><br /><br />
-                    <!-- <label for="" >Confirmez le Mot de Passe :</label><br />
-                    <input class="input" type="password" name="password" id="password" value="" placeholder="Entrez votre mot de passe" required><br /><br /> -->
+                    <label for="" >Confirmez le Mot de Passe :</label><br />
+                    <input class="input" type="password" name="password" id="password" value="" placeholder="Entrez votre mot de passe" required><br /><br />
                     <button type="submit" name="submit" class="bouton">Valider</button>
                 </form>                
             </section>
@@ -71,3 +71,6 @@ if (isset($_POST['submit'])) {
         <?php endif ?>
     </section>
 </main>
+
+
+<?php include '../component/footer.php'; ?>
