@@ -146,4 +146,13 @@ class Quiz
             ':id_user' => $id_user,
         ]);
     }
+    // Supprimer un Quiz
+    public function deleteQuiz($quizId)
+    {
+        $newBdd = new ConnexionBdd();
+        $bdd = $newBdd->connexion();
+        $sql = "DELETE FROM quiz WHERE id= $quizId";
+        $delete = $bdd->prepare($sql);
+        $delete->execute();
+    }
 }

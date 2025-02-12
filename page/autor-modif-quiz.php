@@ -12,6 +12,8 @@ if (isset($_POST['new-question'])) {
 if (isset($_POST['return'])) {
     header("location: ./autor-page.php");
 };
+
+// Modification du titre d'un Quiz
 if (isset($_POST['update-new-name'])) {
     $titre = htmlspecialchars($_POST['new-name']);
     $id = htmlspecialchars($_SESSION['quizId']);
@@ -21,9 +23,13 @@ if (isset($_POST['update-new-name'])) {
 $quizSelect = new Quiz();
 $result = $quizSelect->get_quizSelect($_SESSION['quizId']);
 $resultQuiz = $quizSelect->getOneQuiz($_SESSION['quizId']);
-var_dump($result);
-var_dump($resultQuiz);
 
+// Suppression d'un Quiz
+if (isset($_POST['delete-quiz'])) {
+    $deleteQuiz = new Quiz();
+    $deleteQuiz->deleteQuiz($_SESSION['quizId']);
+    header("location: ./autor-page.php");
+}
 ?>
 
 <?php include '../component/header.php'; ?>
