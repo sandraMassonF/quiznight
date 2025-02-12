@@ -1,0 +1,105 @@
+<?php
+
+$host = "localhost";
+$username = "root";
+$password = "";
+
+// CONNEXION à la base de donnée
+try {
+    $bdd  = new PDO("mysql:host=$host;dbname=s-quiz_game;charset=utf8", $username, $password);
+    $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    echo "Erreur : " . $e->getMessage();
+}
+
+
+class Quiz
+{
+    private $bdd;
+
+    private int $numQuiz;
+    private array $quizSelect;
+    private bool $checkAnswer;
+
+    public function __construct(int $numQuiz)
+    {
+        global $bdd;
+        $this->bdd = $bdd;
+
+        $this->numQuiz = $numQuiz;
+        $this->quizSelect = [];
+        $this->checkAnswer = false;
+    }
+
+    public function get_numQuiz(): int
+    {
+        return $this->numQuiz;
+    }
+
+    // récupère les données du quiz demandées
+
+    public function get_quizSelect(): array
+    {
+        $idQuiz = $this->get_numQuiz();
+
+        $quizStmt = $this->bdd->prepare("
+        SELECT quiz.titre, quiz.id, 
+        question.question, question.id_quiz,
+        reponse.reponse, reponse.resultat, reponse.id_question
+        FROM quiz
+        JOIN question ON quiz.id = question.id_quiz
+        JOIN reponse ON reponse.id_question = question.id
+        WHERE quiz.id = :idQuiz;
+        ");
+
+        // revoir ORDER BY reponse.id_question, RAND()
+        // car rechange l'ordre des réponses apres submit 
+
+        $quizStmt->execute([
+            ':idQuiz' => $idQuiz
+        ]);
+        $quizRecup = $quizStmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($quizRecup as $value) {
+            $quizNom = $value['titre'];
+            $quizQuestion = $value['question'];
+            $quizAnswer = $value['reponse'];
+            $quizResult = $value['resultat'];
+
+            if (!isset($this->quizSelect[$quizNom])) {
+                $this->quizSelect[$quizNom] = [];
+            }
+
+            if (!isset($this->quizSelect[$quizNom][$quizQuestion])) {
+                $this->quizSelect[$quizNom][$quizQuestion] = [];
+            }
+
+            $this->quizSelect[$quizNom][$quizQuestion][] = [
+                'answer' => $quizAnswer,
+                'result' => $quizResult
+            ];
+        }
+
+        return $this->quizSelect;
+    }
+
+    // vérifie la réponse
+
+    public function get_checkAnswer(): bool
+    {
+        $answerSubmit = $_POST['answer'];
+
+        if (!empty($_POST)) {
+            if ($answerSubmit == 1) {
+                return $this->checkAnswer = true;
+            } else {
+                return $this->checkAnswer = false;
+            }
+        }
+    }
+}
+
+$newQuiz = new Quiz(1);
+$quizSelect = $newQuiz->get_quizSelect();
+
+// echo "<br><br><br>";

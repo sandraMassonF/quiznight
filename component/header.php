@@ -6,6 +6,9 @@
 <link rel="stylesheet" href="./asset/css/header-footer.css">
 <link rel="stylesheet" href="../asset/css/style_connexion.css">
 <link rel="stylesheet" href="../asset/css/style_quiz-jeu.css">
+<link rel="stylesheet" href="../asset/css/style_autor-page.css">
+<link rel="stylesheet" href="../asset/css/style_add-modif-quiz.css">
+<link rel="stylesheet" href="../asset/css/style_add-modif-question.css">
 
 <title>S-Quiz Game</title>
 </head>
