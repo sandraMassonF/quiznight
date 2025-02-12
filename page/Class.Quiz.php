@@ -6,7 +6,7 @@ class Quiz
     public function getAllQuiz()
     {
         $newBdd = new ConnexionBdd();
-        $bdd = $newBdd->Connextion();
+        $bdd = $newBdd->Connextion(); //changer le connextion en connexion
         $sql = "SELECT * FROM quiz";
         $stmt = $bdd->prepare($sql);
         $stmt->execute();
