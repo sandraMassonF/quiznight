@@ -1,17 +1,5 @@
 <?php
-
-$host = "localhost";
-$username = "root";
-$password = "";
-
-// CONNEXION à la base de donnée
-try {
-    $bdd  = new PDO("mysql:host=$host;dbname=s-quiz_game;charset=utf8", $username, $password);
-    $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    echo "Erreur : " . $e->getMessage();
-}
-
+include(__DIR__ . "/Class.Bdd.php");
 
 class Quiz
 {
@@ -33,8 +21,9 @@ class Quiz
 
     public function get_quizSelect($idQuiz): array
     {
-
-        $quizStmt = $this->bdd->prepare("
+        $newBdd = new ConnexionBdd();
+        $bdd = $newBdd->Connextion();
+        $quizStmt = $bdd->prepare("
         SELECT quiz.titre, quiz.id, 
         question.question, question.id_quiz,
         reponse.reponse, reponse.resultat, reponse.id_question
@@ -91,5 +80,29 @@ class Quiz
             unset($_POST['answer']);
             return $this->checkAnswer;
         }
+    }
+
+    // Récupération de TOUS les quiz
+    public function getAllQuiz()
+    {
+        $newBdd = new ConnexionBdd();
+        $bdd = $newBdd->Connextion(); //changer le connextion en connexion
+        $sql = "SELECT * FROM quiz";
+        $stmt = $bdd->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    //Récupération des quiz d'UN utilisateur
+    public function getQuizUser($id)
+    {
+        $newBdd = new ConnexionBdd();
+        $bdd = $newBdd->Connextion();
+        $sql = "SELECT * FROM quiz WHERE id_user = $id";
+        $stmt = $bdd->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
