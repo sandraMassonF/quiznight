@@ -1,9 +1,10 @@
 <?php
 session_start();
-include_once('./Class.Bdd.php');
 include_once('./Class.Quiz.php');
 
 if (isset($_POST['view'])) {
+    $_SESSION['quizID'] = array_keys($_POST)[0];
+    echo $_SESSION['quizID'];
     header("location: ./autor-modif-quiz.php");
 };
 if (isset($_POST['new-quiz'])) {
@@ -12,7 +13,6 @@ if (isset($_POST['new-quiz'])) {
 
 $quiz = new Quiz();
 $result = $quiz->getAllQuiz();
-var_dump($result);
 
 ?>
 
@@ -25,7 +25,29 @@ var_dump($result);
     </form>
 
     <section class="quiz">
-        <article class="quiz-card">
+
+        <?php foreach ($result as $quiz): ?>
+            <article class="quiz-card">
+                <h2 class="quiz-card-title"><?= $quiz['titre'] ?></h2>
+                <div class="quiz-card-img">
+                    <img src="../asset/img/sonGoku.jpg" alt="san goku et les boules de cristal">
+                </div>
+                <p class="quiz-card-description"><?= $quiz['description'] ?></p>
+                <form action="" method="post">
+                    <input type="hidden" name="<?= $quiz['id'] ?>" value=<?= $quiz['id'] ?>>
+                    <input type="submit" name="view" id="button" class="button valider button-center" value="Afficher">
+                </form>
+            </article>
+        <?php endforeach ?>
+
+
+
+
+
+
+
+
+        <!-- <article class="quiz-card">
             <h2 class="quiz-card-title">Titre</h2>
             <div class="quiz-card-img">
                 <img src="../asset/img/sonGoku.jpg" alt="san goku et les boules de cristal">
@@ -54,7 +76,7 @@ var_dump($result);
             <form action="" method="post">
                 <input type="submit" name="view" id="button" class="button valider button-center" value="Afficher">
             </form>
-        </article>
+        </article> -->
 
     </section>
 
