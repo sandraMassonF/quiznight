@@ -1,4 +1,8 @@
 <?php
+session_start();
+include("../models/Quiz.php");
+$q = 0;
+// les redirections
 if (isset($_POST['update'])) {
     header("location: ./autor-modif-question.php");
 };
@@ -8,7 +12,14 @@ if (isset($_POST['new-question'])) {
 if (isset($_POST['return'])) {
     header("location: ./autor-page.php");
 };
-
+if (isset($_POST['update-new-name'])) {
+    $titre = htmlspecialchars($_POST['new-name']);
+    $id = htmlspecialchars($_SESSION['quizId']);
+    $quizUpdate = new Quiz();
+    $quizUpdate->updateNameQuiz($id, $titre);
+};
+$quizSelect = new Quiz();
+$result = $quizSelect->get_quizSelect($_SESSION['quizId']);
 ?>
 
 <?php include '../component/header.php'; ?>
@@ -17,12 +28,12 @@ if (isset($_POST['return'])) {
         <?php if (isset($_POST['update-name'])) : ?>
             <form action="" method="post" class="form-update-name">
                 <div class="form-new-name">
-                    <input type="text" name="new-name" class="new-name" placeholder="le nom du quiz">
+                    <input type="text" name="new-name" class="new-name" placeholder="<?= array_keys($result)[0] ?>" value="<?= array_keys($result)[0] ?>">
                     <input type="submit" name="update-new-name" id="button" class="button valider button-center" value="valider">
                 </div>
             </form>
         <?php else : ?>
-            <h1 class="title-quiz">Quiz : BLABLABLA</h1>
+            <h1 class="title-quiz">Quiz : <?= array_keys($result)[0] ?></h1>
             <form action="" method="post">
                 <input type="submit" name="update-name" id="button" class="button valider" value="Modifier">
             </form>
@@ -35,114 +46,30 @@ if (isset($_POST['return'])) {
         <input type="submit" name="new-question" id="button" class="button-new valider" value="Nouvelle Question">
     </form>
     <section class="question">
-        <article class="question-card">
-            <h2 class="question-card-title">Question ?</h2>
-            <ul>
-                <li class="question-answer">Reponse 1</li>
-                <li class="question-answer">Reponse 2</li>
-                <li class="question-answer">Reponse 3</li>
-                <li class="question-answer">Reponse 4</li>
-            </ul>
-            <div class="question-action">
-                <form action="" method="post">
-                    <input type="submit" name="update" id="button" class="button valider button-center" value="Modifier">
-                </form>
-                <form action="" method="post">
-                    <input type="submit" name="delete" id="button" class="button delete button-center" value="Supprimer">
-                </form>
-            </div>
-        </article>
-        <article class="question-card">
-            <h2 class="question-card-title">Question ?</h2>
-            <ul>
-                <li class="question-answer">Reponse 1</li>
-                <li class="question-answer">Reponse 2</li>
-                <li class="question-answer">Reponse 3</li>
-                <li class="question-answer">Reponse 4</li>
-            </ul>
-            <div class="question-action">
-                <form action="" method="post">
-                    <input type="submit" name="update" id="button" class="button valider button-center" value="Modifier">
-                </form>
-                <form action="" method="post">
-                    <input type="submit" name="delete" id="button" class="button delete button-center" value="Supprimer">
-                </form>
-            </div>
-        </article>
-        <article class="question-card">
-            <h2 class="question-card-title">Question ?</h2>
-            <ul>
-                <li class="question-answer">Reponse 1</li>
-                <li class="question-answer">Reponse 2</li>
-                <li class="question-answer">Reponse 3</li>
-                <li class="question-answer">Reponse 4</li>
-            </ul>
-            <div class="question-action">
-                <form action="" method="post">
-                    <input type="submit" name="update" id="button" class="button valider button-center" value="Modifier">
-                </form>
-                <form action="" method="post">
-                    <input type="submit" name="delete" id="button" class="button delete button-center" value="Supprimer">
-                </form>
-            </div>
-        </article>
-        <article class="question-card">
-            <h2 class="question-card-title">Question ?</h2>
-            <ul>
-                <li class="question-answer">Contre Freezer</li>
-                <li class="question-answer">Reponse 2</li>
-                <li class="question-answer">Reponse 3</li>
-                <li class="question-answer">Reponse 4</li>
-            </ul>
-            <div class="question-action">
-                <form action="" method="post">
-                    <input type="submit" name="update" id="button" class="button valider button-center" value="Modifier">
-                </form>
-                <form action="" method="post">
-                    <input type="submit" name="delete" id="button" class="button delete button-center" value="Supprimer">
-                </form>
-            </div>
-        </article>
-        <article class="question-card">
-            <h2 class="question-card-title">Question ?</h2>
-            <ul class="question-answer-list">
-                <li class="question-answer">Déclarer la guerre au monde vsbjhvqcvhjfffffffffff</li>
-                <li class="question-answer">Déclarer la guerre au monde vsbjhvqcvhjfffffffffff</li>
-                <li class="question-answer">Déclarer la guerre au monde vsbjhvqcvhjfffffffffff</li>
-                <li class="question-answer">Déclarer la guerre au monde vsbjhvqcvhjfffffffffff</li>
-            </ul>
-            <div class="question-action">
-                <form action="" method="post">
-                    <input type="submit" name="update" id="button" class="button valider button-center" value="Modifier">
-                </form>
-                <form action="" method="post">
-                    <input type="submit" name="delete" id="button" class="button delete button-center" value="Supprimer">
-                </form>
-            </div>
-        </article>
-        <article class="question-card">
-            <h2 class="question-card-title">Question ?</h2>
-            <ul>
-                <li class="question-answer">Reponse 1</li>
-                <li class="question-answer">Reponse 2</li>
-                <li class="question-answer">Reponse 3</li>
-                <li class="question-answer">Reponse 4</li>
-            </ul>
-            <div class="question-action">
-                <form action="" method="post">
-                    <input type="submit" name="update" id="button" class="button valider button-center" value="Modifier">
-                </form>
-                <form action="" method="post">
-                    <input type="submit" name="delete" id="button" class="button delete button-center" value="Supprimer">
-                </form>
-            </div>
-        </article>
+        <?php foreach ($result as $questions) : ?>
+            <?php foreach ($questions as $question) : ?>
+                <article class="question-card">
+                    <h2 class="question-card-title"><?= array_keys($questions)[$q] ?></h2>
+                    <ul>
+                        <?php foreach ($question as $response): ?>
+                            <li class="question-answer"><?= $response['answer'] ?></li>
+                        <?php endforeach ?>
+                    </ul>
+                    <div class="question-action">
+                        <form action="" method="post">
+                            <input type="submit" name="update" id="button" class="button valider button-center" value="Modifier">
+                        </form>
+                        <form action="" method="post">
+                            <input type="submit" name="delete" id="button" class="button delete button-center" value="Supprimer">
+                        </form>
+                    </div>
+                </article>
+            <?php $q += 1;
+            endforeach ?>
+        <?php endforeach ?>
     </section>
-
-
     <form action="" method="post">
         <input type="submit" name="return" id="button" class="button-new valider" value="Retour aux Quiz">
     </form>
-
 </main>
 <?php include '../component/footer.php'; ?>

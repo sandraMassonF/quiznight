@@ -105,4 +105,17 @@ class Quiz
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    //update du nom du quiz
+    public function updateNameQuiz($id, $titre)
+    {
+        $newBdd = new ConnexionBdd();
+        $bdd = $newBdd->Connextion();
+        $sql = "UPDATE quiz SET titre = :titre WHERE id = :id";
+        $update = $bdd->prepare($sql);
+        $update->execute([
+            ':titre' => $titre,
+            ':id' => $id
+        ]);
+    }
 }

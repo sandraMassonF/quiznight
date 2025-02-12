@@ -3,8 +3,8 @@ session_start();
 include('../models/Quiz.php');
 
 if (isset($_POST['view'])) {
-    $_SESSION['quizID'] = array_keys($_POST)[0];
-    echo $_SESSION['quizID'];
+    $_SESSION['quizId'] = array_keys($_POST)[0];
+    echo $_SESSION['quizId'];
     header("location: ./autor-modif-quiz.php");
 };
 if (isset($_POST['new-quiz'])) {
@@ -13,7 +13,7 @@ if (isset($_POST['new-quiz'])) {
 
 $quiz = new Quiz();
 $result = $quiz->getQuizUser(3);
-var_dump($result);
+
 
 ?>
 
