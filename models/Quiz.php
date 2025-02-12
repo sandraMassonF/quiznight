@@ -19,6 +19,7 @@ class Quiz
 
     private int $numQuiz;
     private array $quizSelect;
+    private bool $checkAnswer;
 
     public function __construct(int $numQuiz)
     {
@@ -27,6 +28,7 @@ class Quiz
 
         $this->numQuiz = $numQuiz;
         $this->quizSelect = [];
+        $this->checkAnswer = false;
     }
 
     public function get_numQuiz(): int
@@ -36,7 +38,7 @@ class Quiz
 
     // récupère les données du quiz demandées
 
-    public function get_quizSelect()
+    public function get_quizSelect(): array
     {
         $idQuiz = $this->get_numQuiz();
 
@@ -47,9 +49,12 @@ class Quiz
         FROM quiz
         JOIN question ON quiz.id = question.id_quiz
         JOIN reponse ON reponse.id_question = question.id
-        WHERE quiz.id = :idQuiz
-        ORDER BY RAND();
+        WHERE quiz.id = :idQuiz;
         ");
+
+        // revoir ORDER BY reponse.id_question, RAND()
+        // car rechange l'ordre des réponses apres submit 
+
         $quizStmt->execute([
             ':idQuiz' => $idQuiz
         ]);
@@ -77,23 +82,24 @@ class Quiz
 
         return $this->quizSelect;
     }
+
+    // vérifie la réponse
+
+    public function get_checkAnswer(): bool
+    {
+        $answerSubmit = $_POST['answer'];
+
+        if (!empty($_POST)) {
+            if ($answerSubmit == 1) {
+                return $this->checkAnswer = true;
+            } else {
+                return $this->checkAnswer = false;
+            }
+        }
+    }
 }
 
 $newQuiz = new Quiz(1);
 $quizSelect = $newQuiz->get_quizSelect();
 
-// // var_dump($quizSelect);
-
 // echo "<br><br><br>";
-
-// foreach ($quizSelect as $quizTitle => $quizQuestions) {
-//     echo $quizTitle . "<br><br><br><br>";
-
-//     foreach ($quizQuestions as $question => $reponses) {
-//         echo "<br>" . $question . "<br><br>";
-
-//         foreach ($reponses as $key => $id_rep) {
-//             echo $key . $id_rep['answer'] . "<br>";
-//         }
-//     }
-// }
