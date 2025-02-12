@@ -7,7 +7,7 @@ if (isset($_POST['valid'])) {
 
 
 <?php include '../component/header.php'; ?>
-<main class="autor-new-quiz">
+<main class="autor-quiz">
 
     <h1 class="autor-title">Nouveau quiz</h1>
 

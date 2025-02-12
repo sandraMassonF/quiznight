@@ -1,10 +1,18 @@
 <?php
+session_start();
+include_once('./Class.Bdd.php');
+include_once('./Class.Quiz.php');
+
 if (isset($_POST['view'])) {
     header("location: ./autor-modif-quiz.php");
 };
 if (isset($_POST['new-quiz'])) {
     header("location: ./autor-new-quiz.php");
 };
+
+$quiz = new Quiz();
+$result = $quiz->getAllQuiz();
+var_dump($result);
 
 ?>
 
