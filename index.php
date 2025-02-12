@@ -1,6 +1,15 @@
 <?php
 session_start();
 
+include_once './page/Class.Bdd.php';
+include_once './page/Class.Quiz.php';
+
+
+$newQuiz = new Quiz();
+$quizUser = $newQuiz->getAllQuiz();
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -43,6 +52,18 @@ session_start();
         <?php endif ?>
         
     </header>
+
+    <div class="quiz-container">
+    <?php foreach ($quizUser as $quiz): ?>
+        <div class="quiz-card">
+            <h2><?= $quiz['titre'] ?></h2>
+            <p><?= $quiz['description'] ?></p>
+            <p><strong>Créé par :</strong> <?= htmlspecialchars($quiz['pseudo']) ?></p>           
+            <img src="<?= $quiz['image'] ?>" alt="Image du quiz">      
+            <a href="quiz_detail.php?id=<?= $quiz['id'] ?>">Voir le quiz</a>
+        </div>
+    <?php endforeach; ?>
+    </div>
 
 
     <?php include './component/footer.php'; ?>
