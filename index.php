@@ -4,11 +4,8 @@ session_start();
 include_once './page/Class.Bdd.php';
 include_once './page/Class.Quiz.php';
 
-
 $newQuiz = new Quiz();
-$quizUser = $newQuiz->getAllQuiz();
-
-
+$quizUser = $newQuiz->getAllQuizByUser();
 
 ?>
 

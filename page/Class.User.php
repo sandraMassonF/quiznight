@@ -78,8 +78,7 @@ public function inscription(){
         } else {
             echo '<p class="alert">Veuillez remplir tous les champs</p>';
         }
-    }
-    
+    }    
 }
 
 }
