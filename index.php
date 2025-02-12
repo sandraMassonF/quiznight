@@ -51,7 +51,7 @@ $quizUser = $newQuiz->getAllQuizByUser();
     </header>
 
     <div class="quiz-container">
-    <?php var_dump($quizUser); foreach ($quizUser as $quiz): ?>
+    <?php foreach ($quizUser as $quiz): ?>
         <div class="quiz-card">
             <h2><?= $quiz['titre'] ?></h2>
             <p><?= $quiz['description'] ?></p>
