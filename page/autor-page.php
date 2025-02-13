@@ -43,45 +43,6 @@ $result = $quiz->getQuizUser(1);
                 </form>
             </article>
         <?php endforeach ?>
-
-
-
-
-
-
-
-
-        <!-- <article class="quiz-card">
-            <h2 class="quiz-card-title">Titre</h2>
-            <div class="quiz-card-img">
-                <img src="../asset/img/sonGoku.jpg" alt="san goku et les boules de cristal">
-            </div>
-            <p class="quiz-card-description">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt consequatur quasi molestiae. Doloremque minus placeat illum quo mollitia dignissimos odit voluptas beatae, voluptatem molestias dolores, veniam, rem non expedita alias omnis? Nostrum dolor</p>
-            <form action="" method="post">
-                <input type="submit" name="view" id="button" class="button valider button-center" value="Afficher">
-            </form>
-        </article>
-        <article class="quiz-card">
-            <h2 class="quiz-card-title">Titre</h2>
-            <div class="quiz-card-img">
-                <img src="../asset/img/sonGoku.jpg" alt="san goku et les boules de cristal">
-            </div>
-            <p class="quiz-card-description">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt consequatur quasi molestiae. Doloremque minus placeat illum quo mollitia dignissimos odit voluptas beatae, voluptatem molestias dolores, veniam, rem non expedita alias omnis? Nostrum dolor</p>
-            <form action="" method="post">
-                <input type="submit" name="view" id="button" class="button valider button-center" value="Afficher">
-            </form>
-        </article>
-        <article class="quiz-card">
-            <h2 class="quiz-card-title">Titre</h2>
-            <div class="quiz-card-img">
-                <img src="#" alt="san goku et les boules de cristal">
-            </div>
-            <p class="quiz-card-description">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt consequatur quasi molestiae. Doloremque minus placeat illum quo mollitia dignissimos odit voluptas beatae, voluptatem molestias dolores, veniam, rem non expedita alias omnis? Nostrum dolor</p>
-            <form action="" method="post">
-                <input type="submit" name="view" id="button" class="button valider button-center" value="Afficher">
-            </form>
-        </article> -->
-
     </section>
 
 
