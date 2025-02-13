@@ -16,7 +16,7 @@ $quizUser = $newQuiz->getAllQuizByUser();
 <html lang="fr">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="./asset/css/header-footer.css">
+<link rel="stylesheet" href="./asset/css/style_header-footer.css">
 <link rel="stylesheet" href="./asset/css/style_connexion.css">
 <link rel="stylesheet" href="./asset/css/style_quiz-jeu.css">
 <link rel="stylesheet" href="./asset/css/style_autor-page.css">
@@ -29,7 +29,7 @@ $quizUser = $newQuiz->getAllQuizByUser();
     <header class="header">
         <div class="logo-box">
             <a href="index.php">
-                <img src="./asset/img/accueil-logo.png" class="logo-header" />
+                <img src="./asset/img/accueil-logo.png" class="logo-header" alt="connexion" />
             </a>
         </div>
         <div class="box-symbol">
@@ -37,10 +37,14 @@ $quizUser = $newQuiz->getAllQuizByUser();
         </div>
 
         <?php if (isset($_SESSION['user'])) : ?>
-            <form method="post">
-                    <p>{# 001}</p> <!-- récupère et affiche le n° du user connecté -->
-                    <button class="disconnect_btn login" type="submit" name="mon-compte">Mon compte</button>
-                    <button class="disconnect_btn login" type="submit" name="deconnexion">Déconnexion</button>
+            <form method="post" class="btn-header">
+                <div class="compte-perso">
+                <button class="btn-icone" type="submit" name="mon-compte"><img src="./asset/img/utilisateur.png"></button>
+                <p class="login ">{001}</p> <!-- récupère et affiche le n° du user connecté -->
+                </div>
+                <div>
+                <button class="btn-icone btn-deco" type="submit" name="deconnexion"><img src="./asset/img/deconnexion.png"></button>
+                </div>
             </form>
          <?php
                 if (isset($_POST['deconnexion'])) {
@@ -50,7 +54,6 @@ $quizUser = $newQuiz->getAllQuizByUser();
                 }
                 if (isset($_POST['mon-compte'])) {
                     if (isset($_SESSION['user'])) { 
-                        var_dump($_SESSION);
                         header("Location: page/autor-page.php");
                 }
             };
@@ -58,8 +61,7 @@ $quizUser = $newQuiz->getAllQuizByUser();
           ?>
         <?php else : ?>
             <div class="login">
-            <a href="./page/connexion.php">Connexion</a>             
-
+            <a href="./page/connexion.php"><img src="./asset/img/utilisateur.png"></a>     
             </div>
         <?php endif ?>
 

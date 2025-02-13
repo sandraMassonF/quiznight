@@ -19,6 +19,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  
 }
 
 .header a {
@@ -26,7 +27,7 @@ body {
 }
 
 .logo-box {
-  width: 8rem;
+  width: 22%;
 }
 
 .logo-header {
@@ -34,8 +35,8 @@ body {
 }
 
 .symbol-header {
-  max-height: 100%;
-  max-width: 100%;
+  max-height: 100rem;
+  max-width: 100rem;
   /* height: 3rem; */
   object-fit: contain;
 }
