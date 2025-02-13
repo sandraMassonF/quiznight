@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-include_once './models/Class.Bdd.php';
 include_once './models/Quiz.php';
 
 if (isset($_POST['start-quiz'])){
@@ -13,7 +12,7 @@ $newQuiz = new Quiz();
 $quizUser = $newQuiz->getAllQuizByUser();
 
 
-var_dump($_POST);
+var_dump($_SESSION);
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +23,7 @@ var_dump($_POST);
 <link rel="stylesheet" href="./asset/css/style_connexion.css">
 <link rel="stylesheet" href="./asset/css/style_quiz-jeu.css">
 <link rel="stylesheet" href="./asset/css/style_autor-page.css">
-<link rel="stylesheet" href="./asset/css/style_autor-page2.css">
+<link rel="stylesheet" href="./asset/css/style_index.css">
 
 <title>S-Quiz Game</title>
 </head>
@@ -60,6 +59,7 @@ var_dump($_POST);
     </header>
 
     <main class="autor-page">
+        <h1 class="titreh1">Clique sur un quiz pour lancer les questions !</h1>
         <section class="quiz">
             <?php foreach ($quizUser as $quiz): ?>
                 <article class="quiz-card">
@@ -77,8 +77,5 @@ var_dump($_POST);
             
         </section>   
     </main>
-
-    
-
 
     <?php include './component/footer.php'; ?>
