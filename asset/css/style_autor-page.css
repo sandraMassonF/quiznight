@@ -25,7 +25,19 @@
   background-color: #0d594f;
   box-shadow: 0px 9px 30px 0px rgba(201, 201, 201, 0.69) inset;
 }
-
+.button {
+  box-shadow: 0px 9px 30px 0px rgba(201, 201, 201, 0.69) inset;
+  color: white;
+  width: 8rem;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+}
 /* ---------------  Style de la page ----------------------- */
 .autor-page {
   min-height: 80vh;
