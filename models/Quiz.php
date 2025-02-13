@@ -72,9 +72,9 @@ class Quiz
         if (!empty($_POST)) {
             if ($answerSubmit == 1) {
                 $_SESSION['rightAnswer']++;
-                $_SESSION['wrongAnswer']++;
                 $this->checkAnswer = true;
             } else {
+                $_SESSION['wrongAnswer']++;
                 $this->checkAnswer = false;
             }
 
