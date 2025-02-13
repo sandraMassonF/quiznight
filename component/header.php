@@ -14,7 +14,7 @@
 <body>
     <header class="header">
         <div class="logo-box">
-            <a href="index.php">
+            <a href="../index.php">
                 <img src="../asset/img/accueil-logo.png" class="logo-header" alt="connexion" />
             </a>
         </div>
@@ -46,8 +46,8 @@
 
           ?>
         <?php else : ?>
-            <div class="login">
-            <a href="./page/connexion.php"><img src="../asset/img/utilisateur.png"></a>     
+            <div class="btn-icone">
+            <a href="../page/connexion.php"><img src="../asset/img/utilisateur.png"></a>     
             </div>
         <?php endif ?>
 
