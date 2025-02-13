@@ -20,8 +20,8 @@ require_once('../models/Quiz.php');
 $newQuiz = new Quiz();
 
 //recup quiz selectionné --- parametre = valeur session select 
-$_SESSION['select'] = 1;
-$quizSelect = $newQuiz->get_quizSelect($_SESSION['select']);
+$_SESSION['selectedQuiz'] = 1;
+$quizSelect = $newQuiz->get_quizSelect($_SESSION['selectedQuiz']);
 
 $quizTitle = key($quizSelect);
 
@@ -36,6 +36,11 @@ if (!empty($_POST)) {
     // session bonne réponse
     if (!isset($_SESSION['rightAnswer'])) {
         $_SESSION['rightAnswer'] = 0;
+    }
+
+    // session mauvaise réponse
+    if (!isset($_SESSION['wrongAnswer'])) {
+        $_SESSION['wrongAnswer'] = 0;
     }
 
     if (isset($_POST['next'])) {
@@ -105,9 +110,9 @@ if (!empty($_POST)) {
     <!-- pré start -->
 
     <?php if (empty($_POST)): ?>
-        <section class="question-box">
+        <section class="start-box">
 
-            <div class="question-box-title">
+            <div class="start-box-title">
                 <h2 class="bold">Vous avez <span class="text-pink">{#}</span> vie
                     
                        <p> <span class="text-pink">{#}</span> mauvaises réponses avant élimination</p>
@@ -148,7 +153,7 @@ if (!empty($_POST)) {
             <div class="question-box-title">
                 <h2 class="bold">Question
                     <span class="text-pink">#
-                        <?= $numQuestion ?>
+                        <?= $numQuestion + 1 ?>
                     </span>
                 </h2>
 
@@ -271,7 +276,7 @@ if (!empty($_POST)) {
                                 </div>
                             <?php elseif ($selectedAnswer != "answerD" and $id_rep['result'] == 1): ?>
                                 <div class="answerTrue button-answer square-answer">
-                                    <p class="answer-text"><?= $id_rep['answer'] ?></p>
+                                    <p class="answer-text true-false"><?= $id_rep['answer'] ?></p>
                                 </div>
                             <?php else: ?>
                                 <div class="noAnswer button-answer square-answer">
