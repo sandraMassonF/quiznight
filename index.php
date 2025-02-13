@@ -10,9 +10,6 @@ $_SESSION['selectIdQuiz']= $selectIdQuiz;
 
 $newQuiz = new Quiz();
 $quizUser = $newQuiz->getAllQuizByUser();
-
-
-var_dump($_SESSION);
 ?>
 
 <!DOCTYPE html>
@@ -41,6 +38,7 @@ var_dump($_SESSION);
         
         <?php if (isset($_SESSION['user'])) :?>
             <form method="post">
+                    <button class="disconnect_btn login" type="submit" name="mon-compte">Mon compte</button>
                     <button class="disconnect_btn login" type="submit" name="deconnexion">Déconnexion</button>
             </form>
          <?php
@@ -49,6 +47,13 @@ var_dump($_SESSION);
                     session_destroy();
                     header("Location:index.php");
                 }
+                if (isset($_POST['mon-compte'])) {
+                    if (isset($_SESSION['user'])) { 
+                        var_dump($_SESSION);
+                        header("Location: page/autor-page.php");
+                }
+            };
+
           ?>
         <?php else : ?>
             <div class="login">
