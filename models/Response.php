@@ -12,21 +12,21 @@ class Response
     $create->execute([
       ':reponse' => $reponse,
       ':resultat' => intval($resultat),
-      ':id_question' => $id_question,
+      ':id_question' => intval($id_question),
     ]);
   }
 
-  public function updateResponse($id_response, $response, $resultat, $id_question)
+  public function updateResponse($id_reponse, $reponse, $resultat, $id_question)
   {
     $newBdd = new ConnexionBdd();
     $bdd = $newBdd->connexion();
-    $sql = "UPDATE response SET response = :response, resultat= :resultat, id_question= :id_question  WHERE id = :id";
+    $sql = "UPDATE reponse SET reponse = :reponse, resultat= :resultat, id_question= :id_question  WHERE id = :id";
     $update = $bdd->prepare($sql);
     $update->execute([
-      ':response' => $response,
-      ':resultat' => $resultat,
-      ':id_question' => $id_question,
-      ':id' => $id_response
+      ':id' => $id_reponse,
+      ':reponse' => $reponse,
+      ':resultat' => intval($resultat),
+      ':id_question' => intval($id_question)
     ]);
   }
 }

@@ -12,7 +12,6 @@ if (isset($_POST['new-quiz'])) {
 
 $quiz = new Quiz();
 $result = $quiz->getQuizUser($_SESSION['user']);
-var_dump($_SESSION);
 
 ?>
 

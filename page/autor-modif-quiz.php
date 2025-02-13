@@ -44,7 +44,7 @@ if (isset($_POST['delete-question'])) {
     $deleteQuestion->deleteQuestion($idQuestion);
     header("location: ./autor-modif-quiz.php");
 }
-
+var_dump($_SESSION);
 ?>
 
 <?php include '../component/header.php'; ?>
