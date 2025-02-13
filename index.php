@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-include_once './models/Class.Bdd.php';
 include_once './models/Quiz.php';
 
 if (isset($_POST['start-quiz'])){
