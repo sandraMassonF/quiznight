@@ -23,61 +23,60 @@ $newQuiz = new Quiz();
 $_SESSION['select'] = 1;
 $quizSelect = $newQuiz->get_quizSelect($_SESSION['select']);
 
-
-// session bonne réponse
-if (!isset($_SESSION['rightAnswer'])) {
-    $_SESSION['rightAnswer'] = 0;
-}
-
 $quizTitle = key($quizSelect);
 
 //-------------------------------------------------------------
 // récupère la réponse choisi et vérifie si elle est vraie
 if (!empty($_POST)) {
 
-    // variables de la question actuelle
     if (!isset($_SESSION['questionIndex'])) {
         $_SESSION['questionIndex'] = 0;
     }
+
+    // session bonne réponse
+    if (!isset($_SESSION['rightAnswer'])) {
+        $_SESSION['rightAnswer'] = 0;
+    }
+
     if (isset($_POST['next'])) {
         $_SESSION['questionIndex']++;
     }
 
-    // -------------------------------------
     $numQuestion = $_SESSION['questionIndex'];
     $quizQuestions = $quizSelect[$quizTitle];
     $currentQuestion = array_keys($quizQuestions)[$numQuestion];
     $currentAnswers = $quizQuestions[$currentQuestion];
-    // -------------------------------------
-    if (isset($_POST['result'])) {
-        $_SESSION['questionIndex'] = 0;
+
+    // stock l'ordre des réponses dans un tableau de session
+    if (!isset($_SESSION['answersOrder'][$numQuestion])) {
+        $_SESSION['answersOrder'][$numQuestion] = array_keys($currentAnswers);
+        // mélange les clés du tableau de reponses
+        shuffle($_SESSION['answersOrder'][$numQuestion]);
+    }
+
+    //  Tableau pour récuperer les réponses après mélange afin de les utiliser
+    $shuffledAnswers = [];
+    foreach ($_SESSION['answersOrder'][$numQuestion] as $key) {
+        $shuffledAnswers[] = $currentAnswers[$key];
     }
 
     // -------------------------------------
-    if (isset($_POST['answerA'])) {
-        $selectedAnswer = key($_POST);
-        $answerSubmit = $_POST['answerA'];
-        $_SESSION['answerSubmit'] = $answerSubmit;
-        $check = $newQuiz->get_checkAnswer($answerSubmit);
-        $rightAnswer = $_SESSION['rightAnswer'];
-    } elseif (isset($_POST['answerB'])) {
-        $selectedAnswer = key($_POST);
-        $answerSubmit = $_POST['answerB'];
-        $_SESSION['answerSubmit'] = $answerSubmit;
-        $check = $newQuiz->get_checkAnswer($answerSubmit);
-        $rightAnswer = $_SESSION['rightAnswer'];
-    } elseif (isset($_POST['answerC'])) {
-        $selectedAnswer = key($_POST);
-        $answerSubmit = $_POST['answerC'];
-        $_SESSION['answerSubmit'] = $answerSubmit;
-        $check = $newQuiz->get_checkAnswer($answerSubmit);
-        $rightAnswer = $_SESSION['rightAnswer'];
-    } elseif (isset($_POST['answerD'])) {
-        $selectedAnswer = key($_POST);
-        $answerSubmit = $_POST['answerD'];
-        $_SESSION['answerSubmit'] = $answerSubmit;
-        $check = $newQuiz->get_checkAnswer($answerSubmit);
-        $rightAnswer = $_SESSION['rightAnswer'];
+    // reset fin de quiz
+    if (isset($_POST['result'])) {
+        $_SESSION['questionIndex'] = 0;
+    }
+    // -------------------------------------
+
+    $answerABCD = ['answerA', 'answerB', 'answerC', 'answerD'];
+    foreach ($answerABCD as $choice) {
+        if (isset($_POST[$choice])) {
+            $selectedAnswer = key($_POST);
+            $answerSubmit = $_POST[$choice];
+            $_SESSION['answerSubmit'] = $answerSubmit;
+            $check = $newQuiz->get_checkAnswer($answerSubmit);
+            $rightAnswer = $_SESSION['rightAnswer'];
+            break;
+        }
     }
 }
 
@@ -91,14 +90,8 @@ if (!empty($_POST)) {
 
     <?php
 
-    var_dump($_POST);
-    var_dump($_SESSION);
-    if (isset($quizQuestions)) {
-
-        echo "nombre de questions" . count($quizQuestions);
-    }
-    // echo "<br>" . $numberOfQuestion;
-    // var_dump($currentAnswers);
+    // var_dump($_POST);
+    // var_dump($_SESSION);
     // var_dump($currentAnswers);
     ?>
 
@@ -169,7 +162,7 @@ if (!empty($_POST)) {
             ) : ?>
                 <div class="question-box-answers">
 
-                    <?php foreach ($currentAnswers as $key => $id_rep): ?>
+                    <?php foreach ($shuffledAnswers as $key => $id_rep): ?>
                         <?php if ($key == 0): ?>
 
                             <form action="" method="post">
@@ -201,7 +194,7 @@ if (!empty($_POST)) {
             <?php else: ?>
                 <!-- affichage des réponses -->
                 <div class="question-box-answers">
-                    <?php foreach ($currentAnswers as $key => $id_rep): ?>
+                    <?php foreach ($shuffledAnswers as $key => $id_rep): ?>
 
                         <?php if ($key == 0): ?>
                             <!--  -->
