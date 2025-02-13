@@ -70,6 +70,10 @@ var_dump($_SESSION);
                     <p class="quiz-card-description"><?= $quiz['description'] ?></p>
                     <form method="post" action="">
                     <button type="submit" name="start-quiz" id="button" class="button valider button-center" value="<?= $quiz['id'] ?>">Valider</button>
+                    <?php if(isset($_POST['start-quiz'])){
+                        header("location:./page/quiz-jeu.php");
+                    };
+                    ?>
                     </form>
                     <p class="quiz-autor">Créé par : <?= $quiz['pseudo'] ?></p>           
                 </article>
