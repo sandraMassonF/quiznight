@@ -29,10 +29,14 @@
 }
 .new-question {
   width: 70%;
-  margin: 0.6rem;
+  margin: 0.6rem auto;
 }
 
 .new-answer {
   width: 50%;
   margin: 0 auto;
+}
+.valid-question {
+  display: flex;
+  flex-direction: column;
 }

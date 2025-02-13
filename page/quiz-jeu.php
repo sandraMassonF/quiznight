@@ -17,7 +17,7 @@ try {
 require_once('../models/Quiz.php');
 
 
-$newQuiz = new Quiz(1);
+$newQuiz = new Quiz();
 $quizSelect = $newQuiz->get_quizSelect();
 
 
