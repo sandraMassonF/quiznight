@@ -8,6 +8,11 @@
   font-size: 2.5rem;
   font-weight: 800;
 }
+.description-quiz {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
 .name {
   width: 25%;
   border: 3px solid #587f7a;
@@ -77,6 +82,21 @@
   padding: 1rem;
   font-size: 1.3rem;
   font-weight: 600;
+  text-align: center;
+  margin: 0.5rem;
+}
+.new-image {
+  width: 40%;
+  border: 3px solid #587f7a;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  font-size: 1.3rem;
+  margin: 0.5rem;
+}
+.form-new-name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 /* ---------------  Style des boutons ----------------------- */
 

@@ -2,29 +2,56 @@
 include_once(__DIR__ . "/Class.Bdd.php");
 class Image
 {
-    public function createImage($nom, $taille, $type, $bin, $id_quiz)
+    // créer image
+    public function createImage($nom, $taille, $type, $tmp_name, $id_quiz)
     {
         $newBdd = new ConnexionBdd();
         $bdd = $newBdd->connexion();
-        $sql = "INSERT INTO reponse (reponse, resultat,id_question) VALUES (:reponse,:resultat, :id_question)";
-        $create = $bdd->prepare($sql);
-        $create->execute([
-            ':reponse' => $reponse,
-            ':resultat' => intval($resultat),
-            ':id_question' => intval($id_question),
-        ]);
+
+        // Déplacer le fichier téléchargé vers un répertoire permanent
+        $target_dir = "../asset/img/quiz/";
+        $target_file = $target_dir . basename($nom);
+        if (move_uploaded_file($tmp_name, $target_file)) {
+            $sql = "INSERT INTO image(nom, taille, type, bin, id_quiz) VALUES (:nom, :taille, :type, :bin, :id_quiz)";
+            $create = $bdd->prepare($sql);
+            $create->execute([
+                ':nom' => $nom,
+                ':taille' => intval($taille),
+                ':type' => $type,
+                ':bin' => $target_file,
+                ':id_quiz' => intval($id_quiz)
+            ]);
+        }
     }
-    public function updateResponse($id_reponse, $reponse, $resultat, $id_question)
+
+    // modifier image
+    public function updateImage($id_image, $nom, $taille, $type, $tmp_name, $id_quiz)
     {
         $newBdd = new ConnexionBdd();
         $bdd = $newBdd->connexion();
-        $sql = "UPDATE reponse SET reponse = :reponse, resultat= :resultat, id_question= :id_question  WHERE id = :id";
-        $update = $bdd->prepare($sql);
-        $update->execute([
-            ':id' => $id_reponse,
-            ':reponse' => $reponse,
-            ':resultat' => intval($resultat),
-            ':id_question' => intval($id_question)
-        ]);
+        $target_dir = "../asset/img/quiz/";
+        $target_file = $target_dir . basename($nom);
+        if (move_uploaded_file($tmp_name, $target_file)) {
+            $sql = "UPDATE image SET nom = :nom, taille =:taille, type =:type, bin =:bin, id_quiz=:id_quiz WHERE id = :id";
+            $create = $bdd->prepare($sql);
+            $create->execute([
+                ':id' => $id_image,
+                ':nom' => $nom,
+                ':taille' => intval($taille),
+                ':type' => intval($type),
+                ':bin' => $target_file,
+                ':id_quiz' => intval($id_quiz)
+            ]);
+        }
+    }
+    // récupération image par id du Quiz
+    public function getImageById($id)
+    {
+        $newBdd = new ConnexionBdd();
+        $bdd = $newBdd->connexion();
+        $sql = "SELECT * FROM image WHERE id_quiz = $id";
+        $recupImg = $bdd->prepare($sql);
+        $recupImg->execute();
+        return $recupImg->fetchAll();
     }
 }

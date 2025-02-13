@@ -1,8 +1,8 @@
 -- EFFACEMENT DES TABLES DANS LE BON ORDRE
 DROP TABLE IF EXISTS reponse;
 DROP TABLE IF EXISTS question;
-DROP TABLE IF EXISTS quiz;
 DROP TABLE IF EXISTS image;
+DROP TABLE IF EXISTS quiz;
 DROP TABLE IF EXISTS utilisateur;
 
 -- Création de la table UTILISATEUR
@@ -10,7 +10,7 @@ CREATE TABLE utilisateur (
     id INT AUTO_INCREMENT PRIMARY KEY,
     pseudo VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    score INT DEFAULT 0
+    score INT DEFAULT 10
 ) ENGINE=InnoDB;
 
 -- Création de la table QUIZ
@@ -18,7 +18,6 @@ CREATE TABLE quiz(
     id INT AUTO_INCREMENT PRIMARY KEY,
     titre VARCHAR(255) NOT NULL,
     description VARCHAR(255) NOT NULL,
-    image VARCHAR(255),
     id_user INT NOT NULL,
     FOREIGN KEY (id_user) REFERENCES utilisateur(id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB;
@@ -47,6 +46,6 @@ CREATE TABLE image (
     taille INT,
     type VARCHAR(20),
     bin LONGBLOB,
-    id_quiz INT NOT NULL
+    id_quiz INT NOT NULL,
     FOREIGN KEY (id_quiz) REFERENCES quiz(id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB;
