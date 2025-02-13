@@ -29,7 +29,7 @@ $quizUser = $newQuiz->getAllQuizByUser();
     <header class="header">
         <div class="logo-box">
             <a href="index.php">
-                <img src="./asset/img/accueil-logo.png" class="logo-header" alt="connexion" />
+                <img src="./asset/img/accueil-logo.png" class="logo-header" alt="accueil" />
             </a>
         </div>
         <div class="box-symbol">
@@ -60,7 +60,7 @@ $quizUser = $newQuiz->getAllQuizByUser();
 
           ?>
         <?php else : ?>
-            <div class="login">
+            <div class="btn-icone">
             <a href="./page/connexion.php"><img src="./asset/img/utilisateur.png"></a>     
             </div>
         <?php endif ?>
