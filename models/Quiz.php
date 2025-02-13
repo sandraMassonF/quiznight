@@ -1,17 +1,5 @@
 <?php
-
-$host = "localhost";
-$username = "root";
-$password = "";
-
-// CONNEXION à la base de donnée
-try {
-    $bdd  = new PDO("mysql:host=$host;dbname=s-quiz_game;charset=utf8", $username, $password);
-    $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    echo "Erreur : " . $e->getMessage();
-}
-
+include(__DIR__ . "/Class.Bdd.php");
 
 class Quiz
 {
@@ -33,10 +21,11 @@ class Quiz
 
     public function get_quizSelect($idQuiz): array
     {
-
-        $quizStmt = $this->bdd->prepare("
+        $newBdd = new ConnexionBdd();
+        $bdd = $newBdd->connexion();
+        $quizStmt = $bdd->prepare("
         SELECT quiz.titre, quiz.id, 
-        question.question, question.id_quiz,
+        question.id as id_question, question.question, question.id_quiz,
         reponse.reponse, reponse.resultat, reponse.id_question
         FROM quiz
         JOIN question ON quiz.id = question.id_quiz
@@ -57,6 +46,7 @@ class Quiz
             $quizQuestion = $value['question'];
             $quizAnswer = $value['reponse'];
             $quizResult = $value['resultat'];
+            $quizIdQuestion = $value['id_question'];
 
             if (!isset($this->quizSelect[$quizNom])) {
                 $this->quizSelect[$quizNom] = [];
@@ -68,7 +58,8 @@ class Quiz
 
             $this->quizSelect[$quizNom][$quizQuestion][] = [
                 'answer' => $quizAnswer,
-                'result' => $quizResult
+                'result' => $quizResult,
+                'id_question' => $quizIdQuestion,
             ];
         }
 
@@ -76,7 +67,6 @@ class Quiz
     }
 
     // vérifie la réponse
-
     public function get_checkAnswer($answerSubmit): bool
     {
         if (!empty($_POST)) {
@@ -91,5 +81,88 @@ class Quiz
             unset($_POST['answer']);
             return $this->checkAnswer;
         }
+    }
+
+    // Récupération de TOUS les quiz
+    public function getAllQuiz()
+    {
+        $newBdd = new ConnexionBdd();
+        $bdd = $newBdd->Connexion();
+        $sql = "SELECT * FROM quiz";
+        $stmt = $bdd->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    //Récupération des quiz d'UN utilisateur
+    public function getQuizUser($id)
+    {
+        $newBdd = new ConnexionBdd();
+        $bdd = $newBdd->connexion();
+        $sql = "SELECT * FROM quiz WHERE id_user = $id";
+        $stmt = $bdd->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+  
+    // Récupération d'un quiz via son id
+    public function getOneQuiz($quizId)
+    {
+        $newBdd = new ConnexionBdd();
+        $bdd = $newBdd->connexion();
+        $sql = "SELECT *
+        FROM quiz
+        WHERE quiz.id = $quizId ";
+    }
+    public function getAllQuizByUser()
+    {
+        $newBdd = new ConnexionBdd();
+        $bdd = $newBdd->Connexion();
+        $sql = "SELECT quiz.id, quiz.titre, quiz.description, quiz.image, quiz.id_user, utilisateur.pseudo FROM quiz JOIN utilisateur ON quiz.id_user = utilisateur.id ORDER BY quiz.id;";
+
+        $stmt = $bdd->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    //update du nom du quiz
+    public function updateNameQuiz($id, $titre)
+    {
+        $newBdd = new ConnexionBdd();
+        $bdd = $newBdd->connexion();
+        $sql = "UPDATE quiz SET titre = :titre WHERE id = :id";
+        $update = $bdd->prepare($sql);
+        $update->execute([
+            ':titre' => $titre,
+            ':id' => $id
+        ]);
+    }
+
+    //création nouveau quiz
+    public function createQuiz($titre, $description, $image, $id_user)
+    {
+        $newBdd = new ConnexionBdd();
+        $bdd = $newBdd->connexion();
+        $sql = "INSERT INTO quiz (titre, description, image, id_user) VALUES (:titre, :description, :image, :id_user)";
+        $create = $bdd->prepare($sql);
+        $create->execute([
+            ':titre' => $titre,
+            ':description' => $description,
+            ':image' => $image,
+            ':id_user' => $id_user,
+        ]);
+    }
+      
+    // Supprimer un Quiz
+    public function deleteQuiz($quizId)
+    {
+        $newBdd = new ConnexionBdd();
+        $bdd = $newBdd->connexion();
+        $sql = "DELETE FROM quiz WHERE id= $quizId";
+        $delete = $bdd->prepare($sql);
+        $delete->execute();
     }
 }

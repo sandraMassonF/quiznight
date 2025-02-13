@@ -1,6 +1,15 @@
 <?php
+session_start();
+
+include("../models/Quiz.php");
 if (isset($_POST['valid'])) {
-    header("location: ./autor-modif-quiz.php");
+    $titre = htmlspecialchars($_POST['titre']);
+    $description = htmlspecialchars($_POST['description']);
+    $image = htmlspecialchars($_POST['image']);
+    $id_user = $_SESSION['userId'];
+    $quizUpdate = new Quiz();
+    $quizUpdate->createQuiz($titre, $description, $image, $id_user);
+    header("location: ./autor-page.php");
 };
 ?>
 
@@ -13,7 +22,9 @@ if (isset($_POST['valid'])) {
 
 
     <form action="" method="post">
-        <input type="text" name="name-quiz" class="name">
+        <input type="text" name="titre" class="name" placeholder="Non du Quiz">
+        <input type="text" name="description" class="name" placeholder="Description du Quiz">
+        <input type="text" name="image" class="name" placeholder="Image ilustration">
         <input type="submit" name="valid" id="button" class="button valider button-center" value="Valider">
     </form>
 </main>

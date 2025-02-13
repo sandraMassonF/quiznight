@@ -6,7 +6,6 @@
         <a href="#">Twitter</a>
         <a href="#">TikTok</a>
     </div>
-
 </footer>
 </body>
 

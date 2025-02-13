@@ -39,6 +39,9 @@
   border: 3px solid #587f7a;
   border-radius: 2rem;
   text-align: center;
+  flex-direction: column;
+  justify-content: space-between;
+  display: flex;
 }
 .question-card-title {
   padding: 0.4rem;
