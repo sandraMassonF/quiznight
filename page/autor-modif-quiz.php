@@ -1,6 +1,7 @@
 <?php
 session_start();
 include("../models/Quiz.php");
+include("../models/Question.php");
 $q = 0;
 // les redirections
 if (isset($_POST['update'])) {
@@ -23,12 +24,18 @@ if (isset($_POST['update-new-name'])) {
 $quizSelect = new Quiz();
 $result = $quizSelect->get_quizSelect($_SESSION['quizId']);
 $resultQuiz = $quizSelect->getOneQuiz($_SESSION['quizId']);
-
 // Suppression d'un Quiz
 if (isset($_POST['delete-quiz'])) {
     $deleteQuiz = new Quiz();
     $deleteQuiz->deleteQuiz($_SESSION['quizId']);
     header("location: ./autor-page.php");
+}
+// Suppression d'une Question
+if (isset($_POST['delete-question'])) {
+    $idQuestion = $_POST['delete-question'];
+    $deleteQuestion = new Question();
+    $deleteQuestion->deleteQuestion($idQuestion);
+    header("location: ./autor-modif-quiz.php");
 }
 ?>
 
@@ -67,10 +74,10 @@ if (isset($_POST['delete-quiz'])) {
                     </ul>
                     <div class="question-action">
                         <form action="" method="post">
-                            <input type="submit" name="update" id="button" class="button valider button-center" value="Modifier">
+                            <button type="submit" class="button valider button-center" name="update-question" value="<?= $question[0]['id_question'] ?>">Modifier</button>
                         </form>
                         <form action="" method="post">
-                            <input type="submit" name="delete" id="button" class="button delete button-center" value="Supprimer">
+                            <button type="submit" class="button delete button-center" name="delete-question" value="<?= $question[0]['id_question'] ?>">Supprimer</button>
                         </form>
                     </div>
                 </article>

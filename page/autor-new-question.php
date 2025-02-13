@@ -3,7 +3,7 @@ session_start();
 include("../models/Question.php");
 include("../models/Response.php");
 // Ajout de la nouvelle question
-if (isset($_POST['valid-question'])) {
+if ((isset($_POST['valid-question'])) and ($_POST['question'] != "")) {
     $question = htmlspecialchars($_POST['question']);
     $id_quiz = $_SESSION['quizId'];
     $newQuestion = new Question();
@@ -15,13 +15,19 @@ if (isset($_POST['valid-question'])) {
     var_dump($_SESSION);
 };
 // Ajout des reponse à la question
-if (isset($_POST['valid-response'])) {
+if ((isset($_POST['valid-response'])) and (($_POST['good'] == "") || ($_POST['bad1'] == "") || ($_POST['bad2'] == "") || ($_POST['bad3'] == ""))) {
+    $error = new Question();
+    $error->deleteQuestion($_SESSION['last-question-id']);
+    unset($_SESSION['last-question']);
+    unset($_SESSION['last-question-id']);
+    header("location: ./autor-modif-quiz.php");
+} elseif ((isset($_POST['valid-response'])) and (($_POST['good'] != "") || ($_POST['bad1'] != "") || ($_POST['bad2'] != "") || ($_POST['bad3'] != ""))) {
     var_dump($_POST);
     var_dump($_SESSION);
-    $goodResponse = htmlspecialchars($_POST['good-response']);
-    $response1 = htmlspecialchars($_POST['bad-response1']);
-    $response2 = htmlspecialchars($_POST['bad-response2']);
-    $response3 = htmlspecialchars($_POST['bad-response3']);
+    $goodResponse = htmlspecialchars($_POST['good']);
+    $response1 = htmlspecialchars($_POST['bad1']);
+    $response2 = htmlspecialchars($_POST['bad2']);
+    $response3 = htmlspecialchars($_POST['bad3']);
     $id_question = $_SESSION['last-question-id'];
     $newResponse = new Response();
     $newResponse->createResponse($goodResponse, 1, $id_question);
@@ -32,6 +38,7 @@ if (isset($_POST['valid-response'])) {
     unset($_SESSION['last-question-quiz']);
     header("location: ./autor-modif-quiz.php");
 };
+
 ?><?php include '../component/header.php'; ?>
 
 <main class="autor-quiz">
@@ -45,21 +52,21 @@ if (isset($_POST['valid-response'])) {
                         <h3 class="last-question"><?= $_SESSION['last-question'] ?></h3>
                     <?php else : ?>
                         <input type="text" class="new-question-update-input new-question" placeholder="Posez votre question" name="question">
-                    <?php endif ?>
-                    <?php if (!isset($_POST['valid-question'])): ?>
                         <label for="valid-question">Veuillez valider la question</label>
                         <input type="submit" name="valid-question" id="valid-question" class="button valider button-center" value="Valider">
                     <?php endif ?>
                 </div>
             </form>
             <form action="" method="post">
-                <ul class="new-question-update-list">
-                    <input type="text" class="new-question-update-input new-answer" placeholder="Entrez la BONNE réponse" name="good-response"></input>
-                    <input type="text" class="new-question-update-input new-answer" placeholder="Entrez 1er mauvaise réponse" name="bad-response1"></input>
-                    <input type="text" class="new-question-update-input new-answer" placeholder="Entrez 2eme mauvaise réponse" name="bad-response2"></input>
-                    <input type="text" class="new-question-update-input new-answer" placeholder="Entrez 3eme mauvaise réponse" name="bad-response3"></input>
-                </ul>
-                <?php if (isset($_POST['valid-question'])) : ?>
+                <?php if ((isset($_POST['valid-question'])) and ($_POST['question'] === "")) : ?>
+                    <p class="error-question">Veuillez Entrer une question !</p>
+                <?php elseif ((isset($_POST['valid-question'])) and ($_POST['question'] != "")) : ?>
+                    <ul class="new-question-update-list">
+                        <input type="text" class="new-question-update-input new-answer" placeholder="Entrez la BONNE réponse" name="good"></input>
+                        <input type="text" class="new-question-update-input new-answer" placeholder="Entrez 1er mauvaise réponse" name="bad1"></input>
+                        <input type="text" class="new-question-update-input new-answer" placeholder="Entrez 2eme mauvaise réponse" name="bad2"></input>
+                        <input type="text" class="new-question-update-input new-answer" placeholder="Entrez 3eme mauvaise réponse" name="bad3"></input>
+                    </ul>
                     <input type="submit" name="valid-response" id="button" class="button valider button-center" value="Valider">
                 <?php endif ?>
             </form>

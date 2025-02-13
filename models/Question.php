@@ -3,6 +3,7 @@ include_once(__DIR__ . "/Class.Bdd.php");
 class Question
 {
 
+  // Creer une nouvelle question
   public function createQuestion($question, $id_quiz)
   {
     $newBdd = new ConnexionBdd();
@@ -14,6 +15,8 @@ class Question
       ':id_quiz' => $id_quiz,
     ]);
   }
+
+  // récupérer la dernière question créer
   public function getLastQuestion()
   {
     $newBdd = new ConnexionBdd();
@@ -27,10 +30,7 @@ class Question
     return $selectLast->fetchAll(PDO::FETCH_ASSOC);
   }
 
-
-
-
-
+  // Modifier une Question
   public function updateQuestion($id_question, $question)
   {
     $newBdd = new ConnexionBdd();
@@ -41,5 +41,15 @@ class Question
       ':question' => $question,
       ':id' => $id_question
     ]);
+  }
+
+  // Supprimer un Question
+  public function deleteQuestion($questionId)
+  {
+    $newBdd = new ConnexionBdd();
+    $bdd = $newBdd->connexion();
+    $sql = "DELETE FROM question WHERE id= $questionId";
+    $delete = $bdd->prepare($sql);
+    $delete->execute();
   }
 }

@@ -25,7 +25,7 @@ class Quiz
         $bdd = $newBdd->connexion();
         $quizStmt = $bdd->prepare("
         SELECT quiz.titre, quiz.id, 
-        question.question, question.id_quiz,
+        question.id as id_question, question.question, question.id_quiz,
         reponse.reponse, reponse.resultat, reponse.id_question
         FROM quiz
         JOIN question ON quiz.id = question.id_quiz
@@ -46,6 +46,7 @@ class Quiz
             $quizQuestion = $value['question'];
             $quizAnswer = $value['reponse'];
             $quizResult = $value['resultat'];
+            $quizIdQuestion = $value['id_question'];
 
             if (!isset($this->quizSelect[$quizNom])) {
                 $this->quizSelect[$quizNom] = [];
@@ -57,7 +58,8 @@ class Quiz
 
             $this->quizSelect[$quizNom][$quizQuestion][] = [
                 'answer' => $quizAnswer,
-                'result' => $quizResult
+                'result' => $quizResult,
+                'id_question' => $quizIdQuestion,
             ];
         }
 
