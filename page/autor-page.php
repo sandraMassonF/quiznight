@@ -1,10 +1,6 @@
 <?php
 session_start();
 include('../models/Quiz.php');
-$userId = 1;
-if (!isset($_SESSION['userId'])) {
-    $_SESSION['userId'] = $userId;
-}
 if (isset($_POST['view'])) {
     $_SESSION['quizId'] = array_keys($_POST)[0];
     echo $_SESSION['quizId'];
@@ -15,8 +11,8 @@ if (isset($_POST['new-quiz'])) {
 };
 
 $quiz = new Quiz();
-$result = $quiz->getQuizUser(1);
-
+$result = $quiz->getQuizUser($_SESSION['user']);
+var_dump($_SESSION);
 
 ?>
 

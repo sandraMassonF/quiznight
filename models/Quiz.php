@@ -71,14 +71,13 @@ class Quiz
     {
         if (!empty($_POST)) {
             if ($answerSubmit == 1) {
+                $_SESSION['rightAnswer']++;
+                $_SESSION['wrongAnswer']++;
                 $this->checkAnswer = true;
-                // return $this->checkAnswer;
             } else {
                 $this->checkAnswer = false;
-                // return $this->checkAnswer;
             }
 
-            unset($_POST['answer']);
             return $this->checkAnswer;
         }
     }

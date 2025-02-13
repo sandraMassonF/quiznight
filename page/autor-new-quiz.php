@@ -6,7 +6,7 @@ if (isset($_POST['valid'])) {
     $titre = htmlspecialchars($_POST['titre']);
     $description = htmlspecialchars($_POST['description']);
     $image = htmlspecialchars($_POST['image']);
-    $id_user = $_SESSION['userId'];
+    $id_user = $_SESSION['user'];
     $quizUpdate = new Quiz();
     $quizUpdate->createQuiz($titre, $description, $image, $id_user);
     header("location: ./autor-page.php");
