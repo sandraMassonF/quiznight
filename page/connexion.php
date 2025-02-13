@@ -1,38 +1,8 @@
 <?php
-$host = "localhost";
-$username = "root";
-$password = "";
+include 'Class.User.php';
 
-// CONNEXION à la base de donnée
-try {
-    $bdd  = new PDO("mysql:host=$host;dbname=s-quiz_game;charset=utf8", $username, $password);
-    $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    echo "Erreur : " . $e->getMessage();
-}
-
-if (isset($_POST['submit'])) {
-    if (!empty($_POST['pseudo']) && !empty($_POST['password'])) {
-        $pseudo = htmlentities($_POST['pseudo']);
-        $password = htmlentities($_POST['password']);
-        $req = $bdd->prepare("SELECT * FROM utilisateur WHERE pseudo = :pseudo AND password = :password");
-        $req->execute([
-            "pseudo" => $pseudo,
-            "password" => $password
-        ]);
-        $req = $req->fetch(PDO::FETCH_ASSOC);
-
-        if (empty($req)) {
-            echo '<p class="alert">Pseudo ou mot de passe incorrect !</p>';
-        } else {
-            session_start();
-            $_SESSION['user'] = $req['id'];
-            header("location:./index.php");
-        }
-    } else {
-        echo '<p class="alert">Veuillez remplir tous les champs</p>';
-    }
-}
+$newCo = new Utilisateur();
+$newConnexion = $newCo->connexion();
 
 ?>
 

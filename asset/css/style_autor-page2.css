@@ -1,0 +1,13 @@
+
+.quiz-card {
+  height: 23rem;
+}
+
+.quiz-autor{
+width: 50%;
+text-align: right;
+margin-top: 2.5rem;
+border: 3px solid #587f7a;
+padding: 0.3rem;
+
+}

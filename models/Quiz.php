@@ -67,7 +67,6 @@ class Quiz
     }
 
     // vérifie la réponse
-
     public function get_checkAnswer($answerSubmit): bool
     {
         if (!empty($_POST)) {
@@ -88,7 +87,7 @@ class Quiz
     public function getAllQuiz()
     {
         $newBdd = new ConnexionBdd();
-        $bdd = $newBdd->connexion(); //changer le connexion en connexion
+        $bdd = $newBdd->Connextion(); //changer le connextion en connexion
         $sql = "SELECT * FROM quiz";
         $stmt = $bdd->prepare($sql);
         $stmt->execute();
@@ -107,6 +106,7 @@ class Quiz
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+  
     // Récupération d'un quiz via son id
     public function getOneQuiz($quizId)
     {
@@ -115,6 +115,13 @@ class Quiz
         $sql = "SELECT *
         FROM quiz
         WHERE quiz.id = $quizId ";
+
+    public function getAllQuizByUser()
+    {
+        $newBdd = new ConnexionBdd();
+        $bdd = $newBdd->Connextion(); //changer le connextion en connexion
+        $sql = "SELECT quiz.id, quiz.titre, quiz.description, quiz.image, quiz.id_user, utilisateur.pseudo FROM quiz JOIN utilisateur ON quiz.id_user = utilisateur.id ORDER BY quiz.id;";
+
         $stmt = $bdd->prepare($sql);
         $stmt->execute();
 
@@ -148,6 +155,7 @@ class Quiz
             ':id_user' => $id_user,
         ]);
     }
+      
     // Supprimer un Quiz
     public function deleteQuiz($quizId)
     {
