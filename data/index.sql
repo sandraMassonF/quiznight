@@ -2,6 +2,7 @@
 DROP TABLE IF EXISTS reponse;
 DROP TABLE IF EXISTS question;
 DROP TABLE IF EXISTS quiz;
+DROP TABLE IF EXISTS image;
 DROP TABLE IF EXISTS utilisateur;
 
 -- Création de la table UTILISATEUR
@@ -37,4 +38,15 @@ CREATE TABLE reponse (
     resultat BOOLEAN,
     id_question INT NOT NULL,
     FOREIGN KEY (id_question) REFERENCES question(id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+
+-- Création de la table IMAGE
+CREATE TABLE image (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(255) NOT NULL,
+    taille INT,
+    type VARCHAR(20),
+    bin LONGBLOB,
+    id_quiz INT NOT NULL
+    FOREIGN KEY (id_quiz) REFERENCES quiz(id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB;

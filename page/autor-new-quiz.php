@@ -24,7 +24,8 @@ if (isset($_POST['valid'])) {
     <form action="" method="post">
         <input type="text" name="titre" class="name" placeholder="Non du Quiz">
         <input type="text" name="description" class="name" placeholder="Description du Quiz">
-        <input type="text" name="image" class="name" placeholder="Image ilustration">
+        <!-- <input type="text" name="image" class="name" placeholder="Image ilustration"> -->
+        <input type="file" name="image" class="name">
         <input type="submit" name="valid" id="button" class="button valider button-center" value="Valider">
     </form>
 </main>
