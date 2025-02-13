@@ -38,6 +38,7 @@ $quizUser = $newQuiz->getAllQuizByUser();
         
         <?php if (isset($_SESSION['user'])) :?>
             <form method="post">
+                    <p>{# 001}</p> <!-- récupère et affiche le n° du user connecté -->
                     <button class="disconnect_btn login" type="submit" name="mon-compte">Mon compte</button>
                     <button class="disconnect_btn login" type="submit" name="deconnexion">Déconnexion</button>
             </form>
@@ -57,7 +58,7 @@ $quizUser = $newQuiz->getAllQuizByUser();
           ?>
         <?php else : ?>
             <div class="login">
-            <a href="./page/connexion.php">Connexion</a>
+            <a href="./page/connexion.php">Connexion</a>             
             </div>
         <?php endif ?>
         
