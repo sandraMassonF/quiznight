@@ -21,6 +21,13 @@ if (isset($_POST['update-new-name'])) {
     $quizUpdate = new Quiz();
     $quizUpdate->updateNameQuiz($id, $titre);
 };
+
+if (isset($_POST['update-question'])) {
+    $_SESSION['questionId'] = $_POST['update-question'];
+    var_dump($_POST);
+    var_dump($_SESSION);
+    header("location: ./autor-modif-question.php");
+}
 $quizSelect = new Quiz();
 $result = $quizSelect->get_quizSelect($_SESSION['quizId']);
 $resultQuiz = $quizSelect->getOneQuiz($_SESSION['quizId']);
@@ -37,6 +44,7 @@ if (isset($_POST['delete-question'])) {
     $deleteQuestion->deleteQuestion($idQuestion);
     header("location: ./autor-modif-quiz.php");
 }
+
 ?>
 
 <?php include '../component/header.php'; ?>

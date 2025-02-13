@@ -11,8 +11,6 @@ if ((isset($_POST['valid-question'])) and ($_POST['question'] != "")) {
     $lastQuestion = $newQuestion->getLastQuestion();
     $_SESSION['last-question'] = $lastQuestion[0]['question'];
     $_SESSION['last-question-id'] = $lastQuestion[0]['id'];
-    var_dump($lastQuestion);
-    var_dump($_SESSION);
 };
 // Ajout des reponse à la question
 if ((isset($_POST['valid-response'])) and (($_POST['good'] == "") || ($_POST['bad1'] == "") || ($_POST['bad2'] == "") || ($_POST['bad3'] == ""))) {

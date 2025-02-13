@@ -22,9 +22,9 @@ class Question
     $newBdd = new ConnexionBdd();
     $bdd = $newBdd->connexion();
     $sql = "SELECT id, question
-  FROM question
-  ORDER BY id DESC
-  LIMIT 1";
+    FROM question
+    ORDER BY id DESC
+    LIMIT 1";
     $selectLast = $bdd->prepare($sql);
     $selectLast->execute();
     return $selectLast->fetchAll(PDO::FETCH_ASSOC);
@@ -51,5 +51,18 @@ class Question
     $sql = "DELETE FROM question WHERE id= $questionId";
     $delete = $bdd->prepare($sql);
     $delete->execute();
+  }
+  // Récupérer une question via son Id
+  public function getQuestionById($id)
+  {
+    $newBdd = new ConnexionBdd();
+    $bdd = $newBdd->connexion();
+    $sql = "SELECT question.id, question.question, reponse.id, reponse.reponse, reponse.resultat,reponse.id_question 
+    FROM question
+    JOIN reponse ON reponse.id_question = question.id
+    WHERE question.id = $id";
+    $selectLast = $bdd->prepare($sql);
+    $selectLast->execute();
+    return $selectLast->fetchAll(PDO::FETCH_ASSOC);
   }
 }

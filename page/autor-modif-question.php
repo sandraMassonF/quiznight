@@ -1,6 +1,14 @@
 <?php
+session_start();
+include_once("../models/Question.php");
+include_once("../models/Response.php");
+var_dump($_SESSION);
+$question = new Question();
+$updateQuestion = $question->getQuestionById($_SESSION['questionId']);
+
 if (isset($_POST['update'])) {
-    header("location: ./autor-modif-quiz.php");
+    var_dump($_POST);
+    // header("location: ./autor-modif-quiz.php");
 };
 ?>
 
