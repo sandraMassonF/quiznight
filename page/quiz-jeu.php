@@ -2,13 +2,24 @@
 
 session_start();
 
-require_once('../models/Quiz.php');
+include_once('../models/Quiz.php');
+include_once('../models/User.php');
 
 $newQuiz = new Quiz();
+
+// $_SESSION['user'] = 2;
+// $_SESSION['score'] = 10;
 
 //recup quiz selectionné --- parametre = valeur session select 
 // $_SESSION['selectIdQuiz'] = 1;
 
+// erreur page si non connecté
+if (!isset($_SESSION['user'])) {
+    if (isset($_POST['connexion'])) {
+        header('location: connexion.php');
+    }
+}
+// erreur page si pas de quiz ID
 if (!isset($_SESSION['selectIdQuiz'])) {
     $error_message = "Quiz introuvable";
     if (isset($_POST['home'])) {
@@ -20,12 +31,33 @@ if (!isset($_SESSION['selectIdQuiz'])) {
     $quizTitle = key($quizSelect);
 
     // -------------------------------------
+
+    $messageScore = "";
+    if (isset($_POST['result'])) {
+        $newScore = new Utilisateur();
+        $updatedScore = $newScore->updateScore($_SESSION['user'], $_SESSION['score'], $_SESSION['wrongAnswer']);
+        $_SESSION['score'] = $updatedScore;
+        if ($updatedScore == 0) {
+            $messageScore = "Vous êtes éliminé !";
+        } else {
+            $messageScore = "Bravo !";
+        }
+    }
+
+
     // reset fin de quiz
     if (isset($_POST['home'])) {
-        unset($_SESSION['questionIndex']);
-        unset($_SESSION['answersOrder']);
-        unset($_SESSION['answersSubmit']);
-        unset($_SESSION['rightAnswer']);
+
+        if ($_SESSION['score'] > 0) {
+            unset($_SESSION['questionIndex']);
+            unset($_SESSION['answersOrder']);
+            unset($_SESSION['answersSubmit']);
+            unset($_SESSION['rightAnswer']);
+            unset($_SESSION['wrongAnswer']);
+        } else {
+            session_destroy();
+        }
+
         header('location: ../index.php');
     }
 
@@ -93,28 +125,41 @@ if (!isset($_SESSION['selectIdQuiz'])) {
 
     <?php
 
-    var_dump($_POST);
+    // var_dump($_POST);
     var_dump($_SESSION);
     // var_dump($currentAnswers);
     ?>
 
     <!-- erreur -->
 
-    <?php if (!isset($_SESSION['selectIdQuiz'])) : ?>
+    <?php if (!isset($_SESSION['selectIdQuiz']) or !isset($_SESSION['user'])) : ?>
 
         <section class="error-box">
-            <article>
-                <p>Oops !</p>
-                <p><?= $error_message ?></p>
-            </article>
+            <?php if (!isset($_SESSION['user'])): ?>
+                <article>
+                    <p>Vous n'êtes pas connecté</p>
+
+                </article>
+                <div class="button-box">
+                    <form action="" method="post">
+                        <input type="submit" name="connexion" id="next" class="button-next" value="Connexion">
+                    </form>
+                </div>
+            <?php else: ?>
+                <article>
+                    <p>Oops !</p>
+                    <p><?= $error_message ?></p>
+                </article>
+                <div class="button-box">
+                    <form action="" method="post">
+                        <input type="submit" name="home" id="next" class="button-next" value="Accueil">
+                    </form>
+                </div>
+            <?php endif; ?>
 
 
 
-            <div class="button-box">
-                <form action="" method="post">
-                    <input type="submit" name="home" id="next" class="button-next" value="Accueil">
-                </form>
-            </div>
+
         </section>
 
 
@@ -132,9 +177,9 @@ if (!isset($_SESSION['selectIdQuiz'])) {
             <section class="start-box">
 
                 <div class="start-box-title">
-                    <h2 class="bold">Vous avez <span class="text-pink">{#}</span> vie
-                    
-                       <p> <span class="text-pink">{#}</span> mauvaises réponses avant élimination</p>
+                    <h2 class="bold">Vous avez <span class="text-pink"><?= $_SESSION['score'] ?></span> points
+
+                        <p> Attention aux <span class="text-pink">mauvaises</span> réponses </p>
                     </h2>
                 </div>
 
@@ -147,15 +192,24 @@ if (!isset($_SESSION['selectIdQuiz'])) {
 
         <?php elseif (isset($_POST['result'])): ?>
 
-            <section class="question-box">
+            <section class="start-box">
 
-                <div class="question-box-title">
-                    <h2 class="bold">Score :
+                <div class="start-box-title">
+                    <h2 class="bold">Vous avez fait
                         <span class="text-pink">
-                            <?= $_SESSION['rightAnswer'] ?> / <?= count($quizQuestions) ?>
+                            <?= $_SESSION['wrongAnswer'] ?>
                         </span>
+                        erreurs.
                     </h2>
-                    <h1 class="question-text">{Vous êtes éliminé}</h1>
+                    <h2><?= $messageScore ?></h2>
+                    <?php if ($updatedScore == 0): ?>
+                        <p>
+                            Quel dommage.
+                        </p>
+                    <?php else: ?>
+                        <p class="question-text">Vous êtes toujours en vie.</p>
+                        <p class="question-text">Votre nombre de vie est de : <?= $_SESSION['score'] ?></p>
+                    <?php endif; ?>
                 </div>
 
                 <div class="button-box">
