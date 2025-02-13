@@ -21,7 +21,7 @@ $newQuiz = new Quiz();
 
 //recup quiz selectionné --- parametre = valeur session select 
 $_SESSION['selectedQuiz'] = 1;
-$quizSelect = $newQuiz->get_quizSelect($_SESSION['selectedQuiz']);
+$quizSelect = $newQuiz->get_quizSelect($_SESSION['selectIdQuiz']);
 
 $quizTitle = key($quizSelect);
 
