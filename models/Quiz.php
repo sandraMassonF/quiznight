@@ -92,4 +92,27 @@ class Quiz
             return $this->checkAnswer;
         }
     }
+
+
+    public function getAllQuiz()
+    {
+        $newBdd = new ConnexionBdd();
+        $bdd = $newBdd->Connextion(); //changer le connextion en connexion
+        $sql = "SELECT * FROM quiz";
+        $stmt = $bdd->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getAllQuizByUser()
+    {
+        $newBdd = new ConnexionBdd();
+        $bdd = $newBdd->Connextion(); //changer le connextion en connexion
+        $sql = "SELECT quiz.id, quiz.titre, quiz.description, quiz.image, quiz.id_user, utilisateur.pseudo FROM quiz JOIN utilisateur ON quiz.id_user = utilisateur.id ORDER BY quiz.id;";
+        $stmt = $bdd->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
