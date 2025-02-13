@@ -37,6 +37,7 @@ public function connexion(){
             } else {
                 session_start();
                 $_SESSION['user'] = $req['id'];
+                $_SESSION['score']=$req['score'];
                 header("location:./index.php");
             }
         } else {
