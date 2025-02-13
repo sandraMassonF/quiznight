@@ -10,9 +10,6 @@ if (isset($_POST['start-quiz'])) {
 
 $newQuiz = new Quiz();
 $quizUser = $newQuiz->getAllQuizByUser();
-
-
-var_dump($_SESSION);
 ?>
 
 <!DOCTYPE html>
@@ -41,18 +38,28 @@ var_dump($_SESSION);
 
         <?php if (isset($_SESSION['user'])) : ?>
             <form method="post">
-                <button class="disconnect_btn login" type="submit" name="deconnexion">Déconnexion</button>
+                    <p>{# 001}</p> <!-- récupère et affiche le n° du user connecté -->
+                    <button class="disconnect_btn login" type="submit" name="mon-compte">Mon compte</button>
+                    <button class="disconnect_btn login" type="submit" name="deconnexion">Déconnexion</button>
             </form>
-            <?php
-            if (isset($_POST['deconnexion'])) {
-                $_SESSION = array();
-                session_destroy();
-                header("Location:index.php");
-            }
-            ?>
+         <?php
+                if (isset($_POST['deconnexion'])) {
+                    $_SESSION = array();
+                    session_destroy();
+                    header("Location:index.php");
+                }
+                if (isset($_POST['mon-compte'])) {
+                    if (isset($_SESSION['user'])) { 
+                        var_dump($_SESSION);
+                        header("Location: page/autor-page.php");
+                }
+            };
+
+          ?>
         <?php else : ?>
             <div class="login">
-                <a href="./page/connexion.php">Connexion</a>
+            <a href="./page/connexion.php">Connexion</a>             
+
             </div>
         <?php endif ?>
 
