@@ -1,5 +1,5 @@
 <?php
-include 'Class.User.php';
+include '../models/User.php';
 
 $newIns = new Utilisateur();
 $newInscription = $newIns->inscription();

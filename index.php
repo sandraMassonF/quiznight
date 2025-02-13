@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-include_once './page/Class.Bdd.php';
-include_once './page/Class.Quiz.php';
+include_once './models/Class.Bdd.php';
+include_once './models/Quiz.php';
 
 if (isset($_POST['start-quiz'])){
 $selectIdQuiz = $_POST['start-quiz'];

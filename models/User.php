@@ -20,7 +20,7 @@ public function __construct() {
 
 public function connexion(){
     $connexion = new ConnexionBdd();
-    $bdd = $connexion->Connextion();
+    $bdd = $connexion->Connexion();
     if (isset($_POST['submit'])) {
         if (!empty($_POST['pseudo']) && !empty($_POST['password'])) {
             $pseudo = htmlentities($_POST['pseudo']);
@@ -48,7 +48,7 @@ public function connexion(){
 
 public function inscription(){
     $connexion = new ConnexionBdd();
-    $bdd = $connexion->Connextion();
+    $bdd = $connexion->Connexion();
     if (isset($_POST['submit'])) {
         if (!empty($_POST['pseudo']) && !empty($_POST['password'])) {
             $pseudo = htmlentities($_POST['pseudo']);

@@ -1,5 +1,5 @@
 <?php
-include 'Class.User.php';
+include '../models/User.php';
 
 $newCo = new Utilisateur();
 $newConnexion = $newCo->connexion();
