@@ -106,7 +106,7 @@ class Quiz
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-  
+
     // Récupération d'un quiz via son id
     public function getOneQuiz($quizId)
     {
@@ -115,6 +115,10 @@ class Quiz
         $sql = "SELECT *
         FROM quiz
         WHERE quiz.id = $quizId ";
+        $stmt = $bdd->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     public function getAllQuizByUser()
     {
@@ -155,7 +159,7 @@ class Quiz
             ':id_user' => $id_user,
         ]);
     }
-      
+
     // Supprimer un Quiz
     public function deleteQuiz($quizId)
     {
