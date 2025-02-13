@@ -2,25 +2,12 @@
 
 session_start();
 
-$host = "localhost";
-$username = "root";
-$password = "";
-
-// CONNEXION à la base de donnée
-try {
-    $bdd  = new PDO("mysql:host=$host;dbname=s-quiz_game;charset=utf8", $username, $password);
-    $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    echo "Erreur : " . $e->getMessage();
-}
-
 require_once('../models/Quiz.php');
-
 
 $newQuiz = new Quiz();
 
 //recup quiz selectionné --- parametre = valeur session select 
-$_SESSION['selectedQuiz'] = 1;
+// $_SESSION['selectIdQuiz'] = 1;
 $quizSelect = $newQuiz->get_quizSelect($_SESSION['selectIdQuiz']);
 
 $quizTitle = key($quizSelect);
@@ -65,13 +52,6 @@ if (!empty($_POST)) {
         $shuffledAnswers[] = $currentAnswers[$key];
     }
 
-    // -------------------------------------
-    // reset fin de quiz
-    if (isset($_POST['result'])) {
-        $_SESSION['questionIndex'] = 0;
-    }
-    // -------------------------------------
-
     $answerABCD = ['answerA', 'answerB', 'answerC', 'answerD'];
     foreach ($answerABCD as $choice) {
         if (isset($_POST[$choice])) {
@@ -83,6 +63,18 @@ if (!empty($_POST)) {
             break;
         }
     }
+
+    // -------------------------------------
+    // reset fin de quiz
+    if (isset($_POST['result'])) {
+        unset($_SESSION['questionIndex']);
+        unset($_SESSION['answersOrder']);
+        unset($_SESSION['answersSubmit']);
+    }
+    if (isset($_POST['home'])) {
+        unset($_SESSION['rightAnswer']);
+    }
+    // -------------------------------------
 }
 
 
@@ -95,8 +87,8 @@ if (!empty($_POST)) {
 
     <?php
 
-    // var_dump($_POST);
-    // var_dump($_SESSION);
+    var_dump($_POST);
+    var_dump($_SESSION);
     // var_dump($currentAnswers);
     ?>
 
