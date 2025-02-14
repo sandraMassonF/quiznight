@@ -7,9 +7,9 @@ include_once('../models/User.php');
 
 $newQuiz = new Quiz();
 
-// $_SESSION['user'] = 2;
-// $_SESSION['score'] = 10;
-// $_SESSION['selectIdQuiz'] = 1;
+$_SESSION['user'] = 2;
+$_SESSION['score'] = 10;
+$_SESSION['selectIdQuiz'] = 1;
 
 // erreur page si non connecté
 if (!isset($_SESSION['user'])) {
@@ -159,10 +159,10 @@ if (!isset($_SESSION['selectIdQuiz'])) {
                 <section class="start-box">
 
                     <div class="start-box-title">
-                        <h2 class="bold">Vous avez <span class="text-pink"><?= $_SESSION['score'] ?></span> points
+                        <p class="question-text">Vous avez <span class="text-pink"><?= $_SESSION['score'] ?></span> points
 
-                            <p> Attention aux <span class="text-pink">mauvaises</span> réponses </p>
-                        </h2>
+                        <p class="question-text"> Attention aux <span class="text-yellow">mauvaises</span> réponses </p>
+                        </p>
                     </div>
 
                     <div class="button-box">
@@ -177,26 +177,26 @@ if (!isset($_SESSION['selectIdQuiz'])) {
                 <section class="start-box">
 
                     <div class="start-box-title">
-                        <h2 class="bold">Vous avez fait
+                        <p class="question-text">Vous avez fait
                             <span class="text-pink">
                                 <?= $_SESSION['wrongAnswer'] ?>
                             </span>
                             erreurs.
-                        </h2>
-                        <h2><?= $messageScore ?></h2>
+                        </p>
+
                         <?php if ($updatedScore == 0): ?>
-                            <p>
+                            <p class="question-text">
                                 Quel dommage.
                             </p>
                         <?php else: ?>
                             <p class="question-text">Vous êtes toujours en vie.</p>
-                            <p class="question-text">Votre nombre de vie est de : <?= $_SESSION['score'] ?></p>
+                            <p class="question-text">Nombre de vies restantes : <span class="text-pink"><?= $_SESSION['score'] ?></span></p>
                         <?php endif; ?>
                     </div>
 
                     <div class="button-box">
                         <form action="" method="post">
-                            <input type="submit" name="home" id="next" class="button-next button-next-green" value="Accueil">
+                            <input type="submit" name="home" id="next" class="button-start button-next-green" value="Accueil">
                         </form>
                     </div>
                 </section>
@@ -214,7 +214,7 @@ if (!isset($_SESSION['selectIdQuiz'])) {
                             </span>
                         </h2>
 
-                        <p class="question-text"><?= $currentQuestion; ?></p>
+                        <p class="quiz-text-question"><?= $currentQuestion; ?></p>
                     </div>
 
                     <!-- réponses a choisir -->
@@ -344,27 +344,27 @@ if (!isset($_SESSION['selectIdQuiz'])) {
                                 <?php endif; ?>
                             <?php endforeach; ?>
                         </div>
-    </div>
-    <!-- button valider, suivant, retour accueil -->
-    <?php if ($_SESSION['questionIndex'] == count($quizQuestions) - 1): ?>
-        <div class="button-box">
-            <form action="" method="post">
-                <input type="submit" name="result" id="next" class="button-next button-next-green" value="Résultat">
-            </form>
-        <?php else: ?>
-            <div class="button-box">
-                <form action="" method="post">
-                    <input type="submit" name="next" id="next" class="button-next button-next-green" value="Suivant">
-                </form>
+                        <!-- button valider, suivant, retour accueil -->
+                        <?php if ($_SESSION['questionIndex'] == count($quizQuestions) - 1): ?>
+                            <div class="button-box">
+                                <form action="" method="post">
+                                    <input type="submit" name="result" id="next" class="button-next button-next-green" value="Résultat">
+                                </form>
+                            <?php else: ?>
+                                <div class="button-box">
+                                    <form action="" method="post">
+                                        <input type="submit" name="next" id="next" class="button-next button-next-green" value="Suivant">
+                                    </form>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                                </div>
+                            </div>
+                </section>
+
+
+
             <?php endif; ?>
         <?php endif; ?>
-            </div>
-            </section>
-
-
-
-        <?php endif; ?>
-    <?php endif; ?>
 
 </main>
 
