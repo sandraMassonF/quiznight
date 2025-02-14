@@ -124,7 +124,7 @@ class Quiz
     {
         $newBdd = new ConnexionBdd();
         $bdd = $newBdd->Connexion();
-        $sql = "SELECT quiz.id, quiz.titre, quiz.description, quiz.image, quiz.id_user, utilisateur.pseudo FROM quiz JOIN utilisateur ON quiz.id_user = utilisateur.id ORDER BY quiz.id;";
+        $sql = "SELECT quiz.id, quiz.titre, quiz.description, quiz.id_user, utilisateur.pseudo FROM quiz JOIN utilisateur ON quiz.id_user = utilisateur.id ORDER BY quiz.id;";
 
         $stmt = $bdd->prepare($sql);
         $stmt->execute();
@@ -146,17 +146,16 @@ class Quiz
     }
 
     //création nouveau quiz
-    public function createQuiz($titre, $description, $image, $id_user)
+    public function createQuiz($titre, $description, $id_user)
     {
         $newBdd = new ConnexionBdd();
         $bdd = $newBdd->connexion();
-        $sql = "INSERT INTO quiz (titre, description, image, id_user) VALUES (:titre, :description, :image, :id_user)";
+        $sql = "INSERT INTO quiz (titre, description, id_user) VALUES (:titre, :description, :id_user)";
         $create = $bdd->prepare($sql);
         $create->execute([
             ':titre' => $titre,
             ':description' => $description,
-            ':image' => $image,
-            ':id_user' => $id_user,
+            ':id_user' => $id_user
         ]);
     }
 
@@ -168,5 +167,19 @@ class Quiz
         $sql = "DELETE FROM quiz WHERE id= $quizId";
         $delete = $bdd->prepare($sql);
         $delete->execute();
+    }
+
+    // récupérer le dernier quiz créer
+    public function getLastQuiz()
+    {
+        $newBdd = new ConnexionBdd();
+        $bdd = $newBdd->connexion();
+        $sql = "SELECT id, titre, description
+    FROM quiz
+    ORDER BY id DESC
+    LIMIT 1";
+        $selectLast = $bdd->prepare($sql);
+        $selectLast->execute();
+        return $selectLast->fetchAll(PDO::FETCH_ASSOC);
     }
 }
