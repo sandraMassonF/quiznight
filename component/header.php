@@ -15,7 +15,6 @@ if (!empty($_SESSION)) {
     };
 };
 
-
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +27,8 @@ if (!empty($_SESSION)) {
     <link rel="stylesheet" href="../asset/css/style_connexion.css">
     <link rel="stylesheet" href="../asset/css/style_quiz-jeu.css">
     <link rel="stylesheet" href="../asset/css/style_autor-page.css">
-    
+    <link rel="stylesheet" href="../asset/css/style_add-modif-question.css">
+    <link rel="stylesheet" href="../asset/css/style_add-modif-quiz.css">
     <link rel="stylesheet" href="../asset/css/style_index.css">
     <title>S-Quiz Game</title>
 </head>
@@ -36,8 +36,7 @@ if (!empty($_SESSION)) {
 <body>
 
     <header class="header">
-        <?php if (empty($_SESSION)): ?>
-
+        <?php if (!isset($_SESSION['user'])): ?>
             <!-- pas connecté  -->
             <div class="logo-box">
                 <a href="../index.php">
@@ -52,7 +51,6 @@ if (!empty($_SESSION)) {
                     <img src="../asset/img/utilisateur.png">
                 </a>
             </div>
-
         <?php else: ?>
 
             <!-- connecté -->
@@ -72,7 +70,9 @@ if (!empty($_SESSION)) {
                     <div class="box-account">
                         <img src="../asset/img/utilisateur.png" />
                     </div>
-                    <p class="login ">{001}</p>
+
+                    <p class="login "><?= "{ " . $_SESSION['userNumber'] . " }" ?></p>
+
                 </button>
 
                 <button class="icon-account" type="submit" name="deconnexion">

@@ -38,16 +38,18 @@ class Utilisateur
                         $_SESSION['message']  = "Vous ne pouvez plus vous connecter car vous êtes mort";                        
                     }
                     else{
+
                     if (password_verify($password, $user['password']) ||  $_SESSION['user'] = $user['id']) {
                         session_start();
                         $_SESSION['user'] = $user['id'];
                         $_SESSION['score'] = $user['score'];
+                        $userNum = new Utilisateur();
+                        $_SESSION['userNumber'] =  $userNum->changeNumber($user['id']);
                         header("location: ../index.php");
                         exit(); // Ajout d'un exit() après la redirection
                     } else {
                         $_SESSION['message']  = "Mot de passe incorrect !";
                     }
-
                 }
             } else {
                 $_SESSION['message']  = "Veuillez remplir tous les champs";
@@ -85,13 +87,14 @@ class Utilisateur
 
                     $_SESSION['user'] = $req;
 
-                    header("location:connexion.php");
 
+                    var_dump($_SESSION);
+
+                    header("location:connexion.php");
                 }
             } else {
                 $_SESSION['message']  = "Veuillez remplir tous les champs";
             }
-
         }
     }
 
@@ -118,7 +121,6 @@ class Utilisateur
         }
 
         return $score;
-
     }
 
     //récupère toutes les infos utilisateurs (sauf mot de passe)
@@ -144,5 +146,16 @@ class Utilisateur
             ");
         $usersElimStmt->execute();
         return $usersElimStmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function changeNumber($int)
+    {
+        if ($int < 10) {
+            return "00" . $int;
+        } elseif ($int < 100) {
+            return "0" . $int;
+        } else {
+            return $int;
+        }
     }
 }

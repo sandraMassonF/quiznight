@@ -18,7 +18,7 @@ $result = $quiz->getQuizUser($_SESSION['user']);
 <?php include '../component/header.php'; ?>
 <main class="autor-page">
 
-    <h1 class="autor-title">Bienvenu $user !</h1>
+    <h1 class="autor-title">환영 플레이어 { <?= $_SESSION['userNumber'] ?> } </h1>
     <form action="" method="post">
         <input type="submit" name="new-quiz" id="button" class="button-new valider" value="Nouveau Quiz +">
     </form>
