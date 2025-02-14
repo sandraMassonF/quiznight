@@ -22,7 +22,7 @@ if (!empty($_SESSION)) {
         }
     };
 };
-
+var_dump($_SESSION);
 $newQuiz = new Quiz();
 $quizUser = $newQuiz->getAllQuizByUser();
 ?>
@@ -43,7 +43,7 @@ $quizUser = $newQuiz->getAllQuizByUser();
 <body>
 
     <header class="header">
-        <?php if (empty($_SESSION)): ?>
+        <?php if (!isset($_SESSION['user'])): ?>
 
             <!-- pas connecté  -->
             <div class="logo-box">
@@ -79,7 +79,7 @@ $quizUser = $newQuiz->getAllQuizByUser();
                     <div class="box-account">
                         <img src="./asset/img/utilisateur.png" />
                     </div>
-                    <p class="login ">{001}</p>
+                    <p class="login "><?= "{ " . $_SESSION['userNumber'] . " }" ?></p>
                 </button>
 
                 <button class="icon-account" type="submit" name="deconnexion">
@@ -99,7 +99,7 @@ $quizUser = $newQuiz->getAllQuizByUser();
             <span><a href="./page/leaderboard.php" class="btn-classement">AFFICHER LE CLASSEMENT</a></span>
             <img src="./asset/img/score.png" alt="medaille" width="50rem">
         </div>
-        
+
 
         <section class="quiz">
             <?php foreach ($quizUser as $quiz): ?>
