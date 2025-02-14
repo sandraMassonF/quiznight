@@ -68,7 +68,14 @@ $quizUser = $newQuiz->getAllQuizByUser();
     </header>
 
     <main class="autor-page">
-        <h1 class="titreh1">Clique sur un quiz pour lancer les questions !</h1>
+
+        <div class="classement">
+            <img src="./asset/img/score.png" alt="medaille" width="50rem">
+            <a href="./page/leaderboard.php" class="btn-classement">AFFICHER LE CLASSEMENT</a>
+            <img src="./asset/img/score.png" alt="medaille" width="50rem">
+        </div>
+        
+
         <section class="quiz">
             <?php foreach ($quizUser as $quiz): ?>
                 <article class="quiz-card">
@@ -90,5 +97,6 @@ $quizUser = $newQuiz->getAllQuizByUser();
 
         </section>
     </main>
+
 
     <?php include './component/footer.php'; ?>

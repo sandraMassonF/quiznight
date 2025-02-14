@@ -32,11 +32,14 @@ class Utilisateur
                 $req = $bdd->prepare("SELECT * FROM utilisateur WHERE pseudo = :pseudo");
                 $req->execute(["pseudo" => $pseudo]);
                 $user = $req->fetch(PDO::FETCH_ASSOC);
-
+              
                 if (!$user) { // Vérifie si l'utilisateur existe
                     echo '<p class="alert">Pseudo incorrect ou inconnu !</p>';
-                } else {
-                    if (password_verify($password, $user['password'])) {
+                    } elseif($user['score'] <= 0){
+                        echo '<p class="alert">Vous ne pouvez plus vous connecter car vous êtes mort</p>';                        
+                    }
+                    else{
+                    if (password_verify($password, $user['password']) ||  $_SESSION['user'] = $user['id']) {
                         session_start();
                         $_SESSION['user'] = $user['id'];
                         $_SESSION['score'] = $user['score'];
@@ -67,10 +70,11 @@ class Utilisateur
                 if ($checkPseudo->fetch()) {
                     echo '<p class="alert"> Ce pseudo est déjà utilisé !</p>';
                 } else {
-                    $req = $bdd->prepare("INSERT INTO utilisateur (pseudo, password) VALUES (:pseudo, :password)");
+                    $req = $bdd->prepare("INSERT INTO utilisateur (pseudo, password, score) VALUES (:pseudo, :password, :score)");
                     $req->execute([
                         "pseudo" => $pseudo,
-                        "password" => $password
+                        "password" => $password,
+                        "score" => 10
                     ]);
                     $req = $req->fetch(PDO::FETCH_ASSOC);
 
