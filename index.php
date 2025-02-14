@@ -8,6 +8,21 @@ if (isset($_POST['start-quiz'])) {
     $_SESSION['selectIdQuiz'] = $selectIdQuiz;
 };
 
+if (!empty($_SESSION)) {
+
+    // deconnexion
+    if (isset($_POST['deconnexion'])) {
+        $_SESSION = array();
+        session_destroy();
+        header("Location: index.php");
+    }
+    if (isset($_POST['mon-compte'])) {
+        if (isset($_SESSION['user'])) {
+            header("Location: ./page/autor-page.php");
+        }
+    };
+};
+
 $newQuiz = new Quiz();
 $quizUser = $newQuiz->getAllQuizByUser();
 ?>
@@ -26,52 +41,62 @@ $quizUser = $newQuiz->getAllQuizByUser();
 </head>
 
 <body>
+
     <header class="header">
-        <div class="logo-box">
-            <a href="index.php">
-                <img src="./asset/img/accueil-logo.png" class="logo-header" alt="accueil" />
-            </a>
-        </div>
-        <div class="box-symbol">
-            <img class="symbol-header" src="./asset/img/titre-logo.png" />
-        </div>
+        <?php if (empty($_SESSION)): ?>
 
-        <?php if (isset($_SESSION['user'])) : ?>
-            <form method="post" class="btn-header">
-                <div class="compte-perso">
-                <button class="btn-icone" type="submit" name="mon-compte"><img src="./asset/img/utilisateur.png"></button>
-                <p class="login ">{001}</p> <!-- récupère et affiche le n° du user connecté -->
-                </div>
-                <div>
-                <button class="btn-icone btn-deco" type="submit" name="deconnexion"><img src="./asset/img/deconnexion.png"></button>
-                </div>
-            </form>
-         <?php
-                if (isset($_POST['deconnexion'])) {
-                    $_SESSION = array();
-                    session_destroy();
-                    header("Location:index.php");
-                }
-                if (isset($_POST['mon-compte'])) {
-                    if (isset($_SESSION['user'])) { 
-                        header("Location: page/autor-page.php");
-                }
-            };
-
-          ?>
-        <?php else : ?>
-            <div class="btn-icone">
-            <a href="./page/connexion.php"><img src="./asset/img/utilisateur.png"></a>     
+            <!-- pas connecté  -->
+            <div class="logo-box">
+                <a href="index.php">
+                    <img src="./asset/img/accueil-logo.png" class="logo-header" alt="connexion" />
+                </a>
             </div>
-        <?php endif ?>
+
+            <img class="quiz-logo" src="./asset/img/titre-logo.png" />
+
+            <div class="logo-login">
+                <a href="./page/connexion.php">
+                    <img src="./asset/img/utilisateur.png">
+                </a>
+            </div>
+
+        <?php else: ?>
+
+            <!-- connecté -->
+
+            <div class="logo-box">
+                <a href="index.php">
+                    <img src="./asset/img/accueil-logo.png" class="logo-header" alt="connexion" />
+                </a>
+            </div>
+
+            <img class="quiz-logo" src="./asset/img/titre-logo.png" />
+
+
+            <form method="post" action="" class="box-login-disconnect">
+
+                <button class="icon-account header-user-logo" type="submit" name="mon-compte">
+                    <div class="box-account">
+                        <img src="./asset/img/utilisateur.png" />
+                    </div>
+                    <p class="login ">{001}</p>
+                </button>
+
+                <button class="icon-account" type="submit" name="deconnexion">
+                    <img src="./asset/img/deconnexion.png" alt="deconnexion" />
+                </button>
+
+            </form>
+
+        <?php endif; ?>
 
     </header>
 
     <main class="autor-page">
 
         <div class="classement">
-            <img src="./asset/img/score.png" alt="medaille" width="50rem">
-            <a href="./page/leaderboard.php" class="btn-classement">AFFICHER LE CLASSEMENT</a>
+            <img src="./asset/img/score.png" alt="medaille">
+            <span><a href="./page/leaderboard.php" class="btn-classement">AFFICHER LE CLASSEMENT</a></span>
             <img src="./asset/img/score.png" alt="medaille" width="50rem">
         </div>
         
@@ -85,7 +110,7 @@ $quizUser = $newQuiz->getAllQuizByUser();
                     </div>
                     <p class="quiz-card-description"><?= $quiz['description'] ?></p>
                     <form method="post" action="">
-                        <button type="submit" name="start-quiz" id="button" class="button valider button-center" value="<?= $quiz['id'] ?>">Valider</button>
+                        <button type="submit" name="start-quiz" id="button" class="button valider button-center" value="<?= $quiz['id'] ?>">Lancer le Quiz</button>
                         <?php if (isset($_POST['start-quiz'])) {
                             header("location:./page/quiz-jeu.php");
                         };
