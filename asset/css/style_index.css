@@ -21,6 +21,15 @@ padding: 0.3rem;
   align-items: center;
   justify-content: center;
 }
+.classement a{
+  color: black;
+}
+.classement img{
+  margin: 2rem;
+  width :6rem;
+}
+
+
 
 .btn-header{
   display : flex ;
