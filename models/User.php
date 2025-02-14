@@ -1,5 +1,5 @@
 <?php
-include_once ('Class.Bdd.php');
+include_once('Class.Bdd.php');
 
 class Utilisateur
 {
@@ -92,9 +92,9 @@ class Utilisateur
             $newScore = $score - $wrongAnswers;
             if ($newScore < 0) {
                 $newScore = 0;
-            } 
-            
-            $score = $newScore;        
+            }
+
+            $score = $newScore;
 
             $newBdd = new ConnexionBdd();
             $bdd = $newBdd->connexion();
@@ -108,5 +108,30 @@ class Utilisateur
         }
 
         return $score;
+    }
+
+    //récupère toutes les infos utilisateurs (sauf mot de passe)
+    public function get_userInfo()
+    {
+        $newBdd = new ConnexionBdd();
+        $bdd = $newBdd->connexion();
+        $usersInfoStmt = $bdd->prepare("SELECT utilisateur.id, utilisateur.pseudo, utilisateur.score
+        FROM utilisateur
+        ORDER BY score ASC;
+            ");
+        $usersInfoStmt->execute();
+        return $usersInfoStmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function get_userEliminated()
+    {
+        $newBdd = new ConnexionBdd();
+        $bdd = $newBdd->connexion();
+        $usersElimStmt = $bdd->prepare("SELECT utilisateur.id, utilisateur.pseudo, utilisateur.score
+        FROM utilisateur
+        WHERE utilisateur.score = 0;
+            ");
+        $usersElimStmt->execute();
+        return $usersElimStmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
