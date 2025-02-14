@@ -49,11 +49,11 @@ if (!isset($_SESSION['selectIdQuiz'])) {
             unset($_SESSION['answersSubmit']);
             unset($_SESSION['rightAnswer']);
             unset($_SESSION['wrongAnswer']);
+            header('location: ../index.php');
         } else {
             session_destroy();
+            header('location: ../index.php');
         }
-
-        header('location: ../index.php');
     }
 
     // récupère la réponse choisi et vérifie si elle est vraie
@@ -114,249 +114,251 @@ if (!isset($_SESSION['selectIdQuiz'])) {
 <?php include '../component/header.php'; ?>
 
 
-<main class="main-james">
+<main class="main-james red-suit">
+    <div class="quiz-content-box">
+        <!-- erreur -->
 
-    <!-- erreur -->
+        <?php if (!isset($_SESSION['selectIdQuiz']) or !isset($_SESSION['user'])) : ?>
 
-    <?php if (!isset($_SESSION['selectIdQuiz']) or !isset($_SESSION['user'])) : ?>
+            <section class="error-box">
+                <?php if (!isset($_SESSION['user'])): ?>
+                    <article>
+                        <p>Vous n'êtes pas connecté</p>
 
-        <section class="error-box">
-            <?php if (!isset($_SESSION['user'])): ?>
-                <article>
-                    <p>Vous n'êtes pas connecté</p>
-
-                </article>
-                <div class="button-box">
-                    <form action="" method="post">
-                        <input type="submit" name="connexion" id="next" class="button-start button-next-green" value="Connexion">
-                    </form>
-                </div>
-            <?php else: ?>
-                <article>
-                    <p>Oops !</p>
-                    <p><?= $error_message ?></p>
-                </article>
-                <div class="button-box">
-                    <form action="" method="post">
-                        <input type="submit" name="home" id="next" class="button-start button-next-green" value="Accueil">
-                    </form>
-                </div>
-            <?php endif; ?>
-
-        </section>
-
-    <?php else: ?>
-
-        <section class="title-james">
-            <h1 class="quiz-title"><?= $quizTitle; ?></h1>
-        </section>
-
-        <hr class="separator">
-
-        <!-- pré start -->
-
-        <?php if (empty($_POST)): ?>
-            <section class="start-box">
-
-                <div class="start-box-title">
-                    <h2 class="bold">Vous avez <span class="text-pink"><?= $_SESSION['score'] ?></span> points
-
-                        <p> Attention aux <span class="text-pink">mauvaises</span> réponses </p>
-                    </h2>
-                </div>
-
-                <div class="button-box">
-                    <form action="" method="post">
-                        <input type="submit" name="start" id="start" class="button-start button-next-green" value="Commencer">
-                    </form>
-                </div>
-            </section>
-
-        <?php elseif (isset($_POST['result'])): ?>
-
-            <section class="start-box">
-
-                <div class="start-box-title">
-                    <h2 class="bold">Vous avez fait
-                        <span class="text-pink">
-                            <?= $_SESSION['wrongAnswer'] ?>
-                        </span>
-                        erreurs.
-                    </h2>
-                    <h2><?= $messageScore ?></h2>
-                    <?php if ($updatedScore == 0): ?>
-                        <p>
-                            Quel dommage.
-                        </p>
-                    <?php else: ?>
-                        <p class="question-text">Vous êtes toujours en vie.</p>
-                        <p class="question-text">Votre nombre de vie est de : <?= $_SESSION['score'] ?></p>
-                    <?php endif; ?>
-                </div>
-
-                <div class="button-box">
-                    <form action="" method="post">
-                        <input type="submit" name="home" id="next" class="button-next button-next-green" value="Accueil">
-                    </form>
-                </div>
-            </section>
-        <?php else: ?>
-            <!-- boite question -->
-
-            <section class="question-box">
-
-                <div class="question-box-title">
-                    <h2 class="bold">Question
-                        <span class="text-pink">#
-                            <?= $numQuestion + 1 ?>
-                        </span>
-                    </h2>
-
-                    <p class="question-text"><?= $currentQuestion; ?></p>
-                </div>
-
-                <!-- réponses a choisir -->
-                <?php if (
-                    !isset($_POST['answerA']) and !isset($_POST['answerB'])
-                    and !isset($_POST['answerC']) and !isset($_POST['answerD'])
-                ) : ?>
-                    <div class="question-box-answers">
-
-                        <?php foreach ($shuffledAnswers as $key => $id_rep): ?>
-                            <?php if ($key == 0): ?>
-
-                                <form action="" method="post">
-                                    <button type="submit" name="answerA" id="answerA" class="button-answer default cercle-answer"
-                                        value="<?= $id_rep['result'] ?>"><?= $id_rep['answer'] ?></button>
-                                </form>
-
-                            <?php endif; ?>
-                            <?php if ($key == 1): ?>
-                                <form action="" method="post">
-                                    <button type="submit" name="answerB" id="answerB" class="button-answer default umbrella-answer"
-                                        value="<?= $id_rep['result'] ?>"><?= $id_rep['answer'] ?></button>
-                                </form>
-                            <?php endif; ?>
-                            <?php if ($key == 2): ?>
-                                <form action="" method="post">
-                                    <button type="submit" name="answerC" id="answerC" class="button-answer default triangle-answer"
-                                        value="<?= $id_rep['result'] ?>"><?= $id_rep['answer'] ?></button>
-                                </form>
-                            <?php endif; ?>
-                            <?php if ($key == 3): ?>
-                                <form action="" method="post">
-                                    <button type="submit" name="answerD" id="answerD" class="button-answer default square-answer"
-                                        value="<?= $id_rep['result'] ?>"><?= $id_rep['answer'] ?></button>
-                                </form>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
-                    </div>
-                <?php else: ?>
-                    <!-- affichage des réponses -->
-                    <div class="question-box-answers">
-                        <?php foreach ($shuffledAnswers as $key => $id_rep): ?>
-
-                            <?php if ($key == 0): ?>
-                                <!--  -->
-                                <?php if ($selectedAnswer == "answerA" and $check == 1): ?>
-                                    <div class="answerValid button-answer cercle-answer">
-                                        <p class="answer-text"><?= $id_rep['answer'] ?></p>
-                                    </div>
-                                <?php elseif ($selectedAnswer == "answerA" and $check == 0): ?>
-                                    <div class="answerFalse button-answer cercle-answer">
-                                        <p class="answer-text"><?= $id_rep['answer'] ?></p>
-                                    </div>
-                                <?php elseif ($selectedAnswer != "answerA" and $id_rep['result'] == 1): ?>
-                                    <div class="answerTrue button-answer cercle-answer">
-                                        <p class="answer-text true-false"><?= $id_rep['answer'] ?></p>
-                                    </div>
-                                <?php else: ?>
-                                    <div class="noAnswer button-answer cercle-answer">
-                                        <p class="answer-text"><?= $id_rep['answer'] ?></p>
-                                    </div>
-                                <?php endif; ?>
-                                <!--  -->
-                            <?php endif; ?>
-                            <?php if ($key == 1): ?>
-                                <!--  -->
-                                <?php if ($selectedAnswer == "answerB" and $check == 1): ?>
-                                    <div class="answerValid button-answer umbrella-answer">
-                                        <p class="answer-text"><?= $id_rep['answer'] ?></p>
-                                    </div>
-                                <?php elseif ($selectedAnswer == "answerB" and $check == 0): ?>
-                                    <div class="answerFalse button-answer umbrella-answer">
-                                        <p class="answer-text"><?= $id_rep['answer'] ?></p>
-                                    </div>
-                                <?php elseif ($selectedAnswer != "answerB" and $id_rep['result'] == 1): ?>
-                                    <div class="answerTrue button-answer umbrella-answer">
-                                        <p class="answer-text true-false"><?= $id_rep['answer'] ?></p>
-                                    </div>
-                                <?php else: ?>
-                                    <div class="noAnswer button-answer umbrella-answer">
-                                        <p class="answer-text"><?= $id_rep['answer'] ?></p>
-                                    </div>
-                                <?php endif; ?>
-                                <!--  -->
-                            <?php endif; ?>
-                            <?php if ($key == 2): ?>
-                                <!--  -->
-                                <?php if ($selectedAnswer == "answerC" and $check == 1): ?>
-                                    <div class="answerValid button-answer triangle-answer">
-                                        <p class="answer-text"><?= $id_rep['answer'] ?></p>
-                                    </div>
-                                <?php elseif ($selectedAnswer == "answerC" and $check == 0): ?>
-                                    <div class="answerFalse button-answer triangle-answer">
-                                        <p class="answer-text"><?= $id_rep['answer'] ?></p>
-                                    </div>
-                                <?php elseif ($selectedAnswer != "answerC" and $id_rep['result'] == 1): ?>
-                                    <div class="answerTrue button-answer triangle-answer">
-                                        <p class="answer-text true-false"><?= $id_rep['answer'] ?></p>
-                                    </div>
-                                <?php else: ?>
-                                    <div class="noAnswer button-answer triangle-answer">
-                                        <p class="answer-text"><?= $id_rep['answer'] ?></p>
-                                    </div>
-                                <?php endif; ?>
-                                <!--  -->
-                            <?php endif; ?>
-                            <?php if ($key == 3): ?>
-                                <!--  -->
-                                <?php if ($selectedAnswer == "answerD" and $check == 1): ?>
-                                    <div class="answerValid button-answer square-answer">
-                                        <p class="answer-text"><?= $id_rep['answer'] ?></p>
-                                    </div>
-                                <?php elseif ($selectedAnswer == "answerD" and $check == 0): ?>
-                                    <div class="answerFalse button-answer square-answer">
-                                        <p class="answer-text"><?= $id_rep['answer'] ?></p>
-                                    </div>
-                                <?php elseif ($selectedAnswer != "answerD" and $id_rep['result'] == 1): ?>
-                                    <div class="answerTrue button-answer square-answer">
-                                        <p class="answer-text true-false"><?= $id_rep['answer'] ?></p>
-                                    </div>
-                                <?php else: ?>
-                                    <div class="noAnswer button-answer square-answer">
-                                        <p class="answer-text"><?= $id_rep['answer'] ?></p>
-                                    </div>
-                                <?php endif; ?>
-                                <!--  -->
-                            <?php endif; ?>
-                    </div>
-                <?php endforeach; ?>
-                </div>
-                <!-- button valider, suivant, retour accueil -->
-                <?php if ($_SESSION['questionIndex'] == count($quizQuestions) - 1): ?>
+                    </article>
                     <div class="button-box">
                         <form action="" method="post">
-                            <input type="submit" name="result" id="next" class="button-next button-next-green" value="Résultat">
+                            <input type="submit" name="connexion" id="next" class="button-start button-next-green" value="Connexion">
                         </form>
-                    <?php else: ?>
-                        <div class="button-box">
-                            <form action="" method="post">
-                                <input type="submit" name="next" id="next" class="button-next button-next-green" value="Suivant">
-                            </form>
-                        <?php endif; ?>
-                    <?php endif; ?>
+                    </div>
+                <?php else: ?>
+                    <article>
+                        <p>Oops !</p>
+                        <p><?= $error_message ?></p>
+                    </article>
+                    <div class="button-box">
+                        <form action="" method="post">
+                            <input type="submit" name="home" id="next" class="button-start button-next-green" value="Accueil">
+                        </form>
+                    </div>
+                <?php endif; ?>
 
+            </section>
+
+        <?php else: ?>
+
+            <section class="title-james">
+                <h1 class="quiz-title"><?= $quizTitle; ?></h1>
+
+                <hr class="separator">
+            </section>
+
+            <!-- pré start -->
+
+            <?php if (empty($_POST)): ?>
+                <section class="start-box">
+
+                    <div class="start-box-title">
+                        <h2 class="bold">Vous avez <span class="text-pink"><?= $_SESSION['score'] ?></span> points
+
+                            <p> Attention aux <span class="text-pink">mauvaises</span> réponses </p>
+                        </h2>
+                    </div>
+
+                    <div class="button-box">
+                        <form action="" method="post">
+                            <input type="submit" name="start" id="start" class="button-start button-next-green" value="Commencer">
+                        </form>
+                    </div>
+                </section>
+
+            <?php elseif (isset($_POST['result'])): ?>
+
+                <section class="start-box">
+
+                    <div class="start-box-title">
+                        <h2 class="bold">Vous avez fait
+                            <span class="text-pink">
+                                <?= $_SESSION['wrongAnswer'] ?>
+                            </span>
+                            erreurs.
+                        </h2>
+                        <h2><?= $messageScore ?></h2>
+                        <?php if ($updatedScore == 0): ?>
+                            <p>
+                                Quel dommage.
+                            </p>
+                        <?php else: ?>
+                            <p class="question-text">Vous êtes toujours en vie.</p>
+                            <p class="question-text">Votre nombre de vie est de : <?= $_SESSION['score'] ?></p>
+                        <?php endif; ?>
+                    </div>
+
+                    <div class="button-box">
+                        <form action="" method="post">
+                            <input type="submit" name="home" id="next" class="button-next button-next-green" value="Accueil">
+                        </form>
+                    </div>
+                </section>
+            <?php else: ?>
+                <!-- boite question -->
+
+                <section class="question-box">
+
+
+
+                    <div class="question-box-title">
+                        <h2 class="bold">Question
+                            <span class="text-pink">#
+                                <?= $numQuestion + 1 ?>
+                            </span>
+                        </h2>
+
+                        <p class="question-text"><?= $currentQuestion; ?></p>
+                    </div>
+
+                    <!-- réponses a choisir -->
+                    <?php if (
+                        !isset($_POST['answerA']) and !isset($_POST['answerB'])
+                        and !isset($_POST['answerC']) and !isset($_POST['answerD'])
+                    ) : ?>
+
+                        <div class="question-box-answers">
+                            <?php foreach ($shuffledAnswers as $key => $id_rep): ?>
+                                <?php if ($key == 0): ?>
+
+                                    <form action="" method="post">
+                                        <button type="submit" name="answerA" id="answerA" class="button-answer default cercle-answer"
+                                            value="<?= $id_rep['result'] ?>"><?= $id_rep['answer'] ?></button>
+                                    </form>
+
+                                <?php endif; ?>
+                                <?php if ($key == 1): ?>
+                                    <form action="" method="post">
+                                        <button type="submit" name="answerB" id="answerB" class="button-answer default umbrella-answer"
+                                            value="<?= $id_rep['result'] ?>"><?= $id_rep['answer'] ?></button>
+                                    </form>
+                                <?php endif; ?>
+                                <?php if ($key == 2): ?>
+                                    <form action="" method="post">
+                                        <button type="submit" name="answerC" id="answerC" class="button-answer default triangle-answer"
+                                            value="<?= $id_rep['result'] ?>"><?= $id_rep['answer'] ?></button>
+                                    </form>
+                                <?php endif; ?>
+                                <?php if ($key == 3): ?>
+                                    <form action="" method="post">
+                                        <button type="submit" name="answerD" id="answerD" class="button-answer default square-answer"
+                                            value="<?= $id_rep['result'] ?>"><?= $id_rep['answer'] ?></button>
+                                    </form>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php else: ?>
+                        <!-- affichage des réponses -->
+                        <div class="question-box-answers">
+                            <?php foreach ($shuffledAnswers as $key => $id_rep): ?>
+
+                                <?php if ($key == 0): ?>
+                                    <!--  -->
+                                    <?php if ($selectedAnswer == "answerA" and $check == 1): ?>
+                                        <div class="answerValid button-answer cercle-answer">
+                                            <p class="answer-text"><?= $id_rep['answer'] ?></p>
+                                        </div>
+                                    <?php elseif ($selectedAnswer == "answerA" and $check == 0): ?>
+                                        <div class="answerFalse button-answer cercle-answer">
+                                            <p class="answer-text"><?= $id_rep['answer'] ?></p>
+                                        </div>
+                                    <?php elseif ($selectedAnswer != "answerA" and $id_rep['result'] == 1): ?>
+                                        <div class="answerTrue button-answer cercle-answer">
+                                            <p class="answer-text true-false"><?= $id_rep['answer'] ?></p>
+                                        </div>
+                                    <?php else: ?>
+                                        <div class="noAnswer button-answer cercle-answer">
+                                            <p class="answer-text"><?= $id_rep['answer'] ?></p>
+                                        </div>
+                                    <?php endif; ?>
+                                    <!--  -->
+                                <?php endif; ?>
+                                <?php if ($key == 1): ?>
+                                    <!--  -->
+                                    <?php if ($selectedAnswer == "answerB" and $check == 1): ?>
+                                        <div class="answerValid button-answer umbrella-answer">
+                                            <p class="answer-text"><?= $id_rep['answer'] ?></p>
+                                        </div>
+                                    <?php elseif ($selectedAnswer == "answerB" and $check == 0): ?>
+                                        <div class="answerFalse button-answer umbrella-answer">
+                                            <p class="answer-text"><?= $id_rep['answer'] ?></p>
+                                        </div>
+                                    <?php elseif ($selectedAnswer != "answerB" and $id_rep['result'] == 1): ?>
+                                        <div class="answerTrue button-answer umbrella-answer">
+                                            <p class="answer-text true-false"><?= $id_rep['answer'] ?></p>
+                                        </div>
+                                    <?php else: ?>
+                                        <div class="noAnswer button-answer umbrella-answer">
+                                            <p class="answer-text"><?= $id_rep['answer'] ?></p>
+                                        </div>
+                                    <?php endif; ?>
+                                    <!--  -->
+                                <?php endif; ?>
+                                <?php if ($key == 2): ?>
+                                    <!--  -->
+                                    <?php if ($selectedAnswer == "answerC" and $check == 1): ?>
+                                        <div class="answerValid button-answer triangle-answer">
+                                            <p class="answer-text"><?= $id_rep['answer'] ?></p>
+                                        </div>
+                                    <?php elseif ($selectedAnswer == "answerC" and $check == 0): ?>
+                                        <div class="answerFalse button-answer triangle-answer">
+                                            <p class="answer-text"><?= $id_rep['answer'] ?></p>
+                                        </div>
+                                    <?php elseif ($selectedAnswer != "answerC" and $id_rep['result'] == 1): ?>
+                                        <div class="answerTrue button-answer triangle-answer">
+                                            <p class="answer-text true-false"><?= $id_rep['answer'] ?></p>
+                                        </div>
+                                    <?php else: ?>
+                                        <div class="noAnswer button-answer triangle-answer">
+                                            <p class="answer-text"><?= $id_rep['answer'] ?></p>
+                                        </div>
+                                    <?php endif; ?>
+                                    <!--  -->
+                                <?php endif; ?>
+                                <?php if ($key == 3): ?>
+                                    <!--  -->
+                                    <?php if ($selectedAnswer == "answerD" and $check == 1): ?>
+                                        <div class="answerValid button-answer square-answer">
+                                            <p class="answer-text"><?= $id_rep['answer'] ?></p>
+                                        </div>
+                                    <?php elseif ($selectedAnswer == "answerD" and $check == 0): ?>
+                                        <div class="answerFalse button-answer square-answer">
+                                            <p class="answer-text"><?= $id_rep['answer'] ?></p>
+                                        </div>
+                                    <?php elseif ($selectedAnswer != "answerD" and $id_rep['result'] == 1): ?>
+                                        <div class="answerTrue button-answer square-answer">
+                                            <p class="answer-text true-false"><?= $id_rep['answer'] ?></p>
+                                        </div>
+                                    <?php else: ?>
+                                        <div class="noAnswer button-answer square-answer">
+                                            <p class="answer-text"><?= $id_rep['answer'] ?></p>
+                                        </div>
+                                    <?php endif; ?>
+                                    <!--  -->
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </div>
+    </div>
+    <!-- button valider, suivant, retour accueil -->
+    <?php if ($_SESSION['questionIndex'] == count($quizQuestions) - 1): ?>
+        <div class="button-box">
+            <form action="" method="post">
+                <input type="submit" name="result" id="next" class="button-next button-next-green" value="Résultat">
+            </form>
+        <?php else: ?>
+            <div class="button-box">
+                <form action="" method="post">
+                    <input type="submit" name="next" id="next" class="button-next button-next-green" value="Suivant">
+                </form>
+            <?php endif; ?>
+        <?php endif; ?>
+            </div>
             </section>
 
 
