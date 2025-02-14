@@ -49,11 +49,11 @@ if (!isset($_SESSION['selectIdQuiz'])) {
             unset($_SESSION['answersSubmit']);
             unset($_SESSION['rightAnswer']);
             unset($_SESSION['wrongAnswer']);
+            header('location: ../index.php');
         } else {
             session_destroy();
+            header('location: ../index.php');
         }
-
-        header('location: ../index.php');
     }
 
     // récupère la réponse choisi et vérifie si elle est vraie
@@ -114,7 +114,7 @@ if (!isset($_SESSION['selectIdQuiz'])) {
 <?php include '../component/header.php'; ?>
 
 
-<main class="main-james">
+<main class="main-james red-suit">
     <div class="quiz-content-box">
         <!-- erreur -->
 
@@ -149,9 +149,9 @@ if (!isset($_SESSION['selectIdQuiz'])) {
 
             <section class="title-james">
                 <h1 class="quiz-title"><?= $quizTitle; ?></h1>
-            </section>
 
-            <hr class="separator">
+                <hr class="separator">
+            </section>
 
             <!-- pré start -->
 
