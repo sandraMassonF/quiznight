@@ -31,11 +31,11 @@ class Utilisateur
                 $req = $bdd->prepare("SELECT * FROM utilisateur WHERE pseudo = :pseudo");
                 $req->execute(["pseudo" => $pseudo]);
                 $user = $req->fetch(PDO::FETCH_ASSOC);
-              
-                if (!$user) { // Vérifie si l'utilisateur existe
-                    echo '<p class="alert">Pseudo incorrect ou inconnu !</p>';
+
+                  if (!$user) { // Vérifie si l'utilisateur existe
+                    $_SESSION['message']  = "Pseudo incorrect ou inconnu !";
                     } elseif($user['score'] <= 0){
-                        echo '<p class="alert">Vous ne pouvez plus vous connecter car vous êtes mort</p>';                        
+                        $_SESSION['message']  = "Vous ne pouvez plus vous connecter car vous êtes mort";                        
                     }
                     else{
                     if (password_verify($password, $user['password']) ||  $_SESSION['user'] = $user['id']) {
@@ -45,12 +45,12 @@ class Utilisateur
                         header("location: ../index.php");
                         exit(); // Ajout d'un exit() après la redirection
                     } else {
-                        echo '<p class="alert">Mot de passe incorrect !</p>';
+                        $_SESSION['message']  = "Mot de passe incorrect !";
                     }
 
                 }
             } else {
-                echo '<p class="alert">Veuillez remplir tous les champs</p>';
+                $_SESSION['message']  = "Veuillez remplir tous les champs";
             }
         }
     }
@@ -67,8 +67,9 @@ class Utilisateur
                 $checkPseudo = $bdd->prepare("SELECT id FROM utilisateur WHERE pseudo = :pseudo");
                 $checkPseudo->execute(["pseudo" => $pseudo]);
 
+
                 if ($checkPseudo->fetch()) {
-                    echo '<p class="alert"> Ce pseudo est déjà utilisé !</p>';
+                    $_SESSION['message']  = "Ce pseudo est déjà utilisé !";
                 } else {
 
                     $req = $bdd->prepare("INSERT INTO utilisateur (pseudo, password, score) VALUES (:pseudo, :password, :score)");
@@ -80,7 +81,7 @@ class Utilisateur
                     ]);
                     $req = $req->fetch(PDO::FETCH_ASSOC);
 
-                    echo '<p class="">"Inscription réussie !"</p>';
+                    $_SESSION['message']  = "Inscription réussie !";
 
                     $_SESSION['user'] = $req;
 
@@ -88,7 +89,7 @@ class Utilisateur
 
                 }
             } else {
-                echo '<p class="alert">Veuillez remplir tous les champs</p>';
+                $_SESSION['message']  = "Veuillez remplir tous les champs";
             }
 
         }
