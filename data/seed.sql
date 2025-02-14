@@ -5,10 +5,10 @@ INSERT INTO utilisateur (pseudo, password, score) VALUES
 ('sandra', 'quiz123', 10);
 
 -- Insertion des quiz Dragon Ball Z
-INSERT INTO quiz (titre, description, image, id_user) VALUES
-('Dragon Ball Z - Saga Saiyan', 'Quiz sur la saga Saiyan.', NULL, 1),
-('Dragon Ball Z - Saga Freezer', 'Quiz sur la saga Freezer.', NULL, 2),
-('Dragon Ball Z - Saga Cell', 'Quiz sur la saga Cell.', NULL, 3);
+INSERT INTO quiz (titre, description, id_user) VALUES
+('Dragon Ball Z - Saga Saiyan', 'Quiz sur la saga Saiyan.', 1),
+('Dragon Ball Z - Saga Freezer', 'Quiz sur la saga Freezer.', 2),
+('Dragon Ball Z - Saga Cell', 'Quiz sur la saga Cell.', 3);
 
 -- Insertion des questions et réponses pour Dragon Ball Z
 -- Quiz 1: Saga Saiyan
@@ -63,10 +63,10 @@ INSERT INTO reponse (reponse, resultat, id_question) VALUES
 ('Kamehameha Père-Fils', TRUE, 18), ('Genkidama', FALSE, 18), ('Final Flash', FALSE, 18), ('Makankosappo', FALSE, 18);
 
 -- Insertion des quiz One Piece
-INSERT INTO quiz (titre, description, image, id_user) VALUES
-('One Piece - Saga East Blue', 'Quiz sur la saga East Blue.', NULL, 1),
-('One Piece - Saga Alabasta', 'Quiz sur la saga Alabasta.', NULL, 2),
-('One Piece - Saga Marineford', 'Quiz sur la saga Marineford.', NULL, 3);
+INSERT INTO quiz (titre, description, id_user) VALUES
+('One Piece - Saga East Blue', 'Quiz sur la saga East Blue.', 1),
+('One Piece - Saga Alabasta', 'Quiz sur la saga Alabasta.', 2),
+('One Piece - Saga Marineford', 'Quiz sur la saga Marineford.', 3);
 
 -- Insertion des questions et réponses pour One Piece
 -- Quiz 1: Saga East Blue
@@ -121,10 +121,10 @@ INSERT INTO reponse (reponse, resultat, id_question) VALUES
 ('Akainu', TRUE, 36), ('Aokiji', FALSE, 36), ('Sengoku', FALSE, 36), ('Kizaru', FALSE, 36);
 
 -- Insertion des quiz Naruto
-INSERT INTO quiz (titre, description, image, id_user) VALUES
-('Naruto - Genin', 'Quiz sur les débuts de Naruto en tant que Genin.', NULL, 1),
-('Naruto - Chunin Exam', 'Quiz sur l''examen Chunin.', NULL, 2),
-('Naruto - Grande Guerre Ninja', 'Quiz sur la Quatrième Grande Guerre Ninja.', NULL, 3);
+INSERT INTO quiz (titre, description, id_user) VALUES
+('Naruto - Genin', 'Quiz sur les débuts de Naruto en tant que Genin.', 1),
+('Naruto - Chunin Exam', 'Quiz sur l''examen Chunin.', 2),
+('Naruto - Grande Guerre Ninja', 'Quiz sur la Quatrième Grande Guerre Ninja.', 3);
 
 -- Insertion des questions et réponses pour Naruto
 -- Quiz 1: Genin

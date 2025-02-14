@@ -81,7 +81,7 @@ $quizUser = $newQuiz->getAllQuizByUser();
                 <article class="quiz-card">
                     <h2 class="quiz-card-title"><?= $quiz['titre'] ?></h2>
                     <div class="quiz-card-img">
-                        <img src="<?= $quiz['image'] ?>" alt="Image du quiz">
+                        <img src="./asset/img/sonGoku.jpg" alt="Image du quiz">
                     </div>
                     <p class="quiz-card-description"><?= $quiz['description'] ?></p>
                     <form method="post" action="">

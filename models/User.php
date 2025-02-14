@@ -19,7 +19,6 @@ class Utilisateur
         $this->score;
     }
 
-
     public function connexion()
     {
         $connexion = new ConnexionBdd();
@@ -48,6 +47,7 @@ class Utilisateur
                     } else {
                         echo '<p class="alert">Mot de passe incorrect !</p>';
                     }
+
                 }
             } else {
                 echo '<p class="alert">Veuillez remplir tous les champs</p>';
@@ -70,22 +70,27 @@ class Utilisateur
                 if ($checkPseudo->fetch()) {
                     echo '<p class="alert"> Ce pseudo est déjà utilisé !</p>';
                 } else {
+
                     $req = $bdd->prepare("INSERT INTO utilisateur (pseudo, password, score) VALUES (:pseudo, :password, :score)");
                     $req->execute([
                         "pseudo" => $pseudo,
                         "password" => $password,
                         "score" => 10
+
                     ]);
                     $req = $req->fetch(PDO::FETCH_ASSOC);
 
                     echo '<p class="">"Inscription réussie !"</p>';
 
                     $_SESSION['user'] = $req;
+
                     header("location:connexion.php");
+
                 }
             } else {
                 echo '<p class="alert">Veuillez remplir tous les champs</p>';
             }
+
         }
     }
 
@@ -112,5 +117,6 @@ class Utilisateur
         }
 
         return $score;
+
     }
 }

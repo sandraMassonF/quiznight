@@ -2,6 +2,7 @@
 session_start();
 include("../models/Quiz.php");
 include("../models/Question.php");
+include("../models/Image.php");
 $q = 0;
 // les redirections
 if (isset($_POST['update'])) {
@@ -16,21 +17,32 @@ if (isset($_POST['return'])) {
 
 // Modification du titre d'un Quiz
 if (isset($_POST['update-new-name'])) {
-    $titre = htmlspecialchars($_POST['new-name']);
+    // mise à jour des info du quiz:
     $id = htmlspecialchars($_SESSION['quizId']);
+    $titre = htmlspecialchars($_POST['new-name']);
+    $description = htmlspecialchars($_POST['description']);
     $quizUpdate = new Quiz();
-    $quizUpdate->updateNameQuiz($id, $titre);
+    $quizUpdate->updateNameQuiz($id, $titre, $description);
+    // mise à jour de l'image du quiz:
+    $idImage = htmlspecialchars($_SESSION['imageId']);
+    if ($_SESSION['imageId'] == 'view') {
+        $image = new Image();
+        $newImage = $image->createImage($_FILES['image']['name'], $_FILES['image']['size'], $_FILES['image']['type'], $_FILES['image']['tmp_name'], $_SESSION['quizId']);
+    } elseif ($_FILES['image']['size'] > 0) {
+        $image = new Image();
+        $newImage = $image->updateImage($idImage, $_FILES['image']['name'], $_FILES['image']['size'], $_FILES['image']['type'], $_FILES['image']['tmp_name'], $_SESSION['quizId']);
+    }
+    header("location: ./autor-page.php");
 };
 
 if (isset($_POST['update-question'])) {
     $_SESSION['questionId'] = $_POST['update-question'];
-    var_dump($_POST);
-    var_dump($_SESSION);
     header("location: ./autor-modif-question.php");
 }
 $quizSelect = new Quiz();
 $result = $quizSelect->get_quizSelect($_SESSION['quizId']);
 $resultQuiz = $quizSelect->getOneQuiz($_SESSION['quizId']);
+
 // Suppression d'un Quiz
 if (isset($_POST['delete-quiz'])) {
     $deleteQuiz = new Quiz();
@@ -44,16 +56,17 @@ if (isset($_POST['delete-question'])) {
     $deleteQuestion->deleteQuestion($idQuestion);
     header("location: ./autor-modif-quiz.php");
 }
-
 ?>
 
 <?php include '../component/header.php'; ?>
 <main class="autor-quiz">
     <div class="update-quiz">
         <?php if (isset($_POST['update-name'])) : ?>
-            <form action="" method="post" class="form-update-name">
+            <form enctype="multipart/form-data" action="" method="post" class="form-update-name">
                 <div class="form-new-name">
-                    <input type="text" name="new-name" class="new-name" placeholder="<?= $resultQuiz[0]['titre'] ?>" value="<?= $resultQuiz[0]['titre'] ?>">
+                    <input type="text" name="new-name" class="new-name" value="<?= $resultQuiz[0]['titre'] ?>">
+                    <input type="text" name="description" class="new-name" value="<?= $resultQuiz[0]['description'] ?>">
+                    <input type="file" name="image" class="new-image">
                     <input type="submit" name="update-new-name" id="button" class="button valider button-center" value="valider">
                 </div>
             </form>

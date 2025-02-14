@@ -2,7 +2,7 @@
 include_once(__DIR__ . "/Class.Bdd.php");
 class Question
 {
-
+  private array $questionSelect;
   // Creer une nouvelle question
   public function createQuestion($question, $id_quiz)
   {
@@ -57,12 +57,32 @@ class Question
   {
     $newBdd = new ConnexionBdd();
     $bdd = $newBdd->connexion();
-    $sql = "SELECT question.id, question.question, reponse.id, reponse.reponse, reponse.resultat,reponse.id_question 
+    $sql = "SELECT question.id, question.question, reponse.id as reponseId, reponse.reponse, reponse.resultat,reponse.id_question 
     FROM question
     JOIN reponse ON reponse.id_question = question.id
     WHERE question.id = $id";
-    $selectLast = $bdd->prepare($sql);
-    $selectLast->execute();
-    return $selectLast->fetchAll(PDO::FETCH_ASSOC);
+    $selectQuestion = $bdd->prepare($sql);
+    $selectQuestion->execute();
+    $return =  $selectQuestion->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($return as $value) {
+      $quizQuestion = $value['question'];
+      $reponseId = $value['reponseId'];
+      $quizAnswer = $value['reponse'];
+      $quizResult = $value['resultat'];
+      $quizIdQuestion = $value['id_question'];
+
+      if (!isset($this->questionSelect[$quizQuestion])) {
+        $this->questionSelect[$quizQuestion] = [];
+      }
+
+      $this->questionSelect[$quizQuestion][] = [
+        'reponseId' => $reponseId,
+        'answer' => $quizAnswer,
+        'result' => $quizResult,
+        'id_question' => $quizIdQuestion,
+      ];
+    };
+    return $this->questionSelect;
   }
 }

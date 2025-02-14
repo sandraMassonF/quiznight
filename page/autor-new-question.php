@@ -20,8 +20,6 @@ if ((isset($_POST['valid-response'])) and (($_POST['good'] == "") || ($_POST['ba
     unset($_SESSION['last-question-id']);
     header("location: ./autor-modif-quiz.php");
 } elseif ((isset($_POST['valid-response'])) and (($_POST['good'] != "") || ($_POST['bad1'] != "") || ($_POST['bad2'] != "") || ($_POST['bad3'] != ""))) {
-    var_dump($_POST);
-    var_dump($_SESSION);
     $goodResponse = htmlspecialchars($_POST['good']);
     $response1 = htmlspecialchars($_POST['bad1']);
     $response2 = htmlspecialchars($_POST['bad2']);
