@@ -22,7 +22,6 @@ if (!empty($_SESSION)) {
         }
     };
 };
-var_dump($_SESSION);
 $newQuiz = new Quiz();
 $quizUser = $newQuiz->getAllQuizByUser();
 ?>

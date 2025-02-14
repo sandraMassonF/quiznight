@@ -27,17 +27,16 @@ class Utilisateur
             if (!empty($_POST['pseudo']) && !empty($_POST['password'])) {
                 $pseudo = htmlentities($_POST['pseudo']);
                 $password = $_POST['password'];
-
                 $req = $bdd->prepare("SELECT * FROM utilisateur WHERE pseudo = :pseudo");
                 $req->execute(["pseudo" => $pseudo]);
                 $user = $req->fetch(PDO::FETCH_ASSOC);
-
+                var_dump($user);
                 if (!$user) { // Vérifie si l'utilisateur existe
                     echo '<p class="alert">Pseudo incorrect ou inconnu !</p>';
                 } elseif ($user['score'] <= 0) {
                     echo '<p class="alert">Vous ne pouvez plus vous connecter car vous êtes mort</p>';
                 } else {
-                    if (password_verify($password, $user['password']) ||  $_SESSION['user'] = $user['id']) {
+                    if (password_verify($password, $user['password']) || $password == $user['password']) {
                         session_start();
                         $_SESSION['user'] = $user['id'];
                         $_SESSION['score'] = $user['score'];
