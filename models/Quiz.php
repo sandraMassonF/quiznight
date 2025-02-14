@@ -1,5 +1,5 @@
 <?php
-include(__DIR__ . "/Class.Bdd.php");
+include(__DIR__ . "/ConnexionBdd.php");
 
 class Quiz
 {
