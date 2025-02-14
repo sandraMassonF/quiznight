@@ -9,8 +9,6 @@ $newQuiz = new Quiz();
 
 // $_SESSION['user'] = 2;
 // $_SESSION['score'] = 10;
-
-//recup quiz selectionné --- parametre = valeur session select 
 // $_SESSION['selectIdQuiz'] = 1;
 
 // erreur page si non connecté
@@ -30,8 +28,6 @@ if (!isset($_SESSION['selectIdQuiz'])) {
 
     $quizTitle = key($quizSelect);
 
-    // -------------------------------------
-
     $messageScore = "";
     if (isset($_POST['result'])) {
         $newScore = new Utilisateur();
@@ -43,7 +39,6 @@ if (!isset($_SESSION['selectIdQuiz'])) {
             $messageScore = "Bravo !";
         }
     }
-
 
     // reset fin de quiz
     if (isset($_POST['home'])) {
@@ -61,7 +56,6 @@ if (!isset($_SESSION['selectIdQuiz'])) {
         header('location: ../index.php');
     }
 
-    //-------------------------------------------------------------
     // récupère la réponse choisi et vérifie si elle est vraie
     if (!empty($_POST)) {
 
@@ -122,14 +116,6 @@ if (!isset($_SESSION['selectIdQuiz'])) {
 
 <main class="main-james">
 
-
-    <?php
-
-    // var_dump($_POST);
-    var_dump($_SESSION);
-    // var_dump($currentAnswers);
-    ?>
-
     <!-- erreur -->
 
     <?php if (!isset($_SESSION['selectIdQuiz']) or !isset($_SESSION['user'])) : ?>
@@ -142,7 +128,7 @@ if (!isset($_SESSION['selectIdQuiz'])) {
                 </article>
                 <div class="button-box">
                     <form action="" method="post">
-                        <input type="submit" name="connexion" id="next" class="button-next" value="Connexion">
+                        <input type="submit" name="connexion" id="next" class="button-start button-next-green" value="Connexion">
                     </form>
                 </div>
             <?php else: ?>
@@ -152,16 +138,12 @@ if (!isset($_SESSION['selectIdQuiz'])) {
                 </article>
                 <div class="button-box">
                     <form action="" method="post">
-                        <input type="submit" name="home" id="next" class="button-next" value="Accueil">
+                        <input type="submit" name="home" id="next" class="button-start button-next-green" value="Accueil">
                     </form>
                 </div>
             <?php endif; ?>
 
-
-
-
         </section>
-
 
     <?php else: ?>
 
@@ -185,7 +167,7 @@ if (!isset($_SESSION['selectIdQuiz'])) {
 
                 <div class="button-box">
                     <form action="" method="post">
-                        <input type="submit" name="start" id="start" class="button-next" value="Commencer">
+                        <input type="submit" name="start" id="start" class="button-start button-next-green" value="Commencer">
                     </form>
                 </div>
             </section>
@@ -214,7 +196,7 @@ if (!isset($_SESSION['selectIdQuiz'])) {
 
                 <div class="button-box">
                     <form action="" method="post">
-                        <input type="submit" name="home" id="next" class="button-next" value="Accueil">
+                        <input type="submit" name="home" id="next" class="button-next button-next-green" value="Accueil">
                     </form>
                 </div>
             </section>
@@ -365,12 +347,12 @@ if (!isset($_SESSION['selectIdQuiz'])) {
                 <?php if ($_SESSION['questionIndex'] == count($quizQuestions) - 1): ?>
                     <div class="button-box">
                         <form action="" method="post">
-                            <input type="submit" name="result" id="next" class="button-next" value="Résultat">
+                            <input type="submit" name="result" id="next" class="button-next button-next-green" value="Résultat">
                         </form>
                     <?php else: ?>
                         <div class="button-box">
                             <form action="" method="post">
-                                <input type="submit" name="next" id="next" class="button-next" value="Suivant">
+                                <input type="submit" name="next" id="next" class="button-next button-next-green" value="Suivant">
                             </form>
                         <?php endif; ?>
                     <?php endif; ?>
