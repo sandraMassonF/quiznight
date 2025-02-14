@@ -1,5 +1,5 @@
 <?php
-include 'Class.Bdd.php';
+include_once ('Class.Bdd.php');
 
 class Utilisateur
 {
@@ -19,7 +19,6 @@ class Utilisateur
         $this->score;
     }
 
-
     public function connexion()
     {
         $connexion = new ConnexionBdd();
@@ -27,21 +26,28 @@ class Utilisateur
         if (isset($_POST['submit'])) {
             if (!empty($_POST['pseudo']) && !empty($_POST['password'])) {
                 $pseudo = htmlentities($_POST['pseudo']);
-                $password = htmlentities($_POST['password']);
-                $req = $bdd->prepare("SELECT * FROM utilisateur WHERE pseudo = :pseudo AND password = :password");
-                $req->execute([
-                    "pseudo" => $pseudo,
-                    "password" => $password
-                ]);
-                $req = $req->fetch(PDO::FETCH_ASSOC);
+                $password = $_POST['password'];
 
-                if (empty($req)) {
-                    echo '<p class="alert">Pseudo ou mot de passe incorrect !</p>';
-                } else {
-                    session_start();
-                    $_SESSION['user'] = $req['id'];
-                    $_SESSION['score'] = $req['score'];
-                    header("location:./index.php");
+                $req = $bdd->prepare("SELECT * FROM utilisateur WHERE pseudo = :pseudo");
+                $req->execute(["pseudo" => $pseudo]);
+                $user = $req->fetch(PDO::FETCH_ASSOC);
+              
+                if (!$user) { // Vérifie si l'utilisateur existe
+                    echo '<p class="alert">Pseudo incorrect ou inconnu !</p>';
+                    } elseif($user['score'] <= 0){
+                        echo '<p class="alert">Vous ne pouvez plus vous connecter car vous êtes mort</p>';                        
+                    }
+                    else{
+                    if (password_verify($password, $user['password']) ||  $_SESSION['user'] = $user['id']) {
+                        session_start();
+                        $_SESSION['user'] = $user['id'];
+                        $_SESSION['score'] = $user['score'];
+                        header("location: ../index.php");
+                        exit(); // Ajout d'un exit() après la redirection
+                    } else {
+                        echo '<p class="alert">Mot de passe incorrect !</p>';
+                    }
+
                 }
             } else {
                 echo '<p class="alert">Veuillez remplir tous les champs</p>';
@@ -64,10 +70,13 @@ class Utilisateur
                 if ($checkPseudo->fetch()) {
                     echo '<p class="alert"> Ce pseudo est déjà utilisé !</p>';
                 } else {
-                    $req = $bdd->prepare("INSERT INTO utilisateur (pseudo, password) VALUES (:pseudo, :password)");
+
+                    $req = $bdd->prepare("INSERT INTO utilisateur (pseudo, password, score) VALUES (:pseudo, :password, :score)");
                     $req->execute([
                         "pseudo" => $pseudo,
-                        "password" => $password
+                        "password" => $password,
+                        "score" => 10
+
                     ]);
                     $req = $req->fetch(PDO::FETCH_ASSOC);
 
@@ -75,11 +84,39 @@ class Utilisateur
 
                     $_SESSION['user'] = $req;
 
-                    header("location:../index.php");
+                    header("location:connexion.php");
+
                 }
             } else {
                 echo '<p class="alert">Veuillez remplir tous les champs</p>';
             }
+
         }
+    }
+
+    // calcul et update score utilisateur
+    public function updateScore($idUser, $score, $wrongAnswers)
+    {
+        if ($wrongAnswers > 0) {
+            $newScore = $score - $wrongAnswers;
+            if ($newScore < 0) {
+                $newScore = 0;
+            } 
+            
+            $score = $newScore;        
+
+            $newBdd = new ConnexionBdd();
+            $bdd = $newBdd->connexion();
+            $newScoreStmt = $bdd->prepare("UPDATE utilisateur SET score = :score
+            WHERE utilisateur.id = :idUser;
+            ");
+            $newScoreStmt->execute([
+                ':score' => $newScore,
+                ':idUser' => $idUser
+            ]);
+        }
+
+        return $score;
+
     }
 }

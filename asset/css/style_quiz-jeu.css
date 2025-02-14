@@ -10,7 +10,7 @@
     align-items: center;
     margin-top: 4rem;
     margin-bottom: 4rem;
-    gap: 2.6rem;
+    gap: 2rem;
 }
 
 .quiz-title,
@@ -25,19 +25,33 @@
     border: none;
 }
 
-.start-box {
-    background-color: purple;
+.error-box {
+    color: black;
+}
+
+.error-box article {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    font-size: 3rem;
+}
+
+.start-box,
+.error-box {
     width: 100%;
     height: 25rem;
     padding: 3rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 3rem;
+    justify-content: center;
+    gap: 4rem;
 }
 
 .start-box-title {
-    background-color: yellow;
+    color: black;
     line-height: 3rem;
     text-align: center;
 }
@@ -50,7 +64,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 1.5rem;
+    gap: 4rem;
 }
 
 .question-box-title {
@@ -65,7 +79,8 @@
 }
 
 .question-text {
-    color: #444444;
+    color: #333333;
+    font-size: 1.5rem;
 }
 
 .question-box-answers {
@@ -73,15 +88,18 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: stretch;
     gap: 1rem;
 }
 
 .button-answer {
+    width: 100%;
     background-repeat: no-repeat;
     background-position: left;
     background-size: 1.5rem;
-    background-position-x: 2rem;
-    width: 100%;
+    background-position-x: 1.2rem;
+    min-width: 25rem;
+    padding: 0.5rem 3.5rem;
     height: 2.5rem;
     font-size: 1.2rem;
     text-align: center;
@@ -165,8 +183,9 @@
 .button-next {
     box-shadow: 0px 9px 30px 0px rgba(201, 201, 201, 0.69) inset;
     color: white;
-    width: 8rem;
+    min-width: 8rem;
     height: 2.5rem;
+    padding: 0.5rem 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -174,12 +193,138 @@
     font-weight: bold;
     text-transform: uppercase;
     cursor: pointer;
+}
+
+.button-next:hover {
+    background-color: #5c5c5c;
+    box-shadow: 0px 9px 30px 0px rgba(201, 201, 201, 0.69) inset;
+}
+
+.button-next-green {
     background-color: #106D61;
     border: 1px solid #587f7a;
 }
 
-.button-next:hover {
+.button-next-green:hover {
     background-color: #0d594f;
     box-shadow: 0px 9px 30px 0px rgba(201, 201, 201, 0.69) inset;
 }
 
+.button-next-red {
+    background-color: #d83e3e;
+    border: 1px solid #a33737;
+}
+
+.button-next-red:hover {
+    background-color: #c73535;
+    box-shadow: 0px 9px 30px 0px rgba(201, 201, 201, 0.69) inset;
+}
+
+.button-start {
+    min-width: 12rem;
+    padding : 2rem;
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    border-radius: 12px;
+    box-shadow: 0px 23px 16px 0px rgba(255, 255, 255, 0.219) inset;
+    cursor: pointer;
+}
+
+/* page leaderboard */
+
+.button-leaderboard {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+}
+
+.group-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.leaderboard-tab {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.leaderBox,
+.leaderBox tbody {
+    width: 80%;
+    text-align: center;
+    border-collapse: collapse;
+    display: flex;
+    flex-direction: column;
+}
+
+.leaderBox {
+    gap: 1.5rem;
+    justify-content: space-evenly;
+}
+
+.leaderBox tbody{
+    width: 100%;
+    gap: 0.5rem;
+}
+
+.leaderBox thead tr,
+.leaderBox tbody tr{
+   display: flex;
+   justify-content: center;
+}
+
+.leaderBox th,
+.user-number,
+.user-pseudo,
+.user-score {
+    width: 100%;
+    padding: 0.5rem 0.5rem;
+}
+
+.user-number {
+    box-sizing: border-box;
+    background-color: #106d61;
+    border: 2px solid #035345 ;
+    color: white;
+}
+
+.user-score,
+.user-pseudo {
+    background-color: rgb(243, 243, 243);
+} 
+
+.int-tab,
+.user-score,
+.user-number {
+    flex-shrink: 2;
+}
+
+.title-tab,
+.user-pseudo {
+    flex-shrink: 1;
+}
+
+.dollsAdd {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.doll-left,
+.doll-right {
+    width: 12%;
+} 
+
+.doll-left img,
+.doll-right img {
+    width: 100%;
+} 
