@@ -14,35 +14,48 @@ body {
   color: white;
   width: 100%;
   height: 8rem;
-  padding: 0 4rem;
+  padding: 0 3.5rem;
   background-color: #017e6a;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  
 }
 
 .header a {
   color: white;
 }
 
+.logo-box,
+.logo-login {
+  width: 20%;
+  height: 90%;
+  /* align-content: center;  */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.logo-login {
+  justify-content: flex-end;
+}
+
 .logo-box {
-  width: 22%;
+  justify-content: flex-start;
 }
-
-.logo-header {
-  width: 5rem;
-}
-
-.symbol-header {
-  max-height: 100rem;
-  max-width: 100rem;
-  /* height: 3rem; */
+.logo-box img,
+.logo-login img {
+  /* width: 100%; */
+  height: 6rem;
   object-fit: contain;
 }
 
-.box-symbol {
-  /* width: 20rem; */
+.logo-login img {
+  height: 5rem; 
+} 
+
+
+
+.box-quiz-logo {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -50,9 +63,16 @@ body {
   align-items: center;
 }
 
+.quiz-logo {
+  flex: 1;
+  height: 100%;
+  object-fit: contain;
+}
+
 .login {
   background-color: #106d61;
-  width: 10rem;
+  color: white;
+  width: 5rem;
   height: 3rem;
   border: 2px solid #035345;
   border-radius: 8px;
@@ -63,10 +83,33 @@ body {
   font-size: 1.4rem;
 }
 
-.disconnect_btn{
-  color: white;
-  cursor: pointer;
+.box-account {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
 
+.icon-account {
+  background-color: #587f7a00;
+  border: none;
+  cursor: pointer;
+}
+
+.box-login-disconnect {
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
+}
+
+.header-user-logo {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
 }
 
 /* footer */
