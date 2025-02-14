@@ -28,7 +28,8 @@ if (!empty($_SESSION)) {
     <link rel="stylesheet" href="../asset/css/style_connexion.css">
     <link rel="stylesheet" href="../asset/css/style_quiz-jeu.css">
     <link rel="stylesheet" href="../asset/css/style_autor-page.css">
-    
+    <link rel="stylesheet" href="../asset/css/style_add-modif-question.css">
+    <link rel="stylesheet" href="../asset/css/style_add-modif-quiz.css">
     <link rel="stylesheet" href="../asset/css/style_index.css">
     <title>S-Quiz Game</title>
 </head>

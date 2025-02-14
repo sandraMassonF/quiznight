@@ -31,23 +31,23 @@ class Utilisateur
                 $req = $bdd->prepare("SELECT * FROM utilisateur WHERE pseudo = :pseudo");
                 $req->execute(["pseudo" => $pseudo]);
                 $user = $req->fetch(PDO::FETCH_ASSOC);
-              
+
                 if (!$user) { // Vérifie si l'utilisateur existe
                     echo '<p class="alert">Pseudo incorrect ou inconnu !</p>';
-                    } elseif($user['score'] <= 0){
-                        echo '<p class="alert">Vous ne pouvez plus vous connecter car vous êtes mort</p>';                        
-                    }
-                    else{
+                } elseif ($user['score'] <= 0) {
+                    echo '<p class="alert">Vous ne pouvez plus vous connecter car vous êtes mort</p>';
+                } else {
                     if (password_verify($password, $user['password']) ||  $_SESSION['user'] = $user['id']) {
                         session_start();
                         $_SESSION['user'] = $user['id'];
                         $_SESSION['score'] = $user['score'];
+                        $userNum = new Utilisateur();
+                        $_SESSION['userNumber'] =  $userNum->changeNumber($user['id']);
                         header("location: ../index.php");
                         exit(); // Ajout d'un exit() après la redirection
                     } else {
                         echo '<p class="alert">Mot de passe incorrect !</p>';
                     }
-
                 }
             } else {
                 echo '<p class="alert">Veuillez remplir tous les champs</p>';
@@ -84,13 +84,14 @@ class Utilisateur
 
                     $_SESSION['user'] = $req;
 
-                    header("location:connexion.php");
 
+                    var_dump($_SESSION);
+
+                    header("location:connexion.php");
                 }
             } else {
                 echo '<p class="alert">Veuillez remplir tous les champs</p>';
             }
-
         }
     }
 
@@ -117,7 +118,6 @@ class Utilisateur
         }
 
         return $score;
-
     }
 
     //récupère toutes les infos utilisateurs (sauf mot de passe)
@@ -143,5 +143,16 @@ class Utilisateur
             ");
         $usersElimStmt->execute();
         return $usersElimStmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function changeNumber($int)
+    {
+        if ($int < 10) {
+            return "00" . $int;
+        } elseif ($int < 100) {
+            return "0" . $int;
+        } else {
+            return $int;
+        }
     }
 }
