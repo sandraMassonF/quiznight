@@ -2,6 +2,12 @@
     font-weight: bold;
 }
 
+.msg-quitter {
+    color: red;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
 .main-james {
     min-height: 75.4vh;
     align-content: center;
@@ -17,9 +23,8 @@
 .red-suit {
     background-image: url(../img/arena.jpg);
     background-repeat: no-repeat;
-    /* background-size: auto 100%; */
-    background-size: 100%;
-    background-position: center;
+    background-size: cover ;
+    background-position: center right;
     
 }
 
@@ -34,9 +39,8 @@
 
 .quiz-content-box {
     backdrop-filter: blur(3px);
-    background-color: rgba(255, 255, 255, 0.233);
+    background-color: rgba(255, 255, 255, 0.322);
     width: 70%;
-    height: 100%;
     margin: 0 auto;
     padding: 1.5rem;
     display: flex;
@@ -50,17 +54,14 @@
 .quiz-title {
     font-size: 2.6rem;
     text-align: center;
+    font-weight: 800;
 }
 
 .quiz-title,
 .text-pink {
-    text-align: center;
     color: #E91D63;
 }
 
-.text-yellow {
-    color: #F5C461;
-}
 
 .separator {
     width: 35%;
@@ -73,6 +74,7 @@
 
 .error-box {
     color: black;
+    
 }
 
 .error-box article {
@@ -84,18 +86,23 @@
     font-size: 3rem;
 }
 
-.start-box,
-.error-box {
-    border-radius: 12px;
+.start-box {
     width: 100%;
-    height: 25rem;
-    padding: 1.5rem;
-    margin-top: 1.2rem;
+    padding: 2rem;
+}
+.error-box {
+    backdrop-filter: blur(3px);
+    background-color: rgba(255, 255, 255, 0.233);
+    border-radius: 12px;
+    width: 70%;
+    height: 100%;
+    padding: 3rem;
+    margin: 1.2rem auto 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 4rem;
+    gap: 2rem;
 }
 
 .start-box-title {
@@ -121,7 +128,6 @@
 .question-box-title {
     width: 100%;
     padding: 1.5rem;
-    color: #F7B809;
     border-radius: 12px;
     display: flex;
     flex-direction: column;
@@ -148,23 +154,26 @@
     /* background-color: yellow; */
     width: 100%;
     display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 1rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 2rem 2.5rem;
 }
 
 .button-answer {
-    width: 100%;
+    min-width: 25rem;
+    /* margin: 0 auto; */
     background-repeat: no-repeat;
     background-position: left;
     background-size: 1.5rem;
     background-position-x: 1.2rem;
-    min-width: 25rem;
     padding: 0.5rem 3.5rem;
-    height: 2.5rem;
+    height: 4.5rem;
     font-size: 1.2rem;
-    text-align: center;
     border-radius: 15px;
+    font-weight: 600;
+    text-align: center;
 }
 
 /*  design bouton par defaut */
@@ -172,7 +181,7 @@
 .default {
     background-color: #8e8e8e5d;
     border: 2px solid #EDEDED5D;
-    color: #202020;
+    color: #181818;
     box-shadow: 0px 23px 16px 0px rgba(255, 255, 255, 0.06) inset;
 }
 

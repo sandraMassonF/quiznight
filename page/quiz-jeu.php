@@ -7,9 +7,33 @@ include_once('../models/User.php');
 
 $newQuiz = new Quiz();
 
-$_SESSION['user'] = 2;
-$_SESSION['score'] = 10;
-$_SESSION['selectIdQuiz'] = 1;
+// $_SESSION['user'] = 2;
+// $_SESSION['score'] = 10;
+// $_SESSION['selectIdQuiz'] = 1;
+
+// vide la session si joueur parti durant quiz
+if (empty($_POST) and isset($_SESSION['wrongAnswer'])) {
+
+    $scoreQuitter = new Utilisateur();
+    $updatedQuitter = $scoreQuitter->updateScore($_SESSION['user'], $_SESSION['score'], $_SESSION['wrongAnswer']);
+    $_SESSION['score'] = $updatedQuitter;
+
+    if ($_SESSION['score'] > 0) {
+        unset($_SESSION['questionIndex']);
+        unset($_SESSION['answersOrder']);
+        unset($_SESSION['answersSubmit']);
+        unset($_SESSION['rightAnswer']);
+        unset($_SESSION['wrongAnswer']);
+        $_SESSION['quitter'] = "Lâcheur...";
+    } else {
+        session_destroy();
+        header('location: ../index.php');
+    }
+}
+// si message d'erreur enregistrer, le detruit
+if (isset($_POST['start'])) {
+    unset($_SESSION['quitter']);
+}
 
 // erreur page si non connecté
 if (!isset($_SESSION['user'])) {
@@ -95,6 +119,7 @@ if (!isset($_SESSION['selectIdQuiz'])) {
             $shuffledAnswers[] = $currentAnswers[$key];
         }
 
+        // verifie la réponse
         $answerABCD = ['answerA', 'answerB', 'answerC', 'answerD'];
         foreach ($answerABCD as $choice) {
             if (isset($_POST[$choice])) {
@@ -109,44 +134,46 @@ if (!isset($_SESSION['selectIdQuiz'])) {
     }
 }
 
+var_dump($_SESSION);
+var_dump($_POST);
 ?>
 
 <?php include '../component/header.php'; ?>
 
 
 <main class="main-james red-suit">
-    <div class="quiz-content-box">
-        <!-- erreur -->
 
-        <?php if (!isset($_SESSION['selectIdQuiz']) or !isset($_SESSION['user'])) : ?>
+    <!-- erreur -->
 
-            <section class="error-box">
-                <?php if (!isset($_SESSION['user'])): ?>
-                    <article>
-                        <p>Vous n'êtes pas connecté</p>
+    <?php if (!isset($_SESSION['selectIdQuiz']) or !isset($_SESSION['user'])) : ?>
 
-                    </article>
-                    <div class="button-box">
-                        <form action="" method="post">
-                            <input type="submit" name="connexion" id="next" class="button-start button-next-green" value="Connexion">
-                        </form>
-                    </div>
-                <?php else: ?>
-                    <article>
-                        <p>Oops !</p>
-                        <p><?= $error_message ?></p>
-                    </article>
-                    <div class="button-box">
-                        <form action="" method="post">
-                            <input type="submit" name="home" id="next" class="button-start button-next-green" value="Accueil">
-                        </form>
-                    </div>
-                <?php endif; ?>
+        <section class="error-box">
+            <?php if (!isset($_SESSION['user'])): ?>
+                <article>
+                    <p>Vous n'êtes pas connecté</p>
 
-            </section>
+                </article>
+                <div class="button-box">
+                    <form action="" method="post">
+                        <input type="submit" name="connexion" id="next" class="button-start button-next-green" value="Connexion">
+                    </form>
+                </div>
+            <?php else: ?>
+                <article>
+                    <p>Oops !</p>
+                    <p><?= $error_message ?></p>
+                </article>
+                <div class="button-box">
+                    <form action="" method="post">
+                        <input type="submit" name="home" id="next" class="button-start button-next-green" value="Accueil">
+                    </form>
+                </div>
+            <?php endif; ?>
 
-        <?php else: ?>
+        </section>
 
+    <?php else: ?>
+        <div class="quiz-content-box">
             <section class="title-james">
                 <h1 class="quiz-title"><?= $quizTitle; ?></h1>
 
@@ -158,18 +185,31 @@ if (!isset($_SESSION['selectIdQuiz'])) {
             <?php if (empty($_POST)): ?>
                 <section class="start-box">
 
-                    <div class="start-box-title">
-                        <p class="question-text">Vous avez <span class="text-pink"><?= $_SESSION['score'] ?></span> points
+                    <!-- message d'erreur pour ceux qui essaye de reset leur mauvaises réponse en quittant la page -->
+                    <?php if (isset($_SESSION['quitter'])) : ?>
+                        <div class="msg-quitter">
+                            <p>Vous avez quitter un quiz en cours..
+                                Vos mauvaises réponses vous ont donc été déduite.
+                            </p>
+                            <h4><?= $_SESSION['quitter'] ?></h4>
+                        </div>
+                    <?php endif; ?>
 
-                        <p class="question-text"> Attention aux <span class="text-yellow">mauvaises</span> réponses </p>
+                    <div class="start-box-title">
+                        <p class="question-text">Vous avez <span class="text-pink"><?= $_SESSION['score'] ?></span> points.
+
+                        <p class="question-text"> Attention aux <span class="text-yellow">mauvaises</span> réponses.. </p>
                         </p>
                     </div>
+
 
                     <div class="button-box">
                         <form action="" method="post">
                             <input type="submit" name="start" id="start" class="button-start button-next-green" value="Commencer">
                         </form>
                     </div>
+
+
                 </section>
 
             <?php elseif (isset($_POST['result'])): ?>
@@ -208,11 +248,11 @@ if (!isset($_SESSION['selectIdQuiz'])) {
 
 
                     <div class="question-box-title">
-                        <h2 class="bold">Question
+                        <p class="quiz-text-question bold">Question
                             <span class="text-pink">#
                                 <?= $numQuestion + 1 ?>
                             </span>
-                        </h2>
+                        </p>
 
                         <p class="quiz-text-question"><?= $currentQuestion; ?></p>
                     </div>
@@ -344,22 +384,23 @@ if (!isset($_SESSION['selectIdQuiz'])) {
                                 <?php endif; ?>
                             <?php endforeach; ?>
                         </div>
-                        <!-- button valider, suivant, retour accueil -->
-                        <?php if ($_SESSION['questionIndex'] == count($quizQuestions) - 1): ?>
-                            <div class="button-box">
-                                <form action="" method="post">
-                                    <input type="submit" name="result" id="next" class="button-next button-next-green" value="Résultat">
-                                </form>
-                            <?php else: ?>
-                                <div class="button-box">
-                                    <form action="" method="post">
-                                        <input type="submit" name="next" id="next" class="button-next button-next-green" value="Suivant">
-                                    </form>
-                                <?php endif; ?>
-                            <?php endif; ?>
-                                </div>
-                            </div>
+        </div>
+        <!-- button valider, suivant, retour accueil -->
+        <?php if ($_SESSION['questionIndex'] == count($quizQuestions) - 1): ?>
+            <div class="button-box">
+                <form action="" method="post">
+                    <input type="submit" name="result" id="next" class="button-next button-next-green" value="Résultat">
+                </form>
+            <?php else: ?>
+                <div class="button-box">
+                    <form action="" method="post">
+                        <input type="submit" name="next" id="next" class="button-next button-next-green" value="Suivant">
+                    </form>
+                <?php endif; ?>
+            <?php endif; ?>
+                </div>
                 </section>
+
 
 
 
