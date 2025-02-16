@@ -7,10 +7,6 @@ include_once('../models/User.php');
 
 $newQuiz = new Quiz();
 
-// $_SESSION['user'] = 2;
-// $_SESSION['score'] = 10;
-// $_SESSION['selectIdQuiz'] = 1;
-
 // vide la session si joueur parti durant quiz
 if (empty($_POST) && isset($_SESSION['wrongAnswer'])) {
 
@@ -142,8 +138,6 @@ if (!isset($_SESSION['selectIdQuiz'])) {
     }
 }
 
-// var_dump($_SESSION);
-// var_dump($_POST);
 ?>
 
 <?php include '../component/header.php'; ?>
@@ -400,7 +394,7 @@ if (!isset($_SESSION['selectIdQuiz'])) {
                     <?php endforeach; ?>
                 </div>
 
-                <!-- button valider, suivant, retour accueil -->
+                <!-- button next ou retour accueil -->
                 <?php if ($_SESSION['questionIndex'] == count($quizQuestions) - 1): ?>
                     <div class="button-box">
                         <form action="" method="post">
@@ -415,9 +409,6 @@ if (!isset($_SESSION['selectIdQuiz'])) {
                     <?php endif; ?>
                         </div>
                 </section>
-
-
-
 
             <?php endif; ?>
         <?php endif; ?>
