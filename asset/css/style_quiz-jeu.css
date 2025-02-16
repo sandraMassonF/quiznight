@@ -552,7 +552,18 @@
     }
 }
 
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 390px) {
+
+    .start-box,
+    .question-box {
+        margin-bottom: 2rem;
+    }
+
+    
+
+    .start-box-title {
+        gap: 1.5rem;
+    }
 
     .button-next {
         font-size: 1.2rem;
