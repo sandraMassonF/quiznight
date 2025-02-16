@@ -12,7 +12,7 @@
 }
 
 .main-james {
-    min-height: 75.4vh;
+    min-height: calc(100vh - 14rem);
     align-content: center;
     margin: 0 auto;
 }
@@ -35,7 +35,7 @@
     backdrop-filter: blur(3px);
     background-color: rgba(255, 255, 255, 0.257);
     width: 70%;
-    min-height: 75.4vh;
+    min-height: calc(100vh - 14rem);
     margin: 0 auto;
     padding: 1.5rem;
     display: flex;
@@ -431,12 +431,13 @@
 
 @media screen and (max-width: 768px) {
     
-    .main-james {
+    /* .main-james {
         min-height: 72.8vh;
-    }
+    } */
+
     .quiz-content-box {
         width: 100%;
-        min-height: 72.8vh;
+        /* min-height: 72.8vh; */
         margin: 0;
         padding: 2rem 0 0;
         justify-content: flex-start;
