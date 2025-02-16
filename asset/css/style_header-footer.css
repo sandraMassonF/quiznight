@@ -50,10 +50,8 @@ body {
 }
 
 .logo-login img {
-  height: 5rem; 
-} 
-
-
+  height: 5rem;
+}
 
 .box-quiz-logo {
   height: 100%;
@@ -109,7 +107,6 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
 }
 
 /* footer */
@@ -133,4 +130,22 @@ body {
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
+}
+
+/*---------- MEDIA QUERIES ----------*/
+
+@media screen and (max-width: 900px) {
+  .header {
+    padding: 0 1rem;
+    justify-content: flex-start;
+    gap: 11rem;
+  }
+  .quiz-logo {
+    display: none;
+  }
+}
+@media screen and (max-width: 900px) {
+  .header {
+    gap: 9rem;
+  }
 }

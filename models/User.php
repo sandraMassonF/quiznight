@@ -37,7 +37,7 @@ class Utilisateur
                     $_SESSION['message']  = "Vous ne pouvez plus vous connecter car vous êtes mort";
                 } else {
 
-                    if (password_verify($password, $user['password']) ||  $_SESSION['user'] = $user['id']) {
+                    if (password_verify($password, $user['password']) ||  $password == $user['password']) {
                         session_start();
                         $_SESSION['user'] = $user['id'];
                         $_SESSION['score'] = $user['score'];
