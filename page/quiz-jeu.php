@@ -12,24 +12,31 @@ $newQuiz = new Quiz();
 // $_SESSION['selectIdQuiz'] = 1;
 
 // vide la session si joueur parti durant quiz
-if (empty($_POST) and isset($_SESSION['wrongAnswer'])) {
+if (empty($_POST) && isset($_SESSION['wrongAnswer'])) {
 
-    $scoreQuitter = new Utilisateur();
-    $updatedQuitter = $scoreQuitter->updateScore($_SESSION['user'], $_SESSION['score'], $_SESSION['wrongAnswer']);
-    $_SESSION['score'] = $updatedQuitter;
+    if ($_SESSION['wrongAnswer'] > 0) {
 
-    if ($_SESSION['score'] > 0) {
+        $scoreQuitter = new Utilisateur();
+        $updatedQuitter = $scoreQuitter->updateScore($_SESSION['user'], $_SESSION['score'], $_SESSION['wrongAnswer']);
+        $_SESSION['score'] = $updatedQuitter;
+        $_SESSION['quitter'] = "Vous avez quitter un quiz en cours...";
+
+        //reset des sessions lié au quiz après mise a jour score
         unset($_SESSION['questionIndex']);
         unset($_SESSION['answersOrder']);
         unset($_SESSION['answersSubmit']);
         unset($_SESSION['rightAnswer']);
         unset($_SESSION['wrongAnswer']);
-        $_SESSION['quitter'] = "Lâcheur...";
     } else {
-        session_destroy();
-        header('location: ../index.php');
+        // reset des sessions lié au quiz si un quiz a deja été joué
+        unset($_SESSION['questionIndex']);
+        unset($_SESSION['answersOrder']);
+        unset($_SESSION['answersSubmit']);
+        unset($_SESSION['rightAnswer']);
+        unset($_SESSION['wrongAnswer']);
     }
 }
+
 // si message d'erreur enregistrer, le detruit
 if (isset($_POST['start'])) {
     unset($_SESSION['quitter']);
@@ -47,6 +54,9 @@ if (!isset($_SESSION['selectIdQuiz'])) {
     if (isset($_POST['home'])) {
         header('location: ../index.php');
     }
+
+    // lancement du quiz
+
 } else {
     $quizSelect = $newQuiz->get_quizSelect($_SESSION['selectIdQuiz']);
 
@@ -188,10 +198,10 @@ var_dump($_POST);
                     <!-- message d'erreur pour ceux qui essaye de reset leur mauvaises réponse en quittant la page -->
                     <?php if (isset($_SESSION['quitter'])) : ?>
                         <div class="msg-quitter">
-                            <p>Vous avez quitter un quiz en cours..
-                                Vos mauvaises réponses vous ont donc été déduite.
-                            </p>
                             <h4><?= $_SESSION['quitter'] ?></h4>
+                            <p>Si vous aviez des mauvaises réponses,
+                                celle ci ont été déduite de vos points de vie.
+                            </p>
                         </div>
                     <?php endif; ?>
 
