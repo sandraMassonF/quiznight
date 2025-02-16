@@ -17,15 +17,14 @@ $eliminatedUser = $newUser->get_userEliminated();
     <!-- prochaines victimes -->
     <div class="leaderboard-content-box">
         <?php if (!isset($_GET['eliminated'])): ?>
-            <section class="title-james">
 
-                <div class="button-box">
-                    <section class="button-leaderboard">
-                        <form action="" method="get">
-                            <input type="submit" name="eliminated" id="next" class="button-next button-next-red" value="Afficher les joueurs éliminés">
-                        </form>
-                </div>
-            </section>
+            <div class="button-box">
+                <form action="" method="get" class="button-box-leaderboard">
+                    <input type="submit" name="eliminated" id="next" class="button-lead button-next-red" value="Joueurs éliminés">
+                </form>
+            </div>
+
+
 
             <div class="title-james">
                 <h1 class="quiz-title">Prochaines victimes</h1>
@@ -73,8 +72,8 @@ $eliminatedUser = $newUser->get_userEliminated();
         <?php else: ?>
             <section class="button-leaderboard">
                 <div class="button-box">
-                    <form action="" method="get">
-                        <input type="submit" name="stillAlive" id="next" class="button-next button-next-green" value="Afficher les prochaines Victimes">
+                    <form action="" method="get" class="button-box-leaderboard">
+                        <input type="submit" name="stillAlive" id="next" class="button-lead button-next-green" value="Prochaines Victimes">
                     </form>
                 </div>
             </section>
