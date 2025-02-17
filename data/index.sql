@@ -1,0 +1,51 @@
+-- EFFACEMENT DES TABLES DANS LE BON ORDRE
+DROP TABLE IF EXISTS reponse;
+DROP TABLE IF EXISTS question;
+DROP TABLE IF EXISTS image;
+DROP TABLE IF EXISTS quiz;
+DROP TABLE IF EXISTS utilisateur;
+
+-- Création de la table UTILISATEUR
+CREATE TABLE utilisateur (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    pseudo VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    score INT DEFAULT 10
+) ENGINE=InnoDB;
+
+-- Création de la table QUIZ
+CREATE TABLE quiz(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    titre VARCHAR(255) NOT NULL,
+    description VARCHAR(255) NOT NULL,
+    id_user INT NOT NULL,
+    FOREIGN KEY (id_user) REFERENCES utilisateur(id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+
+-- Création de la table QUESTION
+CREATE TABLE question (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    question TEXT NOT NULL,
+    id_quiz INT NOT NULL,
+    FOREIGN KEY (id_quiz) REFERENCES quiz(id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+
+-- Création de la table REPONSE
+CREATE TABLE reponse (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    reponse VARCHAR(255) NOT NULL,
+    resultat BOOLEAN,
+    id_question INT NOT NULL,
+    FOREIGN KEY (id_question) REFERENCES question(id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+
+-- Création de la table IMAGE
+CREATE TABLE image (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(255) NOT NULL,
+    taille INT,
+    type VARCHAR(20),
+    bin LONGBLOB,
+    id_quiz INT NOT NULL,
+    FOREIGN KEY (id_quiz) REFERENCES quiz(id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
