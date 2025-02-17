@@ -21,14 +21,12 @@ if (empty($_POST) && isset($_SESSION['wrongAnswer'])) {
         unset($_SESSION['questionIndex']);
         unset($_SESSION['answersOrder']);
         unset($_SESSION['answersSubmit']);
-        unset($_SESSION['rightAnswer']);
         unset($_SESSION['wrongAnswer']);
     } else {
         // Reset des sessions lié au quiz si un quiz a deja été joué
         unset($_SESSION['questionIndex']);
         unset($_SESSION['answersOrder']);
         unset($_SESSION['answersSubmit']);
-        unset($_SESSION['rightAnswer']);
         unset($_SESSION['wrongAnswer']);
     }
 }
@@ -64,11 +62,6 @@ if (!isset($_SESSION['selectIdQuiz'])) {
         // Session - index question
         if (!isset($_SESSION['questionIndex'])) {
             $_SESSION['questionIndex'] = 0;
-        }
-
-        // Session - bonne réponse
-        if (!isset($_SESSION['rightAnswer'])) {
-            $_SESSION['rightAnswer'] = 0;
         }
 
         // Session - mauvaise réponse
@@ -108,7 +101,6 @@ if (!isset($_SESSION['selectIdQuiz'])) {
                 $answerSubmit = $_POST[$choice];
                 $_SESSION['answerSubmit'] = $answerSubmit;
                 $check = $newQuiz->get_checkAnswer($answerSubmit);
-                $rightAnswer = $_SESSION['rightAnswer'];
                 break;
             }
         }
@@ -133,7 +125,6 @@ if (!isset($_SESSION['selectIdQuiz'])) {
                 unset($_SESSION['questionIndex']);
                 unset($_SESSION['answersOrder']);
                 unset($_SESSION['answersSubmit']);
-                unset($_SESSION['rightAnswer']);
                 unset($_SESSION['wrongAnswer']);
                 header('location: ../index.php');
             } else {
