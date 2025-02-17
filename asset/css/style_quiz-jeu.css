@@ -499,12 +499,14 @@
     .start-box,
     .error-box {
         margin: 0;
+        margin-bottom: 1.5rem;
         padding: 0 1rem;
         width: 100%;
+        gap: 0.5rem;
     }
 
     .question-box {
-        gap: 1.5rem;
+        gap: 0.5rem;
     }
 
     .question-box-title {

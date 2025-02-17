@@ -6,6 +6,7 @@ include_once './models/Quiz.php';
 if (isset($_POST['start-quiz'])) {
     $selectIdQuiz = $_POST['start-quiz'];
     $_SESSION['selectIdQuiz'] = $selectIdQuiz;
+    header("Location: ./page/quiz-jeu.php");
 };
 
 if (!empty($_SESSION)) {
@@ -101,30 +102,27 @@ $quizUser = $newQuiz->getAllQuizByUser();
 
 
         <section class="quiz">
-    <?php foreach ($quizUser as $quiz): ?>
-        <article class="quiz-card">
-            <h2 class="quiz-card-title"><?= $quiz['titre'] ?></h2>
-            
-            <div class="quiz-card-img">
-                <?php if (!empty($quiz['image_bin'])): ?>
-                    <img src="./asset/img/quiz/<?= $quiz['image_nom'] ?>" alt="<?= $quiz['image_nom'] ?>" />
-                <?php else: ?>
-                    <img src="./asset/img/sonGoku.jpg" alt="Image du quiz">
-                <?php endif; ?>
-            </div>
+            <?php foreach ($quizUser as $quiz): ?>
+                <article class="quiz-card">
+                    <h2 class="quiz-card-title"><?= $quiz['titre'] ?></h2>
 
-            <p class="quiz-card-description"><?= $quiz['description'] ?></p>
+                    <div class="quiz-card-img">
+                        <?php if (!empty($quiz['image_bin'])): ?>
+                            <img src="./asset/img/quiz/<?= $quiz['image_nom'] ?>" alt="<?= $quiz['image_nom'] ?>" />
+                        <?php else: ?>
+                            <img src="./asset/img/sonGoku.jpg" alt="Image du quiz">
+                        <?php endif; ?>
+                    </div>
 
-            <form method="post" action="">
-                <button type="submit" name="start-quiz" id="button" class="button valider button-center" value="<?= $quiz['id'] ?>">Lancer le Quiz</button>
-                <?php if (isset($_POST['start-quiz'])) {
-                    header("location:./page/quiz-jeu.php");
-                };
-                ?>
-            </form>
-            <p class="quiz-autor">Créé par : <?= $quiz['pseudo'] ?></p>
-        </article>
-    <?php endforeach; ?>
+                    <p class="quiz-card-description"><?= $quiz['description'] ?></p>
+
+                    <form method="post" action="">
+                        <button type="submit" name="start-quiz" id="button" class="button valider button-center" value="<?= $quiz['id'] ?>">Lancer le Quiz</button>
+
+                    </form>
+                    <p class="quiz-autor">Créé par : <?= $quiz['pseudo'] ?></p>
+                </article>
+            <?php endforeach; ?>
         </section>
     </main>
 
