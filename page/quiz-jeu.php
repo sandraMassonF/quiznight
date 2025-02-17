@@ -121,6 +121,8 @@ if (!isset($_SESSION['selectIdQuiz'])) {
             $_SESSION['score'] = $updatedScore;
             if ($updatedScore == 0) {
                 $messageScore = "Vous êtes éliminé !";
+            } else {
+                $messageScore = "Vous êtes toujours en vie.";
             }
         }
 
@@ -156,7 +158,6 @@ if (!isset($_SESSION['selectIdQuiz'])) {
             <?php if (!isset($_SESSION['user'])): ?>
                 <article>
                     <p>Vous n'êtes pas connecté</p>
-
                 </article>
                 <div class="button-box">
                     <form action="" method="post">
@@ -197,9 +198,7 @@ if (!isset($_SESSION['selectIdQuiz'])) {
                     <?php if (isset($_SESSION['quitter'])) : ?>
                         <div class="msg-quitter">
                             <h4><?= $_SESSION['quitter'] ?></h4>
-                            <p>Si vous aviez des mauvaises réponses,
-                                celle ci ont été déduite de vos points de vie.
-                            </p>
+                            <p>Si vous aviez des mauvaises réponses, celle ci ont été déduite de vos points de vie.</p>
                         </div>
                     <?php endif; ?>
 
@@ -218,12 +217,9 @@ if (!isset($_SESSION['selectIdQuiz'])) {
 
                         <!-- Sinon message de pré-lancement -->
                         <div class="start-box-title">
-                            <p class="question-text">Vous avez <span class="text-pink"><?= $_SESSION['score'] ?></span> points.
-
+                            <p class="question-text">Vous avez <span class="text-pink"><?= $_SESSION['score'] ?></span> points.</p>
                             <p class="question-text"> Attention aux <span class="text-yellow">mauvaises</span> réponses.. </p>
-                            </p>
                         </div>
-
 
                         <div class="button-box">
                             <form action="" method="post">
@@ -253,7 +249,7 @@ if (!isset($_SESSION['selectIdQuiz'])) {
                                 </p>
                                 <audio autoplay src="../asset/sounds/LosingAccount.mp3"></audio>
                             <?php else: ?>
-                                <p class="question-text">Vous êtes toujours en vie.</p>
+                                <p class="question-text"><?= $messageScore ?></p>
                                 <p class="question-text">Nombre de vies restantes : <span class="text-pink bold"><?= $_SESSION['score'] ?></span></p>
                             <?php endif; ?>
                         </div>
