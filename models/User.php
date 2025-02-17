@@ -1,5 +1,5 @@
 <?php
-include_once('Class.Bdd.php');
+include_once('ConnexionBdd.php');
 
 class Utilisateur
 {
@@ -22,7 +22,7 @@ class Utilisateur
     public function connexion()
     {
         $connexion = new ConnexionBdd();
-        $bdd = $connexion->Connexion();
+        $bdd = $connexion->connexion();
         if (isset($_POST['submit'])) {
             if (!empty($_POST['pseudo']) && !empty($_POST['password'])) {
                 $pseudo = htmlentities($_POST['pseudo']);
@@ -32,12 +32,14 @@ class Utilisateur
                 $user = $req->fetch(PDO::FETCH_ASSOC);
 
                 if (!$user) { // Vérifie si l'utilisateur existe
-                    $_SESSION['message']  = "Pseudo incorrect ou inconnu !";
+                    $_SESSION['message']  = "Pseudo ou Mot de passe incorrect !";
                 } elseif ($user['score'] <= 0) {
                     $_SESSION['message']  = "Vous ne pouvez plus vous connecter car vous êtes mort";
                 } else {
 
+
                     if (password_verify($password, $user['password']) ||  $password == $user['password']) {
+
                         session_start();
                         $_SESSION['user'] = $user['id'];
                         $_SESSION['score'] = $user['score'];
@@ -46,7 +48,7 @@ class Utilisateur
                         header("location: ../index.php");
                         exit(); // Ajout d'un exit() après la redirection
                     } else {
-                        $_SESSION['message']  = "Mot de passe incorrect !";
+                        $_SESSION['message']  = "Pseudo ou Mot de passe incorrect !";
                     }
                 }
             } else {

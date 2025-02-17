@@ -1,5 +1,5 @@
 <?php
-include_once(__DIR__ . "/Class.Bdd.php");
+include_once(__DIR__ . "/ConnexionBdd.php");
 class Question
 {
   private array $questionSelect;
