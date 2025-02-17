@@ -1,105 +1,113 @@
-*{
-    margin: 0;
-    padding: 0;
+* {
+  margin: 0;
+  padding: 0;
 }
 
-body{
-    font-family:Arial, Helvetica, sans-serif;
+body {
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-.title{
-    text-align: center;
-    margin: 5rem;
-
+.title {
+  text-align: center;
+  margin: 5rem;
 }
-.login-bloc, .registration-bloc{
-    margin: 50rem;
-    width: 45rem;
-    margin: auto; 
-    
-}
-
-.main{
-    min-height: 68vh;
+.login-bloc,
+.registration-bloc {
+  margin: 50rem;
+  width: 45rem;
+  margin: auto;
 }
 
-.titreh1{
-    text-align: center;
-    margin: 2rem;
-}
-.login-bloc{
-    background-color: #017e6955;
-    height: 30rem;
-    border-radius: 20px;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
+.main {
+  min-height: 68vh;
 }
 
-.registration-bloc{
-    background-image: url('../img/game.png');
-    background-position: center;
-    background-size: cover;
-    height: 40rem;
-    width: 50rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.titreh1 {
+  text-align: center;
+  margin: 2rem;
+}
+.login-bloc {
+  background-color: #017e6955;
+  height: 30rem;
+  border-radius: 20px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-
-.form{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;    
+.registration-bloc {
+  background-image: url("../img/game.png");
+  background-position: center;
+  background-size: cover;
+  height: 40rem;
+  width: 50rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.label-form{
-    font-size: x-large;
-    text-shadow: 2px 2px 2px rgba(243, 238, 238, 0.643);
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.input{
-    width: 15rem;
-    padding: 0.8rem;
-    border-radius: 20px;
-    margin: 1.2rem;
-    border: 1px solid rgb(223, 222, 222);
-    font-size: large;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+.label-form {
+  font-size: x-large;
+  text-shadow: 2px 2px 2px rgba(243, 238, 238, 0.643);
 }
 
-.bouton{
-    width: 10rem;
-    padding: 1rem;
-    border-radius: 20px;
-    border: 1px solid rgb(140, 140, 140);
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    cursor: pointer;
-    background-color: rgb(153, 154, 154);
-    font-size: large;
+.input {
+  width: 15rem;
+  padding: 0.8rem;
+  border-radius: 20px;
+  margin: 1.2rem;
+  border: 1px solid rgb(223, 222, 222);
+  font-size: large;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
-.alert{
-    margin-top: 1rem;
-    text-align: center;
-    color: rgb(8, 8, 8);
-    background-color: rgba(240, 248, 255, 0.171);
-    font-size: xx-large;
-    text-shadow: 2px 2px 2px rgba(158, 8, 8, 0.643);
-
+.bouton {
+  width: 10rem;
+  padding: 1rem;
+  border-radius: 20px;
+  border: 1px solid rgb(140, 140, 140);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  background-color: rgb(153, 154, 154);
+  font-size: large;
 }
 
-.txt{
-    margin: 2rem;
-    text-align: center;
-    font-size: x-large;
+.alert {
+  margin-top: 1rem;
+  text-align: center;
+  color: rgb(8, 8, 8);
+  background-color: rgba(240, 248, 255, 0.171);
+  font-size: xx-large;
+  text-shadow: 2px 2px 2px rgba(158, 8, 8, 0.643);
 }
-.link-bold{
-    font-weight: bolder;
-    color: #E13634;   
 
+.txt {
+  margin: 2rem;
+  text-align: center;
+  font-size: x-large;
+}
+.link-bold {
+  font-weight: bolder;
+  color: #e13634;
+}
+
+/*---------- MEDIA QUERIES ----------*/
+
+@media screen and (max-width: 900px) {
+  .login-bloc,
+  .registration-bloc {
+    display: block;
+    width: 100%;
+  }
+  .form {
+    padding: 1rem 0;
+  }
 }

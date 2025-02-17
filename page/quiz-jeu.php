@@ -35,11 +35,8 @@ if (!isset($_SESSION['selectIdQuiz'])) {
         $_SESSION['score'] = $updatedScore;
         if ($updatedScore == 0) {
             $messageScore = "Vous êtes éliminé !";
-        } else {
-            $messageScore = "Bravo !";
         }
     }
-
     // reset fin de quiz
     if (isset($_POST['home'])) {
 
@@ -164,7 +161,7 @@ if (!isset($_SESSION['selectIdQuiz'])) {
                             <p> Attention aux <span class="text-pink">mauvaises</span> réponses </p>
                         </h2>
                     </div>
-
+                    <audio autoplay src="../asset//sounds/StartingQuiz.mp3"></audio>
                     <div class="button-box">
                         <form action="" method="post">
                             <input type="submit" name="start" id="start" class="button-start button-next-green" value="Commencer">
@@ -183,11 +180,9 @@ if (!isset($_SESSION['selectIdQuiz'])) {
                             </span>
                             erreurs.
                         </h2>
-                        <h2><?= $messageScore ?></h2>
                         <?php if ($updatedScore == 0): ?>
-                            <p>
-                                Quel dommage.
-                            </p>
+                            <h2><?= $messageScore ?></h2>
+                            <audio autoplay src="../asset/sounds/LosingAccount.mp3"></audio>
                         <?php else: ?>
                             <p class="question-text">Vous êtes toujours en vie.</p>
                             <p class="question-text">Votre nombre de vie est de : <?= $_SESSION['score'] ?></p>
