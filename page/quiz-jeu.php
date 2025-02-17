@@ -7,7 +7,7 @@ include_once('../models/User.php');
 
 $newQuiz = new Quiz();
 
-// vide la session si joueur parti durant quiz
+// Vide la session si joueur parti durant quiz
 if (empty($_POST) && isset($_SESSION['wrongAnswer'])) {
 
     if ($_SESSION['wrongAnswer'] > 0) {
@@ -17,14 +17,14 @@ if (empty($_POST) && isset($_SESSION['wrongAnswer'])) {
         $_SESSION['score'] = $updatedQuitter;
         $_SESSION['quitter'] = "Vous avez quitter un quiz en cours...";
 
-        //reset des sessions lié au quiz après mise a jour score
+        // Reset des sessions lié au quiz après mise a jour score
         unset($_SESSION['questionIndex']);
         unset($_SESSION['answersOrder']);
         unset($_SESSION['answersSubmit']);
         unset($_SESSION['rightAnswer']);
         unset($_SESSION['wrongAnswer']);
     } else {
-        // reset des sessions lié au quiz si un quiz a deja été joué
+        // Reset des sessions lié au quiz si un quiz a deja été joué
         unset($_SESSION['questionIndex']);
         unset($_SESSION['answersOrder']);
         unset($_SESSION['answersSubmit']);
@@ -33,31 +33,32 @@ if (empty($_POST) && isset($_SESSION['wrongAnswer'])) {
     }
 }
 
-// si message d'erreur enregistrer, le detruit
+// Si message d'erreur du joueur, le detruit
 if (isset($_POST['start'])) {
     unset($_SESSION['quitter']);
 }
 
-// erreur page si non connecté
+// Erreur page si non connecté
 if (!isset($_SESSION['user'])) {
     if (isset($_POST['connexion'])) {
         header('location: connexion.php');
     }
 }
-// erreur page si pas de quiz ID
+
+// Erreur page si pas de quiz ID
 if (!isset($_SESSION['selectIdQuiz'])) {
     $error_message = "Quiz introuvable";
     if (isset($_POST['home'])) {
         header('location: ../index.php');
     }
-
-    // lancement du quiz
-
 } else {
+
+    // Lancement du quiz
     $quizSelect = $newQuiz->get_quizSelect($_SESSION['selectIdQuiz']);
 
     $quizTitle = key($quizSelect);
 
+    // Mis à jour score - fin de quiz
     $messageScore = "";
     if (isset($_POST['result'])) {
         $newScore = new Utilisateur();
@@ -68,7 +69,7 @@ if (!isset($_SESSION['selectIdQuiz'])) {
         }
     }
 
-    // reset fin de quiz
+    // Reset fin de quiz
     if (isset($_POST['home'])) {
 
         if ($_SESSION['score'] > 0) {
@@ -84,33 +85,35 @@ if (!isset($_SESSION['selectIdQuiz'])) {
         }
     }
 
-    // récupère la réponse choisi et vérifie si elle est vraie
+    // Récupère la réponse choisi et vérifie si elle est vraie
     if (!empty($_POST)) {
 
         if (!isset($_SESSION['questionIndex'])) {
             $_SESSION['questionIndex'] = 0;
         }
 
-        // session bonne réponse
+        // Session - bonne réponse
         if (!isset($_SESSION['rightAnswer'])) {
             $_SESSION['rightAnswer'] = 0;
         }
 
-        // session mauvaise réponse
+        // Session - mauvaise réponse
         if (!isset($_SESSION['wrongAnswer'])) {
             $_SESSION['wrongAnswer'] = 0;
         }
 
+        // Bouton suivant qui passe à la question suivante
         if (isset($_POST['next'])) {
             $_SESSION['questionIndex']++;
         }
 
+        // Variables afin de stocker et mélanger l'ordre des réponses
         $numQuestion = $_SESSION['questionIndex'];
         $quizQuestions = $quizSelect[$quizTitle];
         $currentQuestion = array_keys($quizQuestions)[$numQuestion];
         $currentAnswers = $quizQuestions[$currentQuestion];
 
-        // stock l'ordre des réponses dans un tableau de session
+        // Stock l'ordre des réponses dans un tableau de session
         if (!isset($_SESSION['answersOrder'][$numQuestion])) {
             $_SESSION['answersOrder'][$numQuestion] = array_keys($currentAnswers);
             // mélange les clés du tableau de reponses
@@ -123,7 +126,7 @@ if (!isset($_SESSION['selectIdQuiz'])) {
             $shuffledAnswers[] = $currentAnswers[$key];
         }
 
-        // verifie la réponse
+        // Vérifie la réponse
         $answerABCD = ['answerA', 'answerB', 'answerC', 'answerD'];
         foreach ($answerABCD as $choice) {
             if (isset($_POST[$choice])) {
@@ -145,8 +148,7 @@ if (!isset($_SESSION['selectIdQuiz'])) {
 
 <main class="main-james red-suit">
 
-    <!-- erreur -->
-
+    <!-- Erreur connexion-->
     <?php if (!isset($_SESSION['selectIdQuiz']) or !isset($_SESSION['user'])) : ?>
 
         <section class="error-box">
@@ -162,6 +164,8 @@ if (!isset($_SESSION['selectIdQuiz'])) {
                 </div>
 
             <?php else: ?>
+
+                <!-- Erreur quiz introuvable -->
                 <article>
                     <p>Oops !</p>
                     <p><?= $error_message ?></p>
@@ -176,6 +180,8 @@ if (!isset($_SESSION['selectIdQuiz'])) {
         </section>
 
     <?php else: ?>
+
+        <!-- Pré-lancement - affichage du titre du quiz -->
         <div class="quiz-content-box">
             <section class="title-james">
                 <h1 class="quiz-title"><?= $quizTitle; ?></h1>
@@ -183,12 +189,10 @@ if (!isset($_SESSION['selectIdQuiz'])) {
                 <hr class="separator">
             </section>
 
-            <!-- pré start -->
-
             <?php if (empty($_POST)): ?>
                 <section class="start-box">
 
-                    <!-- message d'erreur pour ceux qui essaye de reset leur mauvaises réponse en quittant la page -->
+                    <!-- Message d'erreur pour ceux qui essaye de reset leur mauvaises réponse en quittant la page -->
                     <?php if (isset($_SESSION['quitter'])) : ?>
                         <div class="msg-quitter">
                             <h4><?= $_SESSION['quitter'] ?></h4>
@@ -198,6 +202,7 @@ if (!isset($_SESSION['selectIdQuiz'])) {
                         </div>
                     <?php endif; ?>
 
+                    <!-- Si élimination après mis à jour du score -->
                     <?php if ($_SESSION['score'] == 0): ?>
                         <div class="start-box-title">
                             <p class="question-text">Vous avez été éliminé.</p>
@@ -210,6 +215,7 @@ if (!isset($_SESSION['selectIdQuiz'])) {
                         </div>
                     <?php else: ?>
 
+                        <!-- Sinon message de pré-lancement -->
                         <div class="start-box-title">
                             <p class="question-text">Vous avez <span class="text-pink"><?= $_SESSION['score'] ?></span> points.
 
@@ -227,6 +233,7 @@ if (!isset($_SESSION['selectIdQuiz'])) {
 
                 </section>
 
+                <!-- Affichage fin de quiz -->
             <?php elseif (isset($_POST['result'])): ?>
 
                 <section class="start-box">
@@ -259,8 +266,8 @@ if (!isset($_SESSION['selectIdQuiz'])) {
                     </div>
                 </section>
             <?php else: ?>
-                <!-- boite question -->
 
+                <!-- Section jeu lancé - affichage questions -->
                 <section class="question-box">
 
                     <div class="question-box-title">
@@ -274,12 +281,11 @@ if (!isset($_SESSION['selectIdQuiz'])) {
                         <p class="quiz-text-question"><?= $currentQuestion; ?></p>
                     </div>
 
-                    <!-- réponses a choisir -->
+                    <!-- Section jeu lancé - réponses clickable -->
                     <?php if (
                         !isset($_POST['answerA']) and !isset($_POST['answerB'])
                         and !isset($_POST['answerC']) and !isset($_POST['answerD'])
                     ) : ?>
-
 
                         <form action="" method="post" class="question-box-answers">
                             <?php foreach ($shuffledAnswers as $key => $id_rep): ?>
@@ -303,12 +309,14 @@ if (!isset($_SESSION['selectIdQuiz'])) {
                 <?php endforeach; ?>
 
             <?php else: ?>
-                <!-- affichage des réponses -->
+
+                <!-- Affichage de la bonne réponse / mauvaise réponse -->
+
                 <div class="question-box-answers">
                     <?php foreach ($shuffledAnswers as $key => $id_rep): ?>
 
                         <?php if ($key == 0): ?>
-                            <!--  -->
+                            <!-- Réponse A -->
                             <?php if ($selectedAnswer == "answerA" and $check == 1): ?>
                                 <div class="answerValid button-answer cercle-answer">
                                     <p class="answer-text"><?= $id_rep['answer'] ?></p>
@@ -329,7 +337,7 @@ if (!isset($_SESSION['selectIdQuiz'])) {
                             <!--  -->
                         <?php endif; ?>
                         <?php if ($key == 1): ?>
-                            <!--  -->
+                            <!-- Réponse B -->
                             <?php if ($selectedAnswer == "answerB" and $check == 1): ?>
                                 <div class="answerValid button-answer umbrella-answer">
                                     <p class="answer-text"><?= $id_rep['answer'] ?></p>
@@ -350,7 +358,7 @@ if (!isset($_SESSION['selectIdQuiz'])) {
                             <!--  -->
                         <?php endif; ?>
                         <?php if ($key == 2): ?>
-                            <!--  -->
+                            <!-- Réponse C -->
                             <?php if ($selectedAnswer == "answerC" and $check == 1): ?>
                                 <div class="answerValid button-answer triangle-answer">
                                     <p class="answer-text"><?= $id_rep['answer'] ?></p>
@@ -371,7 +379,7 @@ if (!isset($_SESSION['selectIdQuiz'])) {
                             <!--  -->
                         <?php endif; ?>
                         <?php if ($key == 3): ?>
-                            <!--  -->
+                            <!-- Réponse D -->
                             <?php if ($selectedAnswer == "answerD" and $check == 1): ?>
                                 <div class="answerValid button-answer square-answer">
                                     <p class="answer-text"><?= $id_rep['answer'] ?></p>
@@ -394,7 +402,7 @@ if (!isset($_SESSION['selectIdQuiz'])) {
                     <?php endforeach; ?>
                 </div>
 
-                <!-- button next ou retour accueil -->
+                <!-- Boutons : Suivant ou Accueil -->
                 <?php if ($_SESSION['questionIndex'] == count($quizQuestions) - 1): ?>
                     <div class="button-box">
                         <form action="" method="post">
