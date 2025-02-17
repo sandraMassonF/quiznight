@@ -71,7 +71,6 @@ class Quiz
     {
         if (!empty($_POST)) {
             if ($answerSubmit == 1) {
-                $_SESSION['rightAnswer']++;
                 $this->checkAnswer = true;
             } else {
                 $_SESSION['wrongAnswer']++;
@@ -139,8 +138,7 @@ class Quiz
         $stmt = $bdd->prepare($sql);
         $stmt->execute();
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);             
-
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     //update du nom du quiz

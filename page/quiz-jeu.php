@@ -211,7 +211,7 @@ if (!isset($_SESSION['selectIdQuiz'])) {
                             <p class="question-text">Vous avez <span class="text-pink"><?= $_SESSION['score'] ?></span> points.</p>
                             <p class="question-text"> Attention aux <span class="text-yellow">mauvaises</span> réponses.. </p>
                         </div>
-
+                        <audio autoplay src="../asset/sounds/StartingQuiz.mp3"></audio>
                         <div class="button-box">
                             <form action="" method="post">
                                 <input type="submit" name="start" id="start" class="button-start button-next-green" value="Commencer">
