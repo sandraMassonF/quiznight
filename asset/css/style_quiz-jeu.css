@@ -421,6 +421,23 @@
 
 /*---------- MEDIA QUERIES ----------*/
 
+@media screen and (min-width: 1981px) {
+
+    .quiz-content-box {
+        padding-top: 5rem;
+        gap: 8rem;
+    }
+
+    .question-box {
+        gap: 3rem;
+    }
+
+    .button-answer {
+        font-size: 1.5rem;
+        min-height: 5rem;
+    }
+}
+
 @media screen and (max-width: 768px) {
     
     .quiz-content-box {
