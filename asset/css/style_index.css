@@ -1,45 +1,41 @@
 .quiz-card {
   height: 37rem;
   border-radius: 50px;
-  background-color: #017e693a;    
+  background-color: #017e693a;
 }
 
-.quiz-card-title{
+.quiz-card-title {
   margin: 2rem 1rem;
 }
 
-.quiz-autor{
-text-align: center;
-margin-top: 2rem;
-padding: 0.3rem;
-
+.quiz-autor {
+  text-align: center;
+  margin-top: 2rem;
+  padding: 0.3rem;
 }
 
-.classement{
+.classement {
   margin: 4rem;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.classement a{
+.classement a {
   color: black;
 }
-.classement img{
+.classement img {
   margin: 2rem;
-  width :6rem;
+  width: 6rem;
 }
 
-
-
-.btn-header{
-  display : flex ;
+.btn-header {
+  display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 2.5rem;
-
 }
 
-.btn-icone{
+.btn-icone {
   width: 5rem;
   height: 5rem;
   background-color: #587f7a00;
@@ -47,7 +43,7 @@ padding: 0.3rem;
   cursor: pointer;
 }
 
-.btn-classement{
+.btn-classement {
   width: 25rem;
   height: 5rem;
   background-color: #587f7a00;
@@ -56,7 +52,35 @@ padding: 0.3rem;
   font-size: 25px;
 }
 
-.compte-perso{
+.compte-perso {
   display: flex;
   align-items: center;
+}
+
+/*---------- MEDIA QUERIES ----------*/
+
+@media screen and (max-width: 1300px) {
+  .quiz-card {
+    height: 39rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 30%;
+  }
+}
+@media screen and (max-width: 900px) {
+  .quiz-card {
+    height: 39rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 90%;
+  }
+}
+@media screen and (max-width: 400px) {
+  .classement img {
+    width: 4rem;
+  }
 }

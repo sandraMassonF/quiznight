@@ -50,10 +50,8 @@ body {
 }
 
 .logo-login img {
-  height: 5rem; 
-} 
-
-
+  height: 5rem;
+}
 
 .box-quiz-logo {
   height: 100%;
@@ -109,7 +107,6 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
 }
 
 /* footer */
@@ -172,3 +169,4 @@ body {
     align-items: center;
   }
 }
+

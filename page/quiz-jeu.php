@@ -56,7 +56,34 @@ if (!isset($_SESSION['selectIdQuiz'])) {
 
     $quizTitle = key($quizSelect);
 
+
     // Initialisation de Sessions
+    $messageScore = "";
+    if (isset($_POST['result'])) {
+        $newScore = new Utilisateur();
+        $updatedScore = $newScore->updateScore($_SESSION['user'], $_SESSION['score'], $_SESSION['wrongAnswer']);
+        $_SESSION['score'] = $updatedScore;
+        if ($updatedScore == 0) {
+            $messageScore = "Vous êtes éliminé !";
+        }
+    }
+    // reset fin de quiz
+    if (isset($_POST['home'])) {
+
+        if ($_SESSION['score'] > 0) {
+            unset($_SESSION['questionIndex']);
+            unset($_SESSION['answersOrder']);
+            unset($_SESSION['answersSubmit']);
+            unset($_SESSION['rightAnswer']);
+            unset($_SESSION['wrongAnswer']);
+            header('location: ../index.php');
+        } else {
+            session_destroy();
+            header('location: ../index.php');
+        }
+    }
+
+    // récupère la réponse choisi et vérifie si elle est vraie
     if (!empty($_POST)) {
 
         // Session - index question
@@ -218,7 +245,6 @@ if (!isset($_SESSION['selectIdQuiz'])) {
                             </form>
                         </div>
                     <?php endif; ?>
-
                 </section>
 
                 <!-- Affichage fin de quiz -->
@@ -244,6 +270,7 @@ if (!isset($_SESSION['selectIdQuiz'])) {
                                 <p class="question-text">Nombre de vies restantes : <span class="text-pink bold"><?= $_SESSION['score'] ?></span></p>
                             <?php endif; ?>
                         </div>
+
 
                     </div>
 
