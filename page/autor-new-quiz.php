@@ -1,4 +1,5 @@
 <?php
+require '../config.php';
 session_start();
 include_once("../models/Quiz.php");
 include_once("../models/Image.php");

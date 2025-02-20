@@ -1,4 +1,5 @@
 <?php
+require '../config.php';
 session_start();
 include_once("../models/Question.php");
 include_once("../models/Response.php");

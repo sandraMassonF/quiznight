@@ -1,14 +1,17 @@
 <?php
 include_once(__DIR__ . "/ConnexionBdd.php");
-class Response
+class Response extends ConnexionBdd
 {
+  public function __construct()
+  {
+    parent::__construct($this->bdd);
+  }
 
   public function createResponse($reponse, $resultat, $id_question)
   {
-    $newBdd = new ConnexionBdd();
-    $bdd = $newBdd->connexion();
+
     $sql = "INSERT INTO reponse (reponse, resultat,id_question) VALUES (:reponse,:resultat, :id_question)";
-    $create = $bdd->prepare($sql);
+    $create = $this->bdd->prepare($sql);
     $create->execute([
       ':reponse' => $reponse,
       ':resultat' => intval($resultat),
@@ -18,10 +21,9 @@ class Response
 
   public function updateResponse($id_reponse, $reponse, $resultat, $id_question)
   {
-    $newBdd = new ConnexionBdd();
-    $bdd = $newBdd->connexion();
+
     $sql = "UPDATE reponse SET reponse = :reponse, resultat= :resultat, id_question= :id_question  WHERE id = :id";
-    $update = $bdd->prepare($sql);
+    $update = $this->bdd->prepare($sql);
     $update->execute([
       ':id' => $id_reponse,
       ':reponse' => $reponse,

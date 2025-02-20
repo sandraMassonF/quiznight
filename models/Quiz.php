@@ -1,17 +1,15 @@
 <?php
 include(__DIR__ . "/ConnexionBdd.php");
 
-class Quiz
+class Quiz extends ConnexionBdd
 {
-    private $bdd;
 
     private array $quizSelect;
     private bool $checkAnswer;
 
     public function __construct()
     {
-        global $bdd;
-        $this->bdd = $bdd;
+        parent::__construct($this->bdd);
 
         $this->quizSelect = [];
         $this->checkAnswer = false;
@@ -21,9 +19,8 @@ class Quiz
 
     public function get_quizSelect($idQuiz): array
     {
-        $newBdd = new ConnexionBdd();
-        $bdd = $newBdd->connexion();
-        $quizStmt = $bdd->prepare("
+
+        $quizStmt = $this->bdd->prepare("
         SELECT quiz.titre, quiz.id, 
         question.id as id_question, question.question, question.id_quiz,
         reponse.reponse, reponse.resultat, reponse.id_question
@@ -84,10 +81,9 @@ class Quiz
     // Récupération de TOUS les quiz
     public function getAllQuiz()
     {
-        $newBdd = new ConnexionBdd();
-        $bdd = $newBdd->Connexion();
+
         $sql = "SELECT * FROM quiz";
-        $stmt = $bdd->prepare($sql);
+        $stmt = $this->bdd->prepare($sql);
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -96,10 +92,9 @@ class Quiz
     //Récupération des quiz d'UN utilisateur
     public function getQuizUser($id)
     {
-        $newBdd = new ConnexionBdd();
-        $bdd = $newBdd->connexion();
+
         $sql = "SELECT * FROM quiz WHERE id_user = $id";
-        $stmt = $bdd->prepare($sql);
+        $stmt = $this->bdd->prepare($sql);
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -108,20 +103,18 @@ class Quiz
     // Récupération d'un quiz via son id
     public function getOneQuiz($quizId)
     {
-        $newBdd = new ConnexionBdd();
-        $bdd = $newBdd->connexion();
+
         $sql = "SELECT *
         FROM quiz
         WHERE quiz.id = $quizId ";
-        $stmt = $bdd->prepare($sql);
+        $stmt = $this->bdd->prepare($sql);
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     public function getAllQuizByUser()
     {
-        $newBdd = new ConnexionBdd();
-        $bdd = $newBdd->Connexion();
+
         $sql = "SELECT 
                 quiz.id, 
                 quiz.titre, 
@@ -135,7 +128,7 @@ class Quiz
             LEFT JOIN image ON quiz.id = image.id_quiz
             ORDER BY quiz.id;";
 
-        $stmt = $bdd->prepare($sql);
+        $stmt = $this->bdd->prepare($sql);
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -144,10 +137,9 @@ class Quiz
     //update du nom du quiz
     public function updateNameQuiz($id, $titre)
     {
-        $newBdd = new ConnexionBdd();
-        $bdd = $newBdd->connexion();
+
         $sql = "UPDATE quiz SET titre = :titre WHERE id = :id";
-        $update = $bdd->prepare($sql);
+        $update = $this->bdd->prepare($sql);
         $update->execute([
             ':titre' => $titre,
             ':id' => $id
@@ -157,10 +149,9 @@ class Quiz
     //création nouveau quiz
     public function createQuiz($titre, $description, $id_user)
     {
-        $newBdd = new ConnexionBdd();
-        $bdd = $newBdd->connexion();
+
         $sql = "INSERT INTO quiz (titre, description, id_user) VALUES (:titre, :description, :id_user)";
-        $create = $bdd->prepare($sql);
+        $create = $this->bdd->prepare($sql);
         $create->execute([
             ':titre' => $titre,
             ':description' => $description,
@@ -171,23 +162,21 @@ class Quiz
     // Supprimer un Quiz
     public function deleteQuiz($quizId)
     {
-        $newBdd = new ConnexionBdd();
-        $bdd = $newBdd->connexion();
+
         $sql = "DELETE FROM quiz WHERE id= $quizId";
-        $delete = $bdd->prepare($sql);
+        $delete = $this->bdd->prepare($sql);
         $delete->execute();
     }
 
     // récupérer le dernier quiz créer
     public function getLastQuiz()
     {
-        $newBdd = new ConnexionBdd();
-        $bdd = $newBdd->connexion();
+
         $sql = "SELECT id, titre, description
     FROM quiz
     ORDER BY id DESC
     LIMIT 1";
-        $selectLast = $bdd->prepare($sql);
+        $selectLast = $this->bdd->prepare($sql);
         $selectLast->execute();
         return $selectLast->fetchAll(PDO::FETCH_ASSOC);
     }

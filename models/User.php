@@ -1,7 +1,7 @@
 <?php
 include_once('ConnexionBdd.php');
 
-class Utilisateur
+class Utilisateur extends ConnexionBdd
 {
 
     private $id;
@@ -12,7 +12,7 @@ class Utilisateur
 
     public function __construct()
     {
-
+        parent::__construct($this->bdd);
         $this->id;
         $this->pseudo;
         $this->password;
@@ -21,13 +21,12 @@ class Utilisateur
 
     public function connexion()
     {
-        $connexion = new ConnexionBdd();
-        $bdd = $connexion->connexion();
+
         if (isset($_POST['submit'])) {
             if (!empty($_POST['pseudo']) && !empty($_POST['password'])) {
                 $pseudo = htmlentities($_POST['pseudo']);
                 $password = $_POST['password'];
-                $req = $bdd->prepare("SELECT * FROM utilisateur WHERE pseudo = :pseudo");
+                $req = $this->bdd->prepare("SELECT * FROM utilisateur WHERE pseudo = :pseudo");
                 $req->execute(["pseudo" => $pseudo]);
                 $user = $req->fetch(PDO::FETCH_ASSOC);
 
@@ -60,13 +59,12 @@ class Utilisateur
 
     public function inscription()
     {
-        $connexion = new ConnexionBdd();
-        $bdd = $connexion->Connexion();
+
         if (isset($_POST['submit'])) {
             if (!empty($_POST['pseudo']) && !empty($_POST['password'])) {
                 $pseudo = htmlentities($_POST['pseudo']);
                 $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
-                $checkPseudo = $bdd->prepare("SELECT id FROM utilisateur WHERE pseudo = :pseudo");
+                $checkPseudo = $this->bdd->prepare("SELECT id FROM utilisateur WHERE pseudo = :pseudo");
                 $checkPseudo->execute(["pseudo" => $pseudo]);
 
 
@@ -74,7 +72,7 @@ class Utilisateur
                     $_SESSION['message']  = "Ce pseudo est déjà utilisé !";
                 } else {
 
-                    $req = $bdd->prepare("INSERT INTO utilisateur (pseudo, password, score) VALUES (:pseudo, :password, :score)");
+                    $req = $this->bdd->prepare("INSERT INTO utilisateur (pseudo, password, score) VALUES (:pseudo, :password, :score)");
                     $req->execute([
                         "pseudo" => $pseudo,
                         "password" => $password,
@@ -86,9 +84,6 @@ class Utilisateur
                     $_SESSION['message']  = "Inscription réussie !";
 
                     $_SESSION['user'] = $req;
-
-
-                    var_dump($_SESSION);
 
                     header("location:connexion.php");
                 }
@@ -108,10 +103,7 @@ class Utilisateur
             }
 
             $score = $newScore;
-
-            $newBdd = new ConnexionBdd();
-            $bdd = $newBdd->connexion();
-            $newScoreStmt = $bdd->prepare("UPDATE utilisateur SET score = :score
+            $newScoreStmt = $this->bdd->prepare("UPDATE utilisateur SET score = :score
             WHERE utilisateur.id = :idUser;
             ");
             $newScoreStmt->execute([
@@ -126,9 +118,7 @@ class Utilisateur
     //récupère toutes les infos utilisateurs (sauf mot de passe)
     public function get_userInfo()
     {
-        $newBdd = new ConnexionBdd();
-        $bdd = $newBdd->connexion();
-        $usersInfoStmt = $bdd->prepare("SELECT utilisateur.id, utilisateur.pseudo, utilisateur.score
+        $usersInfoStmt = $this->bdd->prepare("SELECT utilisateur.id, utilisateur.pseudo, utilisateur.score
         FROM utilisateur
         ORDER BY score ASC;
             ");
@@ -138,9 +128,7 @@ class Utilisateur
 
     public function get_userEliminated()
     {
-        $newBdd = new ConnexionBdd();
-        $bdd = $newBdd->connexion();
-        $usersElimStmt = $bdd->prepare("SELECT utilisateur.id, utilisateur.pseudo, utilisateur.score
+        $usersElimStmt = $this->bdd->prepare("SELECT utilisateur.id, utilisateur.pseudo, utilisateur.score
         FROM utilisateur
         WHERE utilisateur.score = 0;
             ");

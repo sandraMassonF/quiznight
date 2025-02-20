@@ -1,19 +1,18 @@
 <?php
 class ConnexionBdd
 {
-    protected string $host = "localhost";
-    protected string $username = "root";
-    protected string $password = "";
-    protected string $dbName = "s-quiz_game";
-
-    public function connexion()
+    protected $bdd;
+    public function __construct()
     {
+        $host = $_ENV['BDD_URL'];
+        $username = $_ENV['BDD_USERNAME'];
+        $password = $_ENV['BDD_PASSWORD'];
+        $dbName = $_ENV['BDD_NAME'];
         try {
-            $bdd  = new PDO("mysql:host=$this->host;dbname=$this->dbName;charset=utf8", $this->username, $this->password);
-            $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            return $bdd;
+            $this->bdd  = new PDO("mysql:host=$host;dbname=$dbName;charset=utf8", $username, $password);
+            $this->bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
-            echo "Erreur : " . $e->getMessage();
+            die("Erreur : " . $e->getMessage());
         }
     }
 }
