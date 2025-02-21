@@ -38,6 +38,7 @@ $quizUser = $newQuiz->getAllQuizByUser();
 <link rel="stylesheet" href="./asset/css/style_quiz-jeu.css">
 <link rel="stylesheet" href="./asset/css/style_autor-page.css">
 <link rel="stylesheet" href="./asset/css/style_index.css">
+<link rel="icon" type="image/x-icon" href="./asset/img/logo-icon.ico">
 
 <title>S-Quiz Game</title>
 </head>
@@ -130,4 +131,4 @@ $quizUser = $newQuiz->getAllQuizByUser();
     </main>
 
 
-    <?php include './component/footer.php'; ?>
+    <?php include './components/footer.php'; ?>

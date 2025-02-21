@@ -30,6 +30,7 @@ if (!empty($_SESSION)) {
     <link rel="stylesheet" href="../asset/css/style_add-modif-question.css">
     <link rel="stylesheet" href="../asset/css/style_add-modif-quiz.css">
     <link rel="stylesheet" href="../asset/css/style_index.css">
+    <link rel="icon" type="image/x-icon" href="../asset/img/logo-icon.ico">
     <title>S-Quiz Game</title>
 </head>
 
