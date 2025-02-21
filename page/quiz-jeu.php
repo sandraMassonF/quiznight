@@ -137,7 +137,7 @@ if (!isset($_SESSION['selectIdQuiz'])) {
 
 ?>
 
-<?php include '../component/header.php'; ?>
+<?php include '../components/header.php'; ?>
 
 
 <main class="main-james red-suit">
@@ -411,4 +411,4 @@ if (!isset($_SESSION['selectIdQuiz'])) {
         </div>
 </main>
 
-<?php include '../component/footer.php'; ?>
+<?php include '../components/footer.php'; ?>

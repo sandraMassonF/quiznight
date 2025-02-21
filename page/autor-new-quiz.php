@@ -23,7 +23,7 @@ if (isset($_POST['valid-image'])) {
 
 
 
-<?php include '../component/header.php'; ?>
+<?php include '../components/header.php'; ?>
 <main class="autor-quiz">
 
     <h1 class="autor-title">Nouveau quiz</h1>
@@ -43,4 +43,4 @@ if (isset($_POST['valid-image'])) {
         </form>
     <?php endif ?>
 </main>
-<?php include '../component/footer.php'; ?>
+<?php include '../components/footer.php'; ?>

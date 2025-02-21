@@ -10,7 +10,7 @@ $eliminatedUser = $newUser->get_userEliminated();
 
 ?>
 
-<?php include '../component/header.php'; ?>
+<?php include '../components/header.php'; ?>
 
 
 <main class="main-james">
@@ -124,4 +124,4 @@ $eliminatedUser = $newUser->get_userEliminated();
     </div>
 </main>
 
-<?php include '../component/footer.php'; ?>
+<?php include '../components/footer.php'; ?>

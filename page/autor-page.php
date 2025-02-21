@@ -16,7 +16,7 @@ $quiz = new Quiz();
 $result = $quiz->getQuizUser($_SESSION['user']);
 ?>
 
-<?php include '../component/header.php'; ?>
+<?php include '../components/header.php'; ?>
 <main class="autor-page">
 
     <h1 class="autor-title">환영 플레이어 { <?= $_SESSION['userNumber'] ?> } </h1>
@@ -51,4 +51,4 @@ $result = $quiz->getQuizUser($_SESSION['user']);
     </section>
 
 </main>
-<?php include '../component/footer.php'; ?>
+<?php include '../components/footer.php'; ?>

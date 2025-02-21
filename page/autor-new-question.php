@@ -36,7 +36,7 @@ if ((isset($_POST['valid-response'])) and (($_POST['good'] == "") || ($_POST['ba
     header("location: ./autor-modif-quiz.php");
 };
 
-?><?php include '../component/header.php'; ?>
+?><?php include '../components/header.php'; ?>
 
 <main class="autor-quiz">
 
@@ -71,4 +71,4 @@ if ((isset($_POST['valid-response'])) and (($_POST['good'] == "") || ($_POST['ba
     </section>
 
 </main>
-<?php include '../component/footer.php'; ?>
+<?php include '../components/footer.php'; ?>
